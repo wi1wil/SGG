@@ -16,7 +16,8 @@ public class AudioManagerScript : MonoBehaviour
     public AudioClip buttonClick;
 
     // Ensure that only one instance of the AudioManager exists
-    private void Awake() {
+    private void Awake() 
+    {
         if (instance == null) {
             instance = this;
             DontDestroyOnLoad(gameObject);
@@ -26,13 +27,15 @@ public class AudioManagerScript : MonoBehaviour
     }
 
     // Start playing the background music
-    private void Start() {
+    private void Start() 
+    {
         musicSource.clip = backgroundMusic;
         musicSource.Play();
     }
 
     // Calling the AudioClip to play
-    public void PlaySfx(AudioClip clip) {
+    public void PlaySfx(AudioClip clip) 
+    {
         sfxSource.PlayOneShot(clip);
     }
 }

@@ -4,23 +4,26 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainMenuUIScript : MonoBehaviour
+public class MainMenuScript : MonoBehaviour
 {
     AudioManagerScript audioManager;
+    LevelLoaderScript levelLoader;
 
     [SerializeField] private Button startButton;
     [SerializeField] private Button quitButton;
     [SerializeField] private Button optionsButton;
 
-    public void Awake() {
+    public void Awake() 
+    {
         // Playing SFX when the buttons are clicked
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
+        levelLoader = FindObjectOfType<LevelLoaderScript>();
 
         // Adding listeners to the Start, Quit, and Options Buttons
         startButton.onClick.AddListener(() => {
             audioManager.PlaySfx(audioManager.buttonClick);
             Debug.Log("Starting Game....");
-            SceneManager.LoadScene(1);
+            levelLoader.LoadNextLevel();
         });
 
         quitButton.onClick.AddListener(() => {

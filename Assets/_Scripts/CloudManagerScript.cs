@@ -18,7 +18,8 @@ public class CloudManagerScript : MonoBehaviour
 
     Vector3 startPos;
 
-    void Start() {
+    void Start() 
+    {
         startPos = transform.position; 
 
         Prespawn();
@@ -66,10 +67,10 @@ public class CloudManagerScript : MonoBehaviour
 
     void Prespawn() 
     {
-        for(int i = 0; i < 10; i++) 
+        for(int i = 0; i < 15; i++) 
         {
             // Create random positions for Clouds to Prespawn
-            float randomX = UnityEngine.Random.Range(startPos.x - 1f, startPos.x + 10f);
+            float randomX = UnityEngine.Random.Range(startPos.x - 1f, startPos.x + 20f);
             float randomY = UnityEngine.Random.Range(startPos.y - 1.5f, startPos.y + 1.5f);
 
             // Spawn the clouds with those random Positions
