@@ -16,9 +16,7 @@ public class PauseMenuScript : MonoBehaviour
 
 
     LevelLoaderScript levelLoader;
-    private bool isPaused = false;
-
-
+    public bool GameIsPaused = false;
 
     private void Awake()
     {
@@ -52,7 +50,7 @@ public class PauseMenuScript : MonoBehaviour
         // Check if the Esc key is pressed
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
+            if (GameIsPaused)
             {
                 Resume();
             }
@@ -67,14 +65,14 @@ public class PauseMenuScript : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
-        isPaused = false;
+        GameIsPaused = false;
     }
 
     void Pause()
     {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
-        isPaused = true;
+        GameIsPaused = true;
     }
 
     public void SetMusicVolume(float volume)

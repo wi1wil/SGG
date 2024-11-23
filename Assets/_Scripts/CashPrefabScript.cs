@@ -36,7 +36,7 @@ public class CashPrefabScript : MonoBehaviour
         return cashValues[randomIndex];
     }
 
-    private void OnCashCollected()
+    public void OnCashCollected()
     {
         if(isOnGround)
         {
