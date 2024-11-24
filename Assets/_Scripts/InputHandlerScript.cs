@@ -5,35 +5,58 @@ using UnityEngine.InputSystem;
 
 public class InputHandlerScript : MonoBehaviour
 {
-    PauseMenuScript pauseMenuScript;
+    private PauseMenuScript pauseMenuScript;
     private Camera _mainCamera;
 
     private void Awake()
     {
-        pauseMenuScript = FindObjectOfType<PauseMenuScript>();
         _mainCamera = Camera.main;
+        pauseMenuScript = FindObjectOfType<PauseMenuScript>();
     }
 
     public void OnClick(InputAction.CallbackContext context)
     {
         // Check if the game is paused
-        if (pauseMenuScript.GameIsPaused) return;
+        if (pauseMenuScript != null && pauseMenuScript.GameIsPaused) return;
 
         // Check if the input action has started
         if (!context.started) return;
 
-        // Get the mouse position and create a ray from the camera
+        // Detects if raycast hits a collider
         var ray = _mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
         var rayHit = Physics2D.GetRayIntersection(ray);
 
-        // Check if the ray hit a collider
-        if (!rayHit.collider) return;
+        if (!rayHit.collider)
+        {
+            Debug.Log("No collider hit");
+            return;
+        }
+
+        Debug.Log("Clicked on " + rayHit.collider.gameObject.name);
 
         // Check if the hit object has a CashScript component and call OnCashCollected
         CashPrefabScript cashScript = rayHit.collider.gameObject.GetComponent<CashPrefabScript>();
         if (cashScript != null)
         {
             cashScript.OnCashCollected();
+            return;
+        }
+
+        // Check if the hit object has a BuySignScript component and call buySign
+        BuySignScript buySignScript = rayHit.collider.gameObject.GetComponent<BuySignScript>();
+        if (buySignScript != null)
+        {
+            buySignScript.buySign();
+            return;
+        }
+
+        // Check if the hit object has a UniversityDoorScript component and call LoadUniversity
+        UniversityDoorScript universityDoorScript = rayHit.collider.gameObject.GetComponent<UniversityDoorScript>();
+        if (universityDoorScript != null)
+        {
+            Debug.Log("University door clicked");
+            universityDoorScript.LoadUniversity();
+            return;
         }
     }
 }

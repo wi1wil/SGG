@@ -156,9 +156,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cashValues: e8030000d00700008813000010270000204e000050c30000f8240100a0860100
-  anim: {fileID: 8291486325235924558}
-  popUpText: {fileID: 0}
   timeLimit: 5
+  anim: {fileID: 8291486325235924558}
+  popUpText: {fileID: 2921365564434520098, guid: 0d827af5f94a45d4791c03b8f14e6c25, type: 3}
 --- !u!95 &8291486325235924558 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1160356261127867848, guid: 9a93418b6ac16af40843cb76ac6aeb3b, type: 3}

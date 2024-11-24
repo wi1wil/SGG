@@ -57,7 +57,6 @@ public class CashPrefabScript : MonoBehaviour
     // Check if the Cash is on the Ground
     private void OnCollisionEnter2D(Collision2D collision) 
     {
-        Debug.Log("Collision detected with: " + collision.gameObject.name);
         isOnGround = true;
         anim.enabled = false;
         timer = 0f;

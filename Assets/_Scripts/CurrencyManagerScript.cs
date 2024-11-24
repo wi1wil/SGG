@@ -10,7 +10,7 @@ public class CurrencyManagerScript : MonoBehaviour
     public TextMeshProUGUI currencyPerSecText;
     public double currencyPerSecond;
 
-    public TextMeshProUGUI multiplierText;
+    public TextMeshProUGUI moneyMultiplierText;
     public double moneyMultiplier;
 
     [Header("Enrolling Students / Students Settings")]
@@ -59,7 +59,7 @@ public class CurrencyManagerScript : MonoBehaviour
     {
         currencyText.text = "Rp. " + currencyInGame.ToString("N0");
         currencyPerSecText.text = "Rp. " + currencyPerSecond.ToString("N0") +  "/ sec";
-        multiplierText.text = "Money Multiplied by " + moneyMultiplier.ToString("F2");
+        moneyMultiplierText.text = "Money Multiplied by " + moneyMultiplier.ToString("F2");
         
         enrollStudentsText.text = "Enroll Students\nCost - " + enrollStudentCost.ToString("N0");
         hireTeacherText.text = "Hire Teacher\nCost - " + hireTeacherCost.ToString("N0");
