@@ -14,6 +14,7 @@ public class BuySignScript : MonoBehaviour
     [SerializeField] GameObject parentInEnvironment;
     [SerializeField] GameObject universityBuilding;
     [SerializeField] GameObject confirmationDialog;
+    [SerializeField] GameObject buySignPrefab;
 
     [Header("Texts")]
     [SerializeField] TextMeshProUGUI doorConfirmationText;
@@ -58,7 +59,7 @@ public class BuySignScript : MonoBehaviour
             universityBuilding.SetActive(true);
 
             // Destroy the buy sign
-            Destroy(gameObject);
+            buySignPrefab.SetActive(false);
         }
         else
         {

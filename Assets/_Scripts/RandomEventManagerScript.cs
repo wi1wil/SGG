@@ -20,38 +20,12 @@ public class RandomEventsManager : MonoBehaviour
 
     private void Awake() 
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         cashManagerScript = FindObjectOfType<CashManagerScript>();
     }
 
     private void Start()
     {
         StartCoroutine(RandomCashDropEvent());
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // Check if the current scene is the main menu
-        if (scene.name == "MainMenuScene")
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     IEnumerator RandomCashDropEvent()

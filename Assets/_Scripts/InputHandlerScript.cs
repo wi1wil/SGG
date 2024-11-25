@@ -28,7 +28,6 @@ public class InputHandlerScript : MonoBehaviour
 
         if (!rayHit.collider)
         {
-            Debug.Log("No collider hit");
             return;
         }
 
@@ -54,7 +53,6 @@ public class InputHandlerScript : MonoBehaviour
         UniversityDoorScript universityDoorScript = rayHit.collider.gameObject.GetComponent<UniversityDoorScript>();
         if (universityDoorScript != null)
         {
-            Debug.Log("University door clicked");
             universityDoorScript.LoadUniversity();
             return;
         }
