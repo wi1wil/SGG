@@ -53,9 +53,6 @@ public class BuySignScript : MonoBehaviour
 
             currencyScript.currencyPerSecText.gameObject.SetActive(true);
             currencyScript.moneyMultiplierText.gameObject.SetActive(true);
-            currencyScript.enrollStudentsUI.SetActive(true);
-            currencyScript.hireTeacherUI.SetActive(true);
-            currencyScript.upgradeTeacherUI.SetActive(true);
 
             // Set the university building to active
             universityBuilding.SetActive(true);

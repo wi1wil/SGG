@@ -13,14 +13,50 @@ public class CashManagerScript : MonoBehaviour
     [SerializeField] private GameObject cashPrefab;
     [SerializeField] private GameObject parentsInEnvironment;
 
-    void Start() 
+    public bool isCashDropEventActive = false;
+
+    void Start()
     {
-        StartCoroutine(spawnCash());
+        StartCoroutine(RegularCashSpawn());
     }
 
-    IEnumerator spawnCash()
+    IEnumerator RegularCashSpawn()
     {
-        while(true) 
+        while (true)
+        {
+            // Wait for the next spawn interval
+            yield return new WaitForSeconds(timeToSpawn);
+
+            // Spawn cash if the cash drop event is not active
+            if (!isCashDropEventActive)
+            {
+                SpawnCash();
+            }
+        }
+    }
+
+    public void StartCashDropEvent()
+    {
+        StartCoroutine(CashDropEvent());
+    }
+
+    IEnumerator CashDropEvent()
+    {
+        // Activate the cash drop event
+        isCashDropEventActive = true;
+
+        // Call spawnCash with a spawn interval of 0.1 for 3 seconds
+        yield return StartCoroutine(spawnCash(0.1f, 3f));
+
+        // Deactivate the cash drop event
+        isCashDropEventActive = false;
+    }
+
+    IEnumerator spawnCash(float spawnInterval, float duration)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
         {
             // Set a random spawn location
             var spawnLocation = Random.Range(minX, maxX);
@@ -31,9 +67,21 @@ public class CashManagerScript : MonoBehaviour
             cash.transform.SetParent(parentsInEnvironment.transform);
 
             // Wait for the next spawn
-            yield return new WaitForSeconds(timeToSpawn);
+            yield return new WaitForSeconds(spawnInterval);
+
+            // Update the elapsed time
+            elapsedTime += spawnInterval;
         }
     }
 
-    
+    private void SpawnCash()
+    {
+        // Set a random spawn location
+        var spawnLocation = Random.Range(minX, maxX);
+        var position = new Vector3(spawnLocation, transform.position.y, 0);
+
+        // Spawn the Cash Prefab
+        GameObject cash = Instantiate(cashPrefab, position, Quaternion.identity);
+        cash.transform.SetParent(parentsInEnvironment.transform);
+    }
 }
