@@ -16,8 +16,14 @@ public class CashPrefabScript : MonoBehaviour
     [SerializeField] private GameObject popUpText;
 
     CurrencyManagerScript currencyManager;
+    AudioManagerScript audioManager;
+
     private bool isOnGround = false;
     private float timer = 0f;
+    
+    private void Awake() {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
+    }
 
     private void Start() 
     {
@@ -43,6 +49,7 @@ public class CashPrefabScript : MonoBehaviour
             // Amount of Cash given to the Player
             int addedCash = GetRandomCurrency();
             Debug.Log("Collected Cash: " + addedCash);
+            audioManager.PlaySfx(audioManager.moneyGrab);
 
             // Spawn Floating Text
             var go = Instantiate(popUpText, transform.position, Quaternion.identity, transform.parent);

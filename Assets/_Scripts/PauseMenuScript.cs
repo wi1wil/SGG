@@ -16,11 +16,13 @@ public class PauseMenuScript : MonoBehaviour
 
 
     LevelLoaderScript levelLoader;
+    AudioManagerScript audioManager;
     public bool GameIsPaused = false;
 
     private void Awake()
     {
         levelLoader = FindObjectOfType<LevelLoaderScript>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
     }
 
     private void Start()
@@ -53,10 +55,12 @@ public class PauseMenuScript : MonoBehaviour
             if (GameIsPaused)
             {
                 Resume();
+                audioManager.PlaySfx(audioManager.yesButton);
             }
             else
             {
                 Pause();
+                audioManager.PlaySfx(audioManager.noButton);
             }
         }
     }
@@ -98,6 +102,7 @@ public class PauseMenuScript : MonoBehaviour
 
     void ExitGame()
     {
+        audioManager.PlaySfx(audioManager.noButton);
         Time.timeScale = 1f;
         levelLoader.loadMenu();
     }

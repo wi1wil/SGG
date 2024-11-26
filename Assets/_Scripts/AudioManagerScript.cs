@@ -13,7 +13,10 @@ public class AudioManagerScript : MonoBehaviour
     [Header("-----------------------------------  Audio Clips  -----------------------------------")]
     public AudioClip backgroundMusic;
     public AudioClip moneyGrab;
-    public AudioClip buttonClick;
+    public AudioClip noButton;
+    public AudioClip yesButton;
+    public AudioClip randomEvents;
+    public AudioClip buildingSFX;
 
     // Ensure that only one instance of the AudioManager exists
     private void Awake() 

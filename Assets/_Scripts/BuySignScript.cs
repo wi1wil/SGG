@@ -7,8 +7,11 @@ using TMPro;
 
 public class BuySignScript : MonoBehaviour
 {
+    public static bool isUniversityBought = false;
+
     [Header("Scripts")]
     [SerializeField] CurrencyManagerScript currencyScript;
+    AudioManagerScript audioManager;    
 
     [Header("GameObjects")]
     [SerializeField] GameObject parentInEnvironment;
@@ -26,6 +29,10 @@ public class BuySignScript : MonoBehaviour
     [SerializeField] Button noButton;
 
     private Vector3 Offset = new Vector3(1, 0, 0);
+    
+    private void Awake() {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
+    }
 
     private void Start()
     {
@@ -34,6 +41,9 @@ public class BuySignScript : MonoBehaviour
         // Add listeners to the buttons
         yesButton.onClick.AddListener(OnYesButtonClicked);
         noButton.onClick.AddListener(OnNoButtonClicked);
+
+        // Load university status on scene load
+        LoadUniversityStatus();
     }
 
     public void buySign()
@@ -42,10 +52,13 @@ public class BuySignScript : MonoBehaviour
         signConfirmationText.gameObject.SetActive(true);
         doorConfirmationText.gameObject.SetActive(false);
         confirmationDialog.SetActive(true);
+
+        audioManager.PlaySfx(audioManager.yesButton);
     }
 
     private void OnYesButtonClicked()
     {
+        audioManager.PlaySfx(audioManager.yesButton);
         // Check if the currency is enough
         if (currencyScript.currencyInGame >= currencyScript.buySignCost)
         {
@@ -54,15 +67,25 @@ public class BuySignScript : MonoBehaviour
 
             currencyScript.currencyPerSecText.gameObject.SetActive(true);
             currencyScript.moneyMultiplierText.gameObject.SetActive(true);
+            currencyScript.hireTeacherUI.SetActive(true);
+            currencyScript.upgradeTeacherUI.SetActive(true);
+            currencyScript.enrollStudentsUI.SetActive(true);
+
+            audioManager.PlaySfx(audioManager.buildingSFX);
+
+            // Disable the buy sign
+            buySignPrefab.SetActive(false);
 
             // Set the university building to active
             universityBuilding.SetActive(true);
+            isUniversityBought = true;
 
-            // Destroy the buy sign
-            buySignPrefab.SetActive(false);
+            // Save the university status
+            SaveUniversityStatus();
         }
         else
         {
+            audioManager.PlaySfx(audioManager.noButton);
             // Instantiate the pop-up text as a child of parentInEnvironment
             var go = Instantiate(popUpText, transform.position, Quaternion.identity);
             go.transform.SetParent(parentInEnvironment.transform, false);
@@ -75,7 +98,37 @@ public class BuySignScript : MonoBehaviour
 
     private void OnNoButtonClicked()
     {
+        audioManager.PlaySfx(audioManager.noButton);
         // Close the confirmation panel
         confirmationDialog.SetActive(false);
     }
-}
+
+    private void CheckUniversityStatus()
+    {
+        if (isUniversityBought)
+        {
+            // Load all UI and TextGameObject
+            currencyScript.currencyPerSecText.gameObject.SetActive(true);
+            currencyScript.moneyMultiplierText.gameObject.SetActive(true);
+            currencyScript.hireTeacherUI.SetActive(true);
+            currencyScript.upgradeTeacherUI.SetActive(true);
+            currencyScript.enrollStudentsUI.SetActive(true);
+
+            // Deactivate the sign and activate the building
+            buySignPrefab.SetActive(false);
+            universityBuilding.SetActive(true);
+        }
+    }
+
+    private void SaveUniversityStatus()
+    {
+        PlayerPrefs.SetInt("isUniversityBought", isUniversityBought ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    private void LoadUniversityStatus()
+    {
+        isUniversityBought = PlayerPrefs.GetInt("isUniversityBought", 0) == 1;
+        CheckUniversityStatus();
+    }
+}   

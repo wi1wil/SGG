@@ -21,19 +21,20 @@ public class MainMenuScript : MonoBehaviour
 
         // Adding listeners to the Start, Quit, and Options Buttons
         startButton.onClick.AddListener(() => {
-            audioManager.PlaySfx(audioManager.buttonClick);
+            audioManager.PlaySfx(audioManager.yesButton);
             Debug.Log("Starting Game....");
             levelLoader.LoadNextLevel();
         });
 
         quitButton.onClick.AddListener(() => {
-            audioManager.PlaySfx(audioManager.buttonClick);
+            audioManager.PlaySfx(audioManager.noButton);
             Application.Quit();
+            PlayerPrefs.DeleteAll();
             Debug.Log("Quitting Game....");
         });
 
         optionsButton.onClick.AddListener(() => {
-            audioManager.PlaySfx(audioManager.buttonClick);
+            audioManager.PlaySfx(audioManager.yesButton);
             Debug.Log("Opening Options Menu....");
         });
     }

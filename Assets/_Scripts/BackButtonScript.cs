@@ -15,6 +15,11 @@ public class BackButtonScript : MonoBehaviour
     [SerializeField] Button noButton;
 
     private LevelLoaderScript levelLoader;
+    AudioManagerScript audioManager;
+
+    private void Awake() {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
+    }
 
     private void Start()
     {
@@ -30,6 +35,7 @@ public class BackButtonScript : MonoBehaviour
 
     private void OnBackButtonClicked()
     {
+        audioManager.PlaySfx(audioManager.yesButton);
         // Show the confirmation panel
         confirmationPanel.SetActive(true);
         confirmationText.gameObject.SetActive(true);
@@ -37,12 +43,14 @@ public class BackButtonScript : MonoBehaviour
 
     private void OnYesButtonClicked()
     {
+        audioManager.PlaySfx(audioManager.yesButton);
         // Load the previous level
         levelLoader.LoadPrevLevel();
     }
 
     private void OnNoButtonClicked()
     {
+        audioManager.PlaySfx(audioManager.noButton);
         // Close the confirmation panel
         confirmationPanel.SetActive(false);
     }

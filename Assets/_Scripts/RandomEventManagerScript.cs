@@ -14,13 +14,18 @@ public class RandomEventsManager : MonoBehaviour
     [Header("Random Event Settings")]
     [SerializeField] private float secondsBetweenEvents;
 
+    [Header("Countdown Timer")]
+    public float countdownTimer;
+
     CashManagerScript cashManagerScript;
+    AudioManagerScript audioManager;
 
     Vector3 position = new Vector3(0, 2.5f, 0);
 
     private void Awake() 
     {
         cashManagerScript = FindObjectOfType<CashManagerScript>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
     }
 
     private void Start()
@@ -33,8 +38,14 @@ public class RandomEventsManager : MonoBehaviour
         while (true)
         {
             // Randomize the timer for the next event
-            float randomEventTimer = Random.Range(1f * secondsBetweenEvents, 5f * secondsBetweenEvents);
-            yield return new WaitForSeconds(randomEventTimer);
+            countdownTimer = Random.Range(1f * secondsBetweenEvents, 5f * secondsBetweenEvents);
+
+            // Update the countdown timer in real-time
+            while (countdownTimer > 0)
+            {
+                yield return null; // Wait for the next frame
+                countdownTimer -= Time.deltaTime;
+            }
 
             int eventIndex = 0;
             switch (eventIndex)
@@ -43,6 +54,7 @@ public class RandomEventsManager : MonoBehaviour
                     TextMeshProUGUI eventText = Instantiate(randomEventTextPrefab, position, Quaternion.identity);
                     eventText.transform.SetParent(parentsInEnvironment.transform, false);
                     eventText.text = "-= Money Rain =- \nEvent On Going!";
+                    audioManager.PlaySfx(audioManager.randomEvents);
                     
                     cashManagerScript.StartCashDropEvent();
 

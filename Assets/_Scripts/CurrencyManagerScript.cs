@@ -3,6 +3,8 @@ using TMPro;
 
 public class CurrencyManagerScript : MonoBehaviour
 {
+    AudioManagerScript audioManager;
+
     [Header("Currency Settings")]
     public TextMeshProUGUI currencyText;
     public double currencyInGame;
@@ -12,6 +14,10 @@ public class CurrencyManagerScript : MonoBehaviour
 
     public TextMeshProUGUI moneyMultiplierText;
     public double moneyMultiplier;
+
+    [Header("Pop Up Text Settings")]
+    [SerializeField] private TextMeshProUGUI popUpText;
+    [SerializeField] private GameObject parentInEnvironment;
 
     [Header("Enrolling Students / Students Settings")]
     public TextMeshProUGUI enrollStudentsText;
@@ -23,38 +29,83 @@ public class CurrencyManagerScript : MonoBehaviour
     public TextMeshProUGUI hireTeacherText;
     public GameObject hireTeacherUI;
     public double hireTeacherCost;
+    public static int isTeacherHired = 0;
 
     [Header("Teacher Upgrades")]
     public TextMeshProUGUI upgradeTeacherText;
     public GameObject upgradeTeacherUI;
     public double upgradeTeacherCost;
+    public static int teacherLevel = 1;
 
     [Header ("Buy Sign Settings")]
     public double buySignCost;
 
-    
+    private void Awake() {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
+    }
+
     private void Start()
     {
+        // Load from PlayerPrefs
+        LoadData();
         // Initialize currency per second and update the UI
         UpdateCurrencyPerSecond(); 
         UpdateUI();
+        // Check if teacher is hired and deactivate the hireTeacherUI if true
+        CheckTeacherStatus();
+    }
+
+    private void LoadData()
+    {
+        currencyInGame = PlayerPrefs.GetFloat("CurrencyInGame", 0);
+        currencyPerSecond = PlayerPrefs.GetFloat("CurrencyPerSecond", 0);
+        totalStudents = PlayerPrefs.GetInt("TotalStudents", 0);
+        enrollStudentCost = PlayerPrefs.GetFloat("EnrollStudentCost", 150000); // Use GetFloat for double
+        isTeacherHired = PlayerPrefs.GetInt("IsTeacherHired", 0);
+        hireTeacherCost = PlayerPrefs.GetFloat("HireTeacherCost", 250000); // Use GetFloat for double
+        upgradeTeacherCost = PlayerPrefs.GetFloat("UpgradeTeacherCost", 1000000); // Use GetFloat for double
+        teacherLevel = PlayerPrefs.GetInt("TeacherLevel", 1);
+        moneyMultiplier = PlayerPrefs.GetFloat("MoneyMultiplier", 1);
+    }
+
+    private void SaveData()
+    {
+        PlayerPrefs.SetFloat("CurrencyInGame", (float)currencyInGame);
+        PlayerPrefs.SetFloat("CurrencyPerSecond", (float)currencyPerSecond);
+        PlayerPrefs.SetInt("TotalStudents", totalStudents);
+        PlayerPrefs.SetFloat("EnrollStudentCost", (float)enrollStudentCost); // Use SetFloat for double
+        PlayerPrefs.SetInt("IsTeacherHired", isTeacherHired);
+        PlayerPrefs.SetFloat("HireTeacherCost", (float)hireTeacherCost); // Use SetFloat for double
+        PlayerPrefs.SetFloat("UpgradeTeacherCost", (float)upgradeTeacherCost); // Use SetFloat for double
+        PlayerPrefs.SetInt("TeacherLevel", teacherLevel);
+        PlayerPrefs.SetFloat("MoneyMultiplier", (float)moneyMultiplier);
     }
 
     private void Update() 
     {
         // Increment currency based on currency per second and time elapsed
         currencyInGame += currencyPerSecond * Time.deltaTime;
+        // Save currency to PlayerPrefs
+        SaveData();
         UpdateUI();
+    }
+
+    private void NotEnoughMoney()
+    {
+        var go = Instantiate(popUpText, transform.position, Quaternion.identity);
+        go.transform.SetParent(parentInEnvironment.transform, false);
+        go.GetComponent<TextMeshProUGUI>().text = "Not enough money!";
     }
 
     public void addCash(double addedCash) 
     {
         // Add the cash multiplied by the money multiplier to the currency
         currencyInGame += (addedCash * moneyMultiplier);
+        // Save currency to PlayerPrefs
+        SaveData();
         UpdateUI();
     }
 
-    // Method to update the UI elements with the current values
     private void UpdateUI() 
     {
         currencyText.text = "Rp. " + currencyInGame.ToString("N0");
@@ -71,12 +122,22 @@ public class CurrencyManagerScript : MonoBehaviour
     {
         if (currencyInGame >= hireTeacherCost) 
         {
+            audioManager.PlaySfx(audioManager.yesButton);
             currencyInGame -= hireTeacherCost;
             moneyMultiplier += 1;
+            isTeacherHired = 1;
             hireTeacherUI.SetActive(false);
+
+            // Save currency to PlayerPrefs
+            SaveData();
 
             UpdateCurrencyPerSecond(); 
             UpdateUI();
+        }
+        else
+        {
+            audioManager.PlaySfx(audioManager.noButton);
+            NotEnoughMoney();
         }
     }
 
@@ -85,12 +146,21 @@ public class CurrencyManagerScript : MonoBehaviour
     {
         if (currencyInGame >= enrollStudentCost) 
         {
+            audioManager.PlaySfx(audioManager.yesButton);
             totalStudents++;
             currencyInGame -= enrollStudentCost;
             enrollStudentCost *= 2;
             
+            // Save currency to PlayerPrefs
+            SaveData();
+
             UpdateCurrencyPerSecond(); 
             UpdateUI();
+        }
+        else
+        {
+            audioManager.PlaySfx(audioManager.noButton);
+            NotEnoughMoney();
         }
     }
 
@@ -99,12 +169,22 @@ public class CurrencyManagerScript : MonoBehaviour
     {
         if (currencyInGame >= upgradeTeacherCost) 
         {
+            audioManager.PlaySfx(audioManager.yesButton);
             currencyInGame -= upgradeTeacherCost;
             moneyMultiplier *= 2;
             upgradeTeacherCost *= 2;
+            teacherLevel++;
+
+            // Save currency to PlayerPrefs
+            SaveData();
 
             UpdateCurrencyPerSecond();  
             UpdateUI();
+        }
+        else
+        {
+            audioManager.PlaySfx(audioManager.noButton);
+            NotEnoughMoney();
         }
     }
 
@@ -112,5 +192,14 @@ public class CurrencyManagerScript : MonoBehaviour
     private void UpdateCurrencyPerSecond() 
     {
         currencyPerSecond = moneyMultiplier * (totalStudents * 10000);
+    }
+
+    // Method to check if the teacher is hired and deactivate the hireTeacherUI if true
+    private void CheckTeacherStatus()
+    {
+        if (isTeacherHired == 1)
+        {
+            hireTeacherUI.SetActive(false);
+        }
     }
 }
