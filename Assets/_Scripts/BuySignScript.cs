@@ -4,6 +4,8 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 
 public class BuySignScript : MonoBehaviour
 {
@@ -67,9 +69,6 @@ public class BuySignScript : MonoBehaviour
 
             currencyScript.currencyPerSecText.gameObject.SetActive(true);
             currencyScript.moneyMultiplierText.gameObject.SetActive(true);
-            currencyScript.hireTeacherUI.SetActive(true);
-            currencyScript.upgradeTeacherUI.SetActive(true);
-            currencyScript.enrollStudentsUI.SetActive(true);
 
             audioManager.PlaySfx(audioManager.buildingSFX);
 
@@ -110,8 +109,12 @@ public class BuySignScript : MonoBehaviour
             // Load all UI and TextGameObject
             currencyScript.currencyPerSecText.gameObject.SetActive(true);
             currencyScript.moneyMultiplierText.gameObject.SetActive(true);
-            currencyScript.hireTeacherUI.SetActive(true);
-            currencyScript.enrollStudentsUI.SetActive(true);
+
+            if (SceneManager.GetActiveScene().name == "UniversityScene")
+            {
+                currencyScript.hireTeacherUI.SetActive(true);
+                currencyScript.enrollStudentsUI.SetActive(true);
+            }
 
             // Deactivate the sign and activate the building
             buySignPrefab.SetActive(false);
