@@ -60,10 +60,10 @@ public class CurrencyManagerScript : MonoBehaviour
         currencyInGame = PlayerPrefs.GetFloat("CurrencyInGame", 0);
         currencyPerSecond = PlayerPrefs.GetFloat("CurrencyPerSecond", 0);
         totalStudents = PlayerPrefs.GetInt("TotalStudents", 0);
-        enrollStudentCost = PlayerPrefs.GetFloat("EnrollStudentCost", 150000); // Use GetFloat for double
+        enrollStudentCost = PlayerPrefs.GetFloat("EnrollStudentCost", 150000); 
         isTeacherHired = PlayerPrefs.GetInt("IsTeacherHired", 0);
-        hireTeacherCost = PlayerPrefs.GetFloat("HireTeacherCost", 250000); // Use GetFloat for double
-        upgradeTeacherCost = PlayerPrefs.GetFloat("UpgradeTeacherCost", 1000000); // Use GetFloat for double
+        hireTeacherCost = PlayerPrefs.GetFloat("HireTeacherCost", 250000);
+        upgradeTeacherCost = PlayerPrefs.GetFloat("UpgradeTeacherCost", 1000000); 
         teacherLevel = PlayerPrefs.GetInt("TeacherLevel", 1);
         moneyMultiplier = PlayerPrefs.GetFloat("MoneyMultiplier", 1);
     }
@@ -73,10 +73,10 @@ public class CurrencyManagerScript : MonoBehaviour
         PlayerPrefs.SetFloat("CurrencyInGame", (float)currencyInGame);
         PlayerPrefs.SetFloat("CurrencyPerSecond", (float)currencyPerSecond);
         PlayerPrefs.SetInt("TotalStudents", totalStudents);
-        PlayerPrefs.SetFloat("EnrollStudentCost", (float)enrollStudentCost); // Use SetFloat for double
+        PlayerPrefs.SetFloat("EnrollStudentCost", (float)enrollStudentCost); 
         PlayerPrefs.SetInt("IsTeacherHired", isTeacherHired);
-        PlayerPrefs.SetFloat("HireTeacherCost", (float)hireTeacherCost); // Use SetFloat for double
-        PlayerPrefs.SetFloat("UpgradeTeacherCost", (float)upgradeTeacherCost); // Use SetFloat for double
+        PlayerPrefs.SetFloat("HireTeacherCost", (float)hireTeacherCost); 
+        PlayerPrefs.SetFloat("UpgradeTeacherCost", (float)upgradeTeacherCost); 
         PlayerPrefs.SetInt("TeacherLevel", teacherLevel);
         PlayerPrefs.SetFloat("MoneyMultiplier", (float)moneyMultiplier);
     }
@@ -127,6 +127,7 @@ public class CurrencyManagerScript : MonoBehaviour
             moneyMultiplier += 1;
             isTeacherHired = 1;
             hireTeacherUI.SetActive(false);
+            upgradeTeacherUI.SetActive(true);
 
             // Save currency to PlayerPrefs
             SaveData();
@@ -200,6 +201,7 @@ public class CurrencyManagerScript : MonoBehaviour
         if (isTeacherHired == 1)
         {
             hireTeacherUI.SetActive(false);
+            upgradeTeacherUI.SetActive(true); // Activate upgradeTeacherUI if a teacher is hired
         }
     }
 }

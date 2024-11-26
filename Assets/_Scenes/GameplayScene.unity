@@ -2134,20 +2134,20 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 665204796}
     m_ColliderPaths:
-    - - X: 90333344
-        Y: -29666672
-      - X: -90333344
-        Y: -29666672
-      - X: -90333344
-        Y: -50333336
-      - X: 90333344
-        Y: -50333336
+    - - X: 90382328
+        Y: -29682756
+      - X: -90382328
+        Y: -29682756
+      - X: -90382328
+        Y: -50360636
+      - X: 90382328
+        Y: -50360636
   m_CompositePaths:
     m_Paths:
-    - - {x: 9.033305, y: -5.033334}
-      - {x: 9.033305, y: -2.9666672}
-      - {x: -9.033335, y: -2.9666965}
-      - {x: -9.033305, y: -5.033334}
+    - - {x: 9.038203, y: -5.0360637}
+      - {x: 9.038203, y: -2.9682755}
+      - {x: -9.038233, y: -2.9683049}
+      - {x: -9.038203, y: -5.0360637}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -2410,6 +2410,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732132620}
   m_CullTransparentMesh: 1
+--- !u!1 &790109692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 790109693}
+  m_Layer: 5
+  m_Name: FocusUpEvent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &790109693
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790109692}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1589295464}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &821809184
 GameObject:
   m_ObjectHideFlags: 0
@@ -4274,6 +4309,7 @@ RectTransform:
   - {fileID: 175555741}
   - {fileID: 1274839520}
   - {fileID: 474404121}
+  - {fileID: 790109693}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6017,7 +6053,7 @@ PrefabInstance:
       objectReference: {fileID: 175555740}
     - target: {fileID: 7012314684630934911, guid: 09aadb084f056be40ba648f74917c7d3, type: 3}
       propertyPath: secondsBetweenEvents
-      value: 60
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7012314684630934911, guid: 09aadb084f056be40ba648f74917c7d3, type: 3}
       propertyPath: randomEventTextPrefab

@@ -111,7 +111,6 @@ public class BuySignScript : MonoBehaviour
             currencyScript.currencyPerSecText.gameObject.SetActive(true);
             currencyScript.moneyMultiplierText.gameObject.SetActive(true);
             currencyScript.hireTeacherUI.SetActive(true);
-            currencyScript.upgradeTeacherUI.SetActive(true);
             currencyScript.enrollStudentsUI.SetActive(true);
 
             // Deactivate the sign and activate the building
