@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class CurrencyManagerScript : MonoBehaviour
@@ -198,10 +199,13 @@ public class CurrencyManagerScript : MonoBehaviour
     // Method to check if the teacher is hired and deactivate the hireTeacherUI if true
     private void CheckTeacherStatus()
     {
-        if (isTeacherHired == 1)
+        if (SceneManager.GetActiveScene().name == "UniversityScene")
         {
-            hireTeacherUI.SetActive(false);
-            upgradeTeacherUI.SetActive(true); // Activate upgradeTeacherUI if a teacher is hired
+            if (isTeacherHired == 1)
+            {
+                hireTeacherUI.SetActive(false);
+                upgradeTeacherUI.SetActive(true); // Activate upgradeTeacherUI if a teacher is hired
+            }
         }
     }
 }
