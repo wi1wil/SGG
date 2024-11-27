@@ -925,6 +925,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 30beceb745c494845b609ad53b0a470a, type: 3}
     - target: {fileID: 8163907948174940036, guid: fbeced6fb6978dc429cdab8fa156f097, type: 3}
+      propertyPath: moneyRainEvent
+      value: 
+      objectReference: {fileID: 8300000, guid: 30beceb745c494845b609ad53b0a470a, type: 3}
+    - target: {fileID: 8163907948174940036, guid: fbeced6fb6978dc429cdab8fa156f097, type: 3}
       propertyPath: backgroundMusic
       value: 
       objectReference: {fileID: 8300000, guid: 06437e75905e41e4888a7808b86fd40e, type: 3}
