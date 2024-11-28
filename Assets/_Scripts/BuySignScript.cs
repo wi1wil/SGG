@@ -22,7 +22,6 @@ public class BuySignScript : MonoBehaviour
     [SerializeField] GameObject buySignPrefab;
 
     [Header("Texts")]
-    [SerializeField] TextMeshProUGUI doorConfirmationText;
     [SerializeField] TextMeshProUGUI signConfirmationText;
     [SerializeField] GameObject popUpText;
 
@@ -52,7 +51,6 @@ public class BuySignScript : MonoBehaviour
     {
         // Show the confirmation panel and activate the sign confirmation text
         signConfirmationText.gameObject.SetActive(true);
-        doorConfirmationText.gameObject.SetActive(false);
         confirmationDialog.SetActive(true);
 
         audioManager.PlaySfx(audioManager.yesButton);

@@ -7,13 +7,11 @@ using UnityEngine.Audio;
 
 public class PauseMenuScript : MonoBehaviour
 {
-
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
     [SerializeField] private Button exitButton;
     [SerializeField] private AudioMixer audioMixer;
-
 
     LevelLoaderScript levelLoader;
     AudioManagerScript audioManager;
@@ -102,6 +100,7 @@ public class PauseMenuScript : MonoBehaviour
 
     void ExitGame()
     {
+        Debug.Log("ExitGame called"); // Debug log to check if the method is called
         audioManager.PlaySfx(audioManager.noButton);
         Time.timeScale = 1f;
         levelLoader.loadMenu();

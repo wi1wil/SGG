@@ -61,5 +61,12 @@ public class InputHandlerScript : MonoBehaviour
             universityDoorScript.LoadUniversity();
             return;
         }
+
+        BuyTableTrigger buyTableTrigger = rayHit.collider.gameObject.GetComponent<BuyTableTrigger>();
+        if (buyTableTrigger != null)
+        {
+            buyTableTrigger.OnBuyTrigger();
+            return;
+        }
     }
 }

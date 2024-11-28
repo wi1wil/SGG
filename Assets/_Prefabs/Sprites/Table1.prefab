@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3230224332198741665
+--- !u!1001 &3562905613163608105
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -2253911629886400664, guid: 8eed7ad17cdb89542a446cf2b13ab5c1, type: 3}
       propertyPath: m_Name
-      value: Table
+      value: Table1
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: 8eed7ad17cdb89542a446cf2b13ab5c1, type: 3}
       propertyPath: m_SortingOrder
@@ -18,27 +18,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 8eed7ad17cdb89542a446cf2b13ab5c1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.9994577
+      value: 0.9994575
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 8eed7ad17cdb89542a446cf2b13ab5c1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.9994577
+      value: 0.9994575
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 8eed7ad17cdb89542a446cf2b13ab5c1, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.9994577
+      value: 0.9994575
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 8eed7ad17cdb89542a446cf2b13ab5c1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.8063087
+      value: -6.76
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 8eed7ad17cdb89542a446cf2b13ab5c1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.6790888
+      value: -1.61
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 8eed7ad17cdb89542a446cf2b13ab5c1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -89.951195
+      value: -89.95118
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 8eed7ad17cdb89542a446cf2b13ab5c1, type: 3}
       propertyPath: m_LocalRotation.w

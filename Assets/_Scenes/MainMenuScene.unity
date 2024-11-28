@@ -748,6 +748,10 @@ PrefabInstance:
       value: MainMenuUI
       objectReference: {fileID: 0}
     - target: {fileID: 4353574054373519191, guid: 66af2fc0f9ff9674899d3d5311a8ab75, type: 3}
+      propertyPath: m_text
+      value: FocusUP!
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353574054373519191, guid: 66af2fc0f9ff9674899d3d5311a8ab75, type: 3}
       propertyPath: m_fontColor.b
       value: 1
       objectReference: {fileID: 0}

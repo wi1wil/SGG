@@ -25,6 +25,17 @@ public class RandomEventsManager : MonoBehaviour
 
     private void Awake() 
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         cashManagerScript = FindObjectOfType<CashManagerScript>();
         focusUpEventScript = FindObjectOfType<FocusUpScript>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
