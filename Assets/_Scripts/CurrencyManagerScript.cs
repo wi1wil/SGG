@@ -45,8 +45,10 @@ public class CurrencyManagerScript : MonoBehaviour
 
     [Header("Tables and Chairs")]
     public double tableCost;
+    public double chairCost;
 
     public static int PrefabIndex = 0;
+    public static int ChairPrefabIndex = 0;
 
     public static int tableAmount = 0;
     public static int chairAmount = 0;
@@ -74,6 +76,8 @@ public class CurrencyManagerScript : MonoBehaviour
     {
         tableAmount = PlayerPrefs.GetInt("TableAmount", 0);
         tableCost = PlayerPrefs.GetFloat("TableCost", 100000);
+        chairAmount = PlayerPrefs.GetInt("ChairAmount", 0);
+        chairCost = PlayerPrefs.GetFloat("ChairCost", 75000);
         currencyInGame = PlayerPrefs.GetFloat("CurrencyInGame", 0);
         currencyPerSecond = PlayerPrefs.GetFloat("CurrencyPerSecond", 0);
         totalStudents = PlayerPrefs.GetInt("TotalStudents", 0);
@@ -85,12 +89,15 @@ public class CurrencyManagerScript : MonoBehaviour
         moneyMultiplier = PlayerPrefs.GetFloat("MoneyMultiplier", 1);
         idleGains = totalStudents * 10000; // Initialize idleGains based on totalStudents
         PrefabIndex = PlayerPrefs.GetInt("PrefabIndex", 0);
+        ChairPrefabIndex = PlayerPrefs.GetInt("ChairPrefabIndex", 0);
     }
 
     public void SaveData()
     {
         PlayerPrefs.SetInt("TableAmount", tableAmount);
         PlayerPrefs.SetFloat("TableCost", (float)tableCost);
+        PlayerPrefs.SetInt("ChairAmount", chairAmount);
+        PlayerPrefs.SetFloat("ChairCost", (float)chairCost);
         PlayerPrefs.SetFloat("CurrencyInGame", (float)currencyInGame);
         PlayerPrefs.SetFloat("CurrencyPerSecond", (float)currencyPerSecond);
         PlayerPrefs.SetInt("TotalStudents", totalStudents);
@@ -102,6 +109,7 @@ public class CurrencyManagerScript : MonoBehaviour
         PlayerPrefs.SetFloat("MoneyMultiplier", (float)moneyMultiplier);
         PlayerPrefs.SetFloat("IdleGains", (float)idleGains);
         PlayerPrefs.SetInt("PrefabIndex", PrefabIndex);
+        PlayerPrefs.SetInt("ChairPrefabIndex", ChairPrefabIndex);
         PlayerPrefs.Save();
     }
 
@@ -221,6 +229,7 @@ public class CurrencyManagerScript : MonoBehaviour
     {
         currencyPerSecond = moneyMultiplier * idleGains;
         currencyPerSecond += idleGains * (tableAmount * 0.5);
+        currencyPerSecond += idleGains * (chairAmount * 0.3); 
         SaveData(); // Save the updated currencyPerSecond
     }
 
@@ -252,7 +261,10 @@ public class CurrencyManagerScript : MonoBehaviour
         idleGains = 0; 
         tableAmount = 0;
         tableCost = 100000;
+        chairAmount = 0;
+        chairCost = 75000;
         PrefabIndex = 0;
+        ChairPrefabIndex = 0;
         SaveData();
         UpdateUI();
     }

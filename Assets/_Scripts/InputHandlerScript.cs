@@ -68,5 +68,12 @@ public class InputHandlerScript : MonoBehaviour
             buyTableTrigger.OnBuyTrigger();
             return;
         }
+
+        BuyChairTrigger buyChairTrigger = rayHit.collider.gameObject.GetComponent<BuyChairTrigger>();
+        if (buyChairTrigger != null)
+        {
+            buyChairTrigger.OnBuyTrigger();
+            return;
+        }
     }
 }
