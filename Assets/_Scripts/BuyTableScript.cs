@@ -129,22 +129,4 @@ public class BuyTableScript : MonoBehaviour
         CurrencyManagerScript.PrefabIndex = PlayerPrefs.GetInt("PrefabIndex", 0);
         CurrencyManagerScript.tableAmount = PlayerPrefs.GetInt("TableAmount", 0);
     }
-
-    public void ResetTableData()
-    {
-        for (int i = 0; i < tablePrefabs.Length; i++)
-        {
-            tablePrefabs[i].SetActive(false);
-        }
-        for (int i = 0; i < triggerPrefabs.Length; i++)
-        {
-            triggerPrefabs[i].SetActive(false);
-        }
-        CurrencyManagerScript.PrefabIndex = 0;
-        if (CurrencyManagerScript.PrefabIndex < triggerPrefabs.Length)
-        {
-            triggerPrefabs[CurrencyManagerScript.PrefabIndex].SetActive(true);
-        }
-        PlayerPrefs.SetInt("PrefabIndex", CurrencyManagerScript.PrefabIndex);
-    }
 }

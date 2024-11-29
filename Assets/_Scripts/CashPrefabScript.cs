@@ -48,15 +48,15 @@ public class CashPrefabScript : MonoBehaviour
         {
             // Amount of Cash given to the Player
             int addedCash = GetRandomCurrency();
-            Debug.Log("Collected Cash: " + addedCash);
+            Debug.Log("Collected Cash: " + addedCash * CurrencyManagerScript.doubleCashValue);
             audioManager.PlaySfx(audioManager.moneyGrab);
 
             // Spawn Floating Text
             var go = Instantiate(popUpText, transform.position, Quaternion.identity, transform.parent);
-            go.GetComponent<TextMeshProUGUI>().text = "+" + addedCash.ToString("N0");
+            go.GetComponent<TextMeshProUGUI>().text = "+" + (addedCash * CurrencyManagerScript.doubleCashValue).ToString("N0");
 
             // Send the value to Currency Manager to Add to the Player's Cash
-            currencyManager.addCash(addedCash);
+            currencyManager.addCash(addedCash * CurrencyManagerScript.doubleCashValue);
             Destroy(gameObject);
         }
     }

@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 437185846101969471}
   - component: {fileID: 85113357041965066}
   - component: {fileID: 4300819041541889049}
-  - component: {fileID: -4062222883881867219}
+  - component: {fileID: 2768187789308720122}
   m_Layer: 5
   m_Name: RandomEventText
-  m_TagString: Untagged
+  m_TagString: RandomEventText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!50 &-4062222883881867219
+--- !u!50 &2768187789308720122
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

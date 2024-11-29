@@ -129,22 +129,4 @@ public class BuyChairScript : MonoBehaviour
         CurrencyManagerScript.ChairPrefabIndex = PlayerPrefs.GetInt("ChairPrefabIndex", 0);
         CurrencyManagerScript.chairAmount = PlayerPrefs.GetInt("ChairAmount", 0);
     }
-
-    public void ResetChairData()
-    {
-        for (int i = 0; i < chairPrefabs.Length; i++)
-        {
-            chairPrefabs[i].SetActive(false);
-        }
-        for (int i = 0; i < triggerPrefabs.Length; i++)
-        {
-            triggerPrefabs[i].SetActive(false);
-        }
-        CurrencyManagerScript.ChairPrefabIndex = 0;
-        if (CurrencyManagerScript.ChairPrefabIndex < triggerPrefabs.Length)
-        {
-            triggerPrefabs[CurrencyManagerScript.ChairPrefabIndex].SetActive(true);
-        }
-        PlayerPrefs.SetInt("ChairPrefabIndex", CurrencyManagerScript.ChairPrefabIndex);
-    }
 }

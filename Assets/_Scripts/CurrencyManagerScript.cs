@@ -17,6 +17,8 @@ public class CurrencyManagerScript : MonoBehaviour
     public double moneyMultiplier;
 
     public double idleGains;
+    public static int doubleMultiplier = 1;
+    public static int doubleCashValue = 1;
 
     [Header("Pop Up Text Settings")]
     [SerializeField] private TextMeshProUGUI popUpText;
@@ -87,9 +89,11 @@ public class CurrencyManagerScript : MonoBehaviour
         upgradeTeacherCost = PlayerPrefs.GetFloat("UpgradeTeacherCost", 1000000); 
         teacherLevel = PlayerPrefs.GetInt("TeacherLevel", 1);
         moneyMultiplier = PlayerPrefs.GetFloat("MoneyMultiplier", 1);
-        idleGains = totalStudents * 10000; // Initialize idleGains based on totalStudents
+        idleGains = totalStudents * 10000; 
         PrefabIndex = PlayerPrefs.GetInt("PrefabIndex", 0);
         ChairPrefabIndex = PlayerPrefs.GetInt("ChairPrefabIndex", 0);
+        doubleMultiplier = PlayerPrefs.GetInt("DoubleMultiplier", 1);
+        doubleCashValue = PlayerPrefs.GetInt("DoubleCashValue", 1);
     }
 
     public void SaveData()
@@ -110,6 +114,8 @@ public class CurrencyManagerScript : MonoBehaviour
         PlayerPrefs.SetFloat("IdleGains", (float)idleGains);
         PlayerPrefs.SetInt("PrefabIndex", PrefabIndex);
         PlayerPrefs.SetInt("ChairPrefabIndex", ChairPrefabIndex);
+        PlayerPrefs.SetInt("DoubleMultiplier", doubleMultiplier);
+        PlayerPrefs.SetInt("DoubleCashValue", doubleCashValue);
         PlayerPrefs.Save();
     }
 
@@ -131,8 +137,7 @@ public class CurrencyManagerScript : MonoBehaviour
 
     public void addCash(double addedCash) 
     {
-        // Add the cash multiplied by the money multiplier to the currency
-        currencyInGame += (addedCash * moneyMultiplier);
+        currencyInGame += (addedCash);
         // Save currency to PlayerPrefs
         SaveData();
         UpdateUI();
@@ -142,7 +147,7 @@ public class CurrencyManagerScript : MonoBehaviour
     {
         currencyText.text = "Rp. " + currencyInGame.ToString("N0");
         currencyPerSecText.text = "Rp. " + currencyPerSecond.ToString("N0") +  "/ sec";
-        moneyMultiplierText.text = "Money Multiplied by " + moneyMultiplier.ToString("F2");
+        moneyMultiplierText.text = "Money Multiplied by " + (moneyMultiplier * doubleMultiplier).ToString("F2");
         
         enrollStudentsText.text = "Enroll Students\nCost - " + enrollStudentCost.ToString("N0");
         hireTeacherText.text = "Hire Teacher\nCost - " + hireTeacherCost.ToString("N0");
@@ -227,7 +232,7 @@ public class CurrencyManagerScript : MonoBehaviour
     // Method to update the currency per second based on the current values
     public void UpdateCurrencyPerSecond() 
     {
-        currencyPerSecond = moneyMultiplier * idleGains;
+        currencyPerSecond = (moneyMultiplier * doubleMultiplier) * idleGains;
         currencyPerSecond += idleGains * (tableAmount * 0.5);
         currencyPerSecond += idleGains * (chairAmount * 0.3); 
         SaveData(); // Save the updated currencyPerSecond
@@ -241,31 +246,8 @@ public class CurrencyManagerScript : MonoBehaviour
             if (isTeacherHired == 1)
             {
                 hireTeacherUI.SetActive(false);
-                upgradeTeacherUI.SetActive(true); // Activate upgradeTeacherUI if a teacher is hired
+                upgradeTeacherUI.SetActive(true);
             }
         }
-    }
-
-    public void ResetGameData()
-    {
-        PlayerPrefs.DeleteAll();
-        currencyInGame = 0;
-        currencyPerSecond = 0;
-        totalStudents = 0;
-        enrollStudentCost = 150000;
-        isTeacherHired = 0;
-        hireTeacherCost = 250000;
-        upgradeTeacherCost = 1000000;
-        teacherLevel = 1;
-        moneyMultiplier = 1;
-        idleGains = 0; 
-        tableAmount = 0;
-        tableCost = 100000;
-        chairAmount = 0;
-        chairCost = 75000;
-        PrefabIndex = 0;
-        ChairPrefabIndex = 0;
-        SaveData();
-        UpdateUI();
     }
 }

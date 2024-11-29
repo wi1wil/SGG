@@ -23,6 +23,26 @@ public class RandomEventsManager : MonoBehaviour
 
     Vector3 position = new Vector3(0, 2.5f, 0);
 
+    private void Start()
+    {
+        GameObject canvas = GameObject.Find("MainCanvas");
+        if (canvas != null)
+        {
+            Transform parentInEnvironmentTransform = canvas.transform.Find("ParentInEnvironment");
+            if (parentInEnvironmentTransform != null)
+            {
+                parentsInEnvironment = parentInEnvironmentTransform.gameObject;
+            }
+        }
+
+        if (parentsInEnvironment == null)
+        {
+            parentsInEnvironment = GameObject.Find("MainCanvas");
+        }
+
+        StartCoroutine(RandomEvent());
+    }
+
     private void Awake() 
     {
         if (instance == null)
@@ -39,11 +59,45 @@ public class RandomEventsManager : MonoBehaviour
         cashManagerScript = FindObjectOfType<CashManagerScript>();
         focusUpEventScript = FindObjectOfType<FocusUpScript>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
+        LoadData();
+        SceneManager.sceneLoaded += OnSceneLoaded; // Add this line
     }
 
-    private void Start()
+    private void OnDisable() 
     {
-        StartCoroutine(RandomEvent());
+        SaveData();
+        SceneManager.sceneLoaded -= OnSceneLoaded; // Add this line
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) // Add this method
+    {
+        GameObject canvas = GameObject.Find("MainCanvas");
+        if (canvas != null)
+        {
+            Transform parentInEnvironmentTransform = canvas.transform.Find("ParentInEnvironment");
+            if (parentInEnvironmentTransform != null)
+            {
+                parentsInEnvironment = parentInEnvironmentTransform.gameObject;
+            }
+        }
+
+        if (parentsInEnvironment == null)
+        {
+            parentsInEnvironment = GameObject.Find("MainCanvas");
+        }
+    }
+
+    private void LoadData()
+    {
+        CurrencyManagerScript.doubleMultiplier = PlayerPrefs.GetInt("DoubleMultiplier", 1);
+        CurrencyManagerScript.doubleCashValue = PlayerPrefs.GetInt("DoubleCashValue", 1);
+    }
+
+    private void SaveData()
+    {
+        PlayerPrefs.SetInt("DoubleMultiplier", CurrencyManagerScript.doubleMultiplier);
+        PlayerPrefs.SetInt("DoubleCashValue", CurrencyManagerScript.doubleCashValue);
+        PlayerPrefs.Save();
     }
 
     IEnumerator RandomEvent()
@@ -70,30 +124,47 @@ public class RandomEventsManager : MonoBehaviour
                 yield return new WaitUntil(() => !focusUpEventScript.isFocusUpEventActive);
             }
 
-            int eventIndex = Random.Range(0, 2); // Randomly choose between events
+            int eventIndex = Random.Range(0, 3); // Randomly choose between events
             switch (eventIndex)
             {
                 case 0:
-                    TextMeshProUGUI eventText = Instantiate(randomEventTextPrefab, position, Quaternion.identity);
-                    eventText.transform.SetParent(parentsInEnvironment.transform, false);
-                    eventText.text = "-= Money Rain =- \nEvent On Going!";
-                    audioManager.PlaySfx(audioManager.moneyRainEvent);
-                    
+                    CreateEventText("-= Money Rain =- \nEvent On Going!", audioManager.moneyRainEvent);
                     cashManagerScript.StartCashDropEvent();
-
-                    StartCoroutine(DestroyEventText(eventText.gameObject, 5f));
                     break;
                 case 1:
-                    eventText = Instantiate(randomEventTextPrefab, position, Quaternion.identity);
-                    eventText.transform.SetParent(parentsInEnvironment.transform, false);
-                    eventText.text = "-= Focus Up! =- \nEvent On Going!";
-                    audioManager.PlaySfx(audioManager.moneyRainEvent);
-
+                    CreateEventText("-= Focus Up! =- \nEvent On Going!", audioManager.moneyRainEvent);
                     StartCoroutine(StartFocusUpEvent());
-                    StartCoroutine(DestroyEventText(eventText.gameObject, 5f));
+                    break;
+                case 2:
+                    CreateEventText("-= Double Fallen Cash =- \nEvent On Going!", audioManager.moneyRainEvent);
+                    CurrencyManagerScript.doubleCashValue = 2;
+                    StartCoroutine(ResetDoubleEventMultiplier(10f)); 
+                    break;
+                case 3:
+                    CreateEventText("-= Double Multiplier! =- \nEvent On Going!", audioManager.moneyRainEvent);
+                    CurrencyManagerScript.doubleMultiplier = 2;
+                    StartCoroutine(ResetDoubleEventMultiplier(10f)); 
                     break;
             }
         }
+    }
+
+    private void CreateEventText(string text, AudioClip audioClip)
+    {
+        var go = Instantiate(randomEventTextPrefab, position, Quaternion.identity, parentsInEnvironment.transform);
+        go.GetComponent<TextMeshProUGUI>().text = text;
+        audioManager.PlaySfx(audioClip);
+
+        StartCoroutine(DestroyEventText(go.gameObject, 5f));
+    }
+
+    private IEnumerator ResetDoubleEventMultiplier(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        CurrencyManagerScript.doubleCashValue = 1;
+        CurrencyManagerScript.doubleMultiplier = 1;
+        CreateEventText("-= Event Ended! =-", audioManager.moneyRainEvent);
+        SaveData();
     }
 
     private IEnumerator StartFocusUpEvent()
@@ -102,9 +173,9 @@ public class RandomEventsManager : MonoBehaviour
         yield return new WaitUntil(() => !focusUpEventScript.isFocusUpEventActive);
     }
 
-    private IEnumerator DestroyEventText(GameObject eventText, float duration)
+    private IEnumerator DestroyEventText(GameObject eventTextParent, float duration)
     {
         yield return new WaitForSeconds(duration);
-        Destroy(eventText);
+        Destroy(eventTextParent);
     }
 }

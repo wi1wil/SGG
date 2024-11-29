@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Audio
   - Currency
+  - ParentInEnvironment
+  - RandomEventText
   layers:
   - Default
   - TransparentFX
