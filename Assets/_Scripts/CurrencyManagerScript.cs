@@ -161,7 +161,7 @@ public class CurrencyManagerScript : MonoBehaviour
         {
             audioManager.PlaySfx(audioManager.yesButton);
             currencyInGame -= hireTeacherCost;
-            moneyMultiplier += 1;
+            moneyMultiplier += 0.25;
             isTeacherHired = 1;
             hireTeacherUI.SetActive(false);
             upgradeTeacherUI.SetActive(true);
@@ -187,10 +187,10 @@ public class CurrencyManagerScript : MonoBehaviour
             audioManager.PlaySfx(audioManager.yesButton);
             totalStudents++;
             currencyInGame -= enrollStudentCost;
-            enrollStudentCost *= 2;
+            enrollStudentCost *= 1.5;
             
             // Update idleGains based on totalStudents
-            idleGains = totalStudents * 10000;
+            idleGains = totalStudents * 2500;
 
             // Save currency to PlayerPrefs
             SaveData();
@@ -212,8 +212,8 @@ public class CurrencyManagerScript : MonoBehaviour
         {
             audioManager.PlaySfx(audioManager.yesButton);
             currencyInGame -= upgradeTeacherCost;
-            moneyMultiplier *= 2;
-            upgradeTeacherCost *= 2;
+            moneyMultiplier += 0.25;
+            upgradeTeacherCost *= 1.5;
             teacherLevel++;
 
             // Save currency to PlayerPrefs
@@ -233,8 +233,8 @@ public class CurrencyManagerScript : MonoBehaviour
     public void UpdateCurrencyPerSecond() 
     {
         currencyPerSecond = (moneyMultiplier * doubleMultiplier) * idleGains;
-        currencyPerSecond += idleGains * (tableAmount * 0.5);
-        currencyPerSecond += idleGains * (chairAmount * 0.3); 
+        moneyMultiplier += (tableAmount * 0.1);
+        moneyMultiplier += (chairAmount * 0.05); 
         SaveData(); // Save the updated currencyPerSecond
     }
 

@@ -11,10 +11,8 @@ public class RandomEventsManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI randomEventTextPrefab;
     [SerializeField] private GameObject parentsInEnvironment;
 
-    [Header("Random Event Settings")]
-    [SerializeField] private float secondsBetweenEvents;
-
     [Header("Countdown Timer")]
+    [SerializeField] private TextMeshProUGUI countdownText;
     public float countdownTimer;
 
     CashManagerScript cashManagerScript;
@@ -22,26 +20,6 @@ public class RandomEventsManager : MonoBehaviour
     AudioManagerScript audioManager;
 
     Vector3 position = new Vector3(0, 2.5f, 0);
-
-    private void Start()
-    {
-        GameObject canvas = GameObject.Find("MainCanvas");
-        if (canvas != null)
-        {
-            Transform parentInEnvironmentTransform = canvas.transform.Find("ParentInEnvironment");
-            if (parentInEnvironmentTransform != null)
-            {
-                parentsInEnvironment = parentInEnvironmentTransform.gameObject;
-            }
-        }
-
-        if (parentsInEnvironment == null)
-        {
-            parentsInEnvironment = GameObject.Find("MainCanvas");
-        }
-
-        StartCoroutine(RandomEvent());
-    }
 
     private void Awake() 
     {
@@ -59,25 +37,40 @@ public class RandomEventsManager : MonoBehaviour
         cashManagerScript = FindObjectOfType<CashManagerScript>();
         focusUpEventScript = FindObjectOfType<FocusUpScript>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
+        
         LoadData();
-        SceneManager.sceneLoaded += OnSceneLoaded; // Add this line
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable() 
     {
         SaveData();
-        SceneManager.sceneLoaded -= OnSceneLoaded; // Add this line
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) // Add this method
+    private void Start()
+    {
+        FindParentsInEnvironment();
+        FindCountdownText();
+        StartCoroutine(RandomEvent());
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        FindParentsInEnvironment();
+        FindCountdownText();
+    }
+
+    private void FindParentsInEnvironment()
     {
         GameObject canvas = GameObject.Find("MainCanvas");
         if (canvas != null)
         {
-            Transform parentInEnvironmentTransform = canvas.transform.Find("ParentInEnvironment");
-            if (parentInEnvironmentTransform != null)
+            Transform parentInEnvironment = canvas.transform.Find("Environment");
+            if (parentInEnvironment != null)
             {
-                parentsInEnvironment = parentInEnvironmentTransform.gameObject;
+                parentsInEnvironment = parentInEnvironment.gameObject;
             }
         }
 
@@ -85,6 +78,11 @@ public class RandomEventsManager : MonoBehaviour
         {
             parentsInEnvironment = GameObject.Find("MainCanvas");
         }
+    }
+
+    private void FindCountdownText()
+    {
+        countdownText = GameObject.FindGameObjectWithTag("CountdownText")?.GetComponent<TextMeshProUGUI>();
     }
 
     private void LoadData()
@@ -104,12 +102,18 @@ public class RandomEventsManager : MonoBehaviour
     {
         while (true)
         {
-            // Randomize the timer for the next event
-            countdownTimer = Random.Range(1f * secondsBetweenEvents, 5f * secondsBetweenEvents);
+            countdownTimer = 150;
 
-            // Update the countdown timer in real-time
             while (countdownTimer > 0)
             {
+                float minutes = Mathf.Floor(countdownTimer / 60);
+                float seconds = Mathf.RoundToInt(countdownTimer % 60);
+
+                if (countdownText != null)
+                {
+                    countdownText.text = "Next Event in: " + string.Format("{0:00}:{1:00}", minutes, seconds);
+                }
+
                 if (!focusUpEventScript.isFocusUpEventActive)
                 {
                     countdownTimer -= Time.deltaTime;
@@ -138,12 +142,12 @@ public class RandomEventsManager : MonoBehaviour
                 case 2:
                     CreateEventText("-= Double Fallen Cash =- \nEvent On Going!", audioManager.moneyRainEvent);
                     CurrencyManagerScript.doubleCashValue = 2;
-                    StartCoroutine(ResetDoubleEventMultiplier(10f)); 
+                    StartCoroutine(ResetDoubleEventMultiplier(30f));
                     break;
                 case 3:
                     CreateEventText("-= Double Multiplier! =- \nEvent On Going!", audioManager.moneyRainEvent);
                     CurrencyManagerScript.doubleMultiplier = 2;
-                    StartCoroutine(ResetDoubleEventMultiplier(10f)); 
+                    StartCoroutine(ResetDoubleEventMultiplier(30f));
                     break;
             }
         }
@@ -151,11 +155,11 @@ public class RandomEventsManager : MonoBehaviour
 
     private void CreateEventText(string text, AudioClip audioClip)
     {
-        var go = Instantiate(randomEventTextPrefab, position, Quaternion.identity, parentsInEnvironment.transform);
-        go.GetComponent<TextMeshProUGUI>().text = text;
+        var popUp = Instantiate(randomEventTextPrefab, position, Quaternion.identity, parentsInEnvironment.transform);
+        popUp.GetComponent<TextMeshProUGUI>().text = text;
         audioManager.PlaySfx(audioClip);
 
-        StartCoroutine(DestroyEventText(go.gameObject, 5f));
+        StartCoroutine(DestroyEventText(popUp.gameObject, 5f));
     }
 
     private IEnumerator ResetDoubleEventMultiplier(float duration)

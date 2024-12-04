@@ -45,7 +45,6 @@ public class CashManagerScript : MonoBehaviour
         // Activate the cash drop event
         isCashDropEventActive = true;
 
-        // Call spawnCash with a spawn interval of 0.1 for 3 seconds
         yield return StartCoroutine(spawnCash(0.1f, 3f));
 
         // Deactivate the cash drop event

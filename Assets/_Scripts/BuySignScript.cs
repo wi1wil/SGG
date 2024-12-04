@@ -66,6 +66,8 @@ public class BuySignScript : MonoBehaviour
 
             currencyScript.currencyPerSecText.gameObject.SetActive(true);
             currencyScript.moneyMultiplierText.gameObject.SetActive(true);
+            currencyScript.hireTeacherUI.SetActive(true);
+            currencyScript.enrollStudentsUI.SetActive(true);
 
             audioManager.PlaySfx(audioManager.buildingSFX);
 
@@ -107,11 +109,11 @@ public class BuySignScript : MonoBehaviour
             currencyScript.currencyPerSecText.gameObject.SetActive(true);
             currencyScript.moneyMultiplierText.gameObject.SetActive(true);
 
-            if (SceneManager.GetActiveScene().name == "UniversityScene")
-            {
+            // if (SceneManager.GetActiveScene().name == "UniversityScene")
+            // {
                 currencyScript.hireTeacherUI.SetActive(true);
                 currencyScript.enrollStudentsUI.SetActive(true);
-            }
+            // }
 
             // Deactivate the sign and activate the building
             buySignPrefab.SetActive(false);

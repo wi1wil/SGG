@@ -87,8 +87,6 @@ public class BuyTableScript : MonoBehaviour
 
             currencyManager.currencyInGame -= currencyManager.tableCost;
 
-            currencyManager.tableCost = currencyManager.tableCost * 1.5;
-
             CurrencyManagerScript.tableAmount += 1;
 
             if (CurrencyManagerScript.PrefabIndex < triggerPrefabs.Length)
@@ -116,9 +114,9 @@ public class BuyTableScript : MonoBehaviour
         else
         {
             audioManager.PlaySfx(audioManager.noButton);
-            var go = Instantiate(popUpText, transform.position, Quaternion.identity);
-            go.transform.SetParent(parentInEnvironment.transform, false);
-            go.GetComponent<TextMeshProUGUI>().text = "Not enough money!";
+            var popUp = Instantiate(popUpText, transform.position, Quaternion.identity);
+            popUp.transform.SetParent(parentInEnvironment.transform, false);
+            popUp.GetComponent<TextMeshProUGUI>().text = "Not enough money!";
         }
 
         confirmationPanel.SetActive(false);

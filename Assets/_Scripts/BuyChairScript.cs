@@ -87,8 +87,6 @@ public class BuyChairScript : MonoBehaviour
 
             currencyManager.currencyInGame -= currencyManager.chairCost;
 
-            currencyManager.chairCost = currencyManager.chairCost * 1.5;
-
             CurrencyManagerScript.chairAmount += 1;
 
             if (CurrencyManagerScript.ChairPrefabIndex < triggerPrefabs.Length)
@@ -116,9 +114,9 @@ public class BuyChairScript : MonoBehaviour
         else
         {
             audioManager.PlaySfx(audioManager.noButton);
-            var go = Instantiate(popUpText, transform.position, Quaternion.identity);
-            go.transform.SetParent(parentInEnvironment.transform, false);
-            go.GetComponent<TextMeshProUGUI>().text = "Not enough money!";
+            var popUp = Instantiate(popUpText, transform.position, Quaternion.identity);
+            popUp.transform.SetParent(parentInEnvironment.transform, false);
+            popUp.GetComponent<TextMeshProUGUI>().text = "Not enough money!";
         }
 
         confirmationPanel.SetActive(false);
