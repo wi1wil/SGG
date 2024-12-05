@@ -8,6 +8,9 @@ public class InputHandlerScript : MonoBehaviour
     private PauseMenuScript pauseMenuScript;
     private Camera _mainCamera;
 
+    BuyChairScript buyChairScript;
+    BuyTableScript buyTableScript;  
+
     public GameObject confirmationPanel;
     public GameObject focusUpUI;
 
@@ -15,6 +18,8 @@ public class InputHandlerScript : MonoBehaviour
     {
         _mainCamera = Camera.main;
         pauseMenuScript = FindObjectOfType<PauseMenuScript>();
+        buyChairScript = FindObjectOfType<BuyChairScript>();
+        buyTableScript = FindObjectOfType<BuyTableScript>();
     }
 
     public void OnClick(InputAction.CallbackContext context)
@@ -62,17 +67,15 @@ public class InputHandlerScript : MonoBehaviour
             return;
         }
 
-        BuyTableTrigger buyTableTrigger = rayHit.collider.gameObject.GetComponent<BuyTableTrigger>();
-        if (buyTableTrigger != null)
-        {
-            buyTableTrigger.OnBuyTrigger();
-            return;
-        }
 
-        BuyChairTrigger buyChairTrigger = rayHit.collider.gameObject.GetComponent<BuyChairTrigger>();
-        if (buyChairTrigger != null)
+        if (rayHit.collider.gameObject.name == "BuyTable")
         {
-            buyChairTrigger.OnBuyTrigger();
+            buyTableScript.ShowConfirmationPanel();
+            return;
+        } 
+        else if (rayHit.collider.gameObject.name == "BuyChair")
+        {
+            buyChairScript.ShowConfirmationPanel();
             return;
         }
     }

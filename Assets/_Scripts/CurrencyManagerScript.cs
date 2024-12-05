@@ -233,8 +233,6 @@ public class CurrencyManagerScript : MonoBehaviour
     public void UpdateCurrencyPerSecond() 
     {
         currencyPerSecond = (moneyMultiplier * doubleMultiplier) * idleGains;
-        moneyMultiplier += (tableAmount * 0.1);
-        moneyMultiplier += (chairAmount * 0.05); 
         SaveData(); // Save the updated currencyPerSecond
     }
 

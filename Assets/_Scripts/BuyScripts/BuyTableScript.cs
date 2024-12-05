@@ -28,7 +28,6 @@ public class BuyTableScript : MonoBehaviour
 
     private void Start() {
         currencyManager = FindObjectOfType<CurrencyManagerScript>();
-        currencyManager.UpdateCurrencyPerSecond();
         LoadData();
     }
 
@@ -88,6 +87,7 @@ public class BuyTableScript : MonoBehaviour
             currencyManager.currencyInGame -= currencyManager.tableCost;
 
             CurrencyManagerScript.tableAmount += 1;
+            currencyManager.moneyMultiplier += 0.1; 
 
             if (CurrencyManagerScript.PrefabIndex < triggerPrefabs.Length)
             {
@@ -110,13 +110,18 @@ public class BuyTableScript : MonoBehaviour
             currencyManager.SaveData();
             currencyManager.UpdateUI();
             currencyManager.UpdateCurrencyPerSecond();
+
+            SaveData();
         }
         else
         {
             audioManager.PlaySfx(audioManager.noButton);
-            var popUp = Instantiate(popUpText, transform.position, Quaternion.identity);
+            var popUp = Instantiate(popUpText, parentInEnvironment.transform.position, Quaternion.identity);
             popUp.transform.SetParent(parentInEnvironment.transform, false);
-            popUp.GetComponent<TextMeshProUGUI>().text = "Not enough money!";
+            var textComponent = popUp.GetComponent<TextMeshProUGUI>();
+            textComponent.text = "Not enough money!";
+
+            SaveData();
         }
 
         confirmationPanel.SetActive(false);
@@ -126,5 +131,11 @@ public class BuyTableScript : MonoBehaviour
     {
         CurrencyManagerScript.PrefabIndex = PlayerPrefs.GetInt("PrefabIndex", 0);
         CurrencyManagerScript.tableAmount = PlayerPrefs.GetInt("TableAmount", 0);
+    }
+
+    private void SaveData() {
+        PlayerPrefs.SetInt("PrefabIndex", CurrencyManagerScript.PrefabIndex);
+        PlayerPrefs.SetInt("TableAmount", CurrencyManagerScript.tableAmount);
+        PlayerPrefs.Save();
     }
 }

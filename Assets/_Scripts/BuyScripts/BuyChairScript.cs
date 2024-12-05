@@ -28,7 +28,6 @@ public class BuyChairScript : MonoBehaviour
 
     private void Start() {
         currencyManager = FindObjectOfType<CurrencyManagerScript>();
-        currencyManager.UpdateCurrencyPerSecond();
         LoadData();
     }
 
@@ -88,6 +87,7 @@ public class BuyChairScript : MonoBehaviour
             currencyManager.currencyInGame -= currencyManager.chairCost;
 
             CurrencyManagerScript.chairAmount += 1;
+            currencyManager.moneyMultiplier += 0.05; 
 
             if (CurrencyManagerScript.ChairPrefabIndex < triggerPrefabs.Length)
             {
@@ -110,13 +110,18 @@ public class BuyChairScript : MonoBehaviour
             currencyManager.SaveData();
             currencyManager.UpdateCurrencyPerSecond(); 
             currencyManager.UpdateUI();
+
+            SaveData();
         }
         else
         {
             audioManager.PlaySfx(audioManager.noButton);
-            var popUp = Instantiate(popUpText, transform.position, Quaternion.identity);
+            var popUp = Instantiate(popUpText, parentInEnvironment.transform.position, Quaternion.identity);
             popUp.transform.SetParent(parentInEnvironment.transform, false);
-            popUp.GetComponent<TextMeshProUGUI>().text = "Not enough money!";
+            var textComponent = popUp.GetComponent<TextMeshProUGUI>();
+            textComponent.text = "Not enough money!";
+
+            SaveData();
         }
 
         confirmationPanel.SetActive(false);
@@ -127,4 +132,10 @@ public class BuyChairScript : MonoBehaviour
         CurrencyManagerScript.ChairPrefabIndex = PlayerPrefs.GetInt("ChairPrefabIndex", 0);
         CurrencyManagerScript.chairAmount = PlayerPrefs.GetInt("ChairAmount", 0);
     }
+
+    private void SaveData() {
+        PlayerPrefs.SetInt("ChairPrefabIndex", CurrencyManagerScript.ChairPrefabIndex);
+        PlayerPrefs.SetInt("ChairAmount", CurrencyManagerScript.chairAmount);
+        PlayerPrefs.Save();
+    }   
 }

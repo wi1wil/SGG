@@ -8,18 +8,36 @@ using UnityEngine.UI;
 
 public class VolumeSettingsScript : MonoBehaviour
 {
+    AudioManagerScript audioManager;
+
+    [Header("UI Elements")]
+    [SerializeField] private GameObject optionsMenuUI;
+    [SerializeField] private GameObject mainMenuUI;
+
+    [Header("Audio Mixer")]
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
+    [SerializeField] private Button backButton;
 
     private void Start() 
     {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
         if(PlayerPrefs.HasKey("MusicVolume") && PlayerPrefs.HasKey("SFXVolume")) {
             LoadVolume();
         } else {
             SetMusicVolume();
             SetSFXVolume();
         }
+
+        backButton.onClick.AddListener(() => {
+            PlayerPrefs.Save();
+
+            audioManager.PlaySfx(audioManager.noButton);
+            // Load the main menu scene
+            mainMenuUI.SetActive(true);
+            optionsMenuUI.SetActive(false);
+        });
     }
 
     public void SetMusicVolume() 
