@@ -49,11 +49,23 @@ public class CurrencyManagerScript : MonoBehaviour
     public double tableCost;
     public double chairCost;
 
-    public static int PrefabIndex = 0;
+    public double upgradeTableCost;
+    public double upgradeChairCost;
+
+    public static int TablePrefabIndex = 0;
     public static int ChairPrefabIndex = 0;
+
+    public static int UpgradeTableIndex = 0;
+    public static int UpgradeChairIndex = 0;
 
     public static int tableAmount = 0;
     public static int chairAmount = 0;
+
+    public static int Lv1Table = 0;
+    public static int Lv2Table = 0;
+
+    public static int Lv1Chair = 0;
+    public static int Lv2Chair = 0;
 
     private void Awake() {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
@@ -90,10 +102,18 @@ public class CurrencyManagerScript : MonoBehaviour
         teacherLevel = PlayerPrefs.GetInt("TeacherLevel", 1);
         moneyMultiplier = PlayerPrefs.GetFloat("MoneyMultiplier", 1);
         idleGains = totalStudents * 10000; 
-        PrefabIndex = PlayerPrefs.GetInt("PrefabIndex", 0);
+        TablePrefabIndex = PlayerPrefs.GetInt("PrefabIndex", 0);
         ChairPrefabIndex = PlayerPrefs.GetInt("ChairPrefabIndex", 0);
         doubleMultiplier = PlayerPrefs.GetInt("DoubleMultiplier", 1);
         doubleCashValue = PlayerPrefs.GetInt("DoubleCashValue", 1);
+        UpgradeTableIndex = PlayerPrefs.GetInt("UpgradeTableIndex", 0);
+        UpgradeChairIndex = PlayerPrefs.GetInt("UpgradeChairIndex", 0);
+        upgradeTableCost = PlayerPrefs.GetFloat("UpgradeTableCost", 250000);
+        upgradeChairCost = PlayerPrefs.GetFloat("UpgradeChairCost", 200000);
+        Lv1Table = PlayerPrefs.GetInt("Lv1Table", 0);
+        Lv2Table = PlayerPrefs.GetInt("Lv2Table", 0);
+        Lv1Chair = PlayerPrefs.GetInt("Lv1Chair", 0);
+        Lv2Chair = PlayerPrefs.GetInt("Lv2Chair", 0);
     }
 
     public void SaveData()
@@ -112,10 +132,18 @@ public class CurrencyManagerScript : MonoBehaviour
         PlayerPrefs.SetInt("TeacherLevel", teacherLevel);
         PlayerPrefs.SetFloat("MoneyMultiplier", (float)moneyMultiplier);
         PlayerPrefs.SetFloat("IdleGains", (float)idleGains);
-        PlayerPrefs.SetInt("PrefabIndex", PrefabIndex);
+        PlayerPrefs.SetInt("PrefabIndex", TablePrefabIndex);
         PlayerPrefs.SetInt("ChairPrefabIndex", ChairPrefabIndex);
         PlayerPrefs.SetInt("DoubleMultiplier", doubleMultiplier);
         PlayerPrefs.SetInt("DoubleCashValue", doubleCashValue);
+        PlayerPrefs.SetInt("UpgradeTableIndex", UpgradeTableIndex);
+        PlayerPrefs.SetInt("UpgradeChairIndex", UpgradeChairIndex);
+        PlayerPrefs.SetFloat("UpgradeTableCost", (float)upgradeTableCost);
+        PlayerPrefs.SetFloat("UpgradeChairCost", (float)upgradeChairCost);
+        PlayerPrefs.SetInt("Lv1Table", Lv1Table);
+        PlayerPrefs.SetInt("Lv2Table", Lv2Table);
+        PlayerPrefs.SetInt("Lv1Chair", Lv1Chair);
+        PlayerPrefs.SetInt("Lv2Chair", Lv2Chair);
         PlayerPrefs.Save();
     }
 

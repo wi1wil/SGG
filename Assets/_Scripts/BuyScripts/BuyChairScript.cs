@@ -26,12 +26,14 @@ public class BuyChairScript : MonoBehaviour
     [SerializeField] private GameObject popUpText;
     [SerializeField] private GameObject parentInEnvironment;
 
-    private void Start() {
+    private void Start() 
+    {
         currencyManager = FindObjectOfType<CurrencyManagerScript>();
         LoadData();
     }
 
-    private void Awake() {
+    private void Awake() 
+    {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
 
         yesButton.onClick.AddListener(ConfirmPurchase);
@@ -42,28 +44,33 @@ public class BuyChairScript : MonoBehaviour
         });
     }
 
-    private void OnEnable() {
+    private void OnEnable() 
+    {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void OnDisable() {
+    private void OnDisable() 
+    {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) 
+    {
         if (scene.name == "UniversityScene") {
             LoadChairs();
         }
     }
 
     private void LoadChairs() {
-        for (int i = 0; i < CurrencyManagerScript.ChairPrefabIndex; i++) {
+        for (int i = 0; i < CurrencyManagerScript.ChairPrefabIndex; i++) 
+        {
             if (i < chairPrefabs.Length) {
                 chairPrefabs[i].SetActive(true);
             }
         }
 
-        if (CurrencyManagerScript.ChairPrefabIndex < triggerPrefabs.Length) {
+        if (CurrencyManagerScript.ChairPrefabIndex < triggerPrefabs.Length) 
+        {
             triggerPrefabs[CurrencyManagerScript.ChairPrefabIndex].SetActive(true);
             
             if(CurrencyManagerScript.ChairPrefabIndex > 0) {
@@ -125,6 +132,11 @@ public class BuyChairScript : MonoBehaviour
         }
 
         confirmationPanel.SetActive(false);
+    }
+
+    public void DisablePrefab(int index)
+    {   
+        chairPrefabs[index].SetActive(false);
     }
 
     private void LoadData()

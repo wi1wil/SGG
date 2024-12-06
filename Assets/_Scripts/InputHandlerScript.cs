@@ -10,6 +10,9 @@ public class InputHandlerScript : MonoBehaviour
 
     BuyChairScript buyChairScript;
     BuyTableScript buyTableScript;  
+    
+    UpgradeChairScript upgradeChairScript;  
+    UpgradeTableScript upgradeTableScript;
 
     public GameObject confirmationPanel;
     public GameObject focusUpUI;
@@ -17,7 +20,12 @@ public class InputHandlerScript : MonoBehaviour
     private void Awake()
     {
         _mainCamera = Camera.main;
+
+        upgradeChairScript = FindObjectOfType<UpgradeChairScript>();
+        upgradeTableScript = FindObjectOfType<UpgradeTableScript>();
+
         pauseMenuScript = FindObjectOfType<PauseMenuScript>();
+
         buyChairScript = FindObjectOfType<BuyChairScript>();
         buyTableScript = FindObjectOfType<BuyTableScript>();
     }
@@ -74,6 +82,17 @@ public class InputHandlerScript : MonoBehaviour
             return;
         } 
         else if (rayHit.collider.gameObject.name == "BuyChair")
+        {
+            buyChairScript.ShowConfirmationPanel();
+            return;
+        }
+
+        if(rayHit.collider.gameObject.tag == "UTable")
+        {
+            upgradeTableScript.ShowConfirmationPanel();
+            return;
+        }
+        else if(rayHit.collider.gameObject.tag == "UChair")
         {
             buyChairScript.ShowConfirmationPanel();
             return;

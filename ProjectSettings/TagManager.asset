@@ -8,6 +8,8 @@ TagManager:
   - Currency
   - ParentInEnvironment
   - CountdownText
+  - UTable
+  - UChair
   layers:
   - Default
   - TransparentFX
