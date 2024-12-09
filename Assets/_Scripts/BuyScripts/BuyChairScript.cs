@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class BuyChairScript : MonoBehaviour
 {
+    UpgradeChairScript upgradeChairScript;
     CurrencyManagerScript currencyManager;
     AudioManagerScript audioManager;
 
@@ -26,15 +27,13 @@ public class BuyChairScript : MonoBehaviour
     [SerializeField] private GameObject popUpText;
     [SerializeField] private GameObject parentInEnvironment;
 
-    private void Start() 
-    {
-        currencyManager = FindObjectOfType<CurrencyManagerScript>();
-        LoadData();
-    }
-
     private void Awake() 
     {
+        upgradeChairScript = FindObjectOfType<UpgradeChairScript>();
+        currencyManager = FindObjectOfType<CurrencyManagerScript>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
+    
+        LoadData();
 
         yesButton.onClick.AddListener(ConfirmPurchase);
         noButton.onClick.AddListener(() => 
@@ -42,21 +41,9 @@ public class BuyChairScript : MonoBehaviour
             confirmationPanel.SetActive(false);
             audioManager.PlaySfx(audioManager.noButton);
         });
-    }
 
-    private void OnEnable() 
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable() 
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) 
-    {
-        if (scene.name == "UniversityScene") {
+        if (SceneManager.GetActiveScene().name == "UniversityScene") 
+        {
             LoadChairs();
         }
     }
@@ -77,12 +64,21 @@ public class BuyChairScript : MonoBehaviour
                 triggerPrefabs[0].SetActive(false);
             }
         }
+
+        if (CurrencyManagerScript.ChairPrefabIndex == 0 && CurrencyManagerScript.ChairPrefabIndex < triggerPrefabs.Length)
+        {
+            triggerPrefabs[0].SetActive(true);
+        }
+        else
+        {
+            triggerPrefabs[0].SetActive(false);
+        }
     }
 
     public void ShowConfirmationPanel()
     {
         confirmationPanel.SetActive(true);
-        confirmationText.text = "-= Buy Chair =-\n\n" + "Cost: Rp. " + currencyManager.chairCost.ToString("N0") + "\n\n";
+        confirmationText.text = "-= Buy Chair? =-\n\n" + "Cost: Rp. " + currencyManager.chairCost.ToString("N0") + "\n\n";
     }
 
     private void ConfirmPurchase()
@@ -113,10 +109,19 @@ public class BuyChairScript : MonoBehaviour
             }
 
             PlayerPrefs.SetInt("ChairPrefabIndex", CurrencyManagerScript.ChairPrefabIndex); 
+            
+            if (CurrencyManagerScript.TablePrefabIndex == 14)
+            {
+                upgradeChairScript.UnlockUpgrades();
+                upgradeChairScript.upgradeIndex += 1;
+
+                SaveData();
+                upgradeChairScript.SaveData();
+            }
 
             currencyManager.SaveData();
-            currencyManager.UpdateCurrencyPerSecond(); 
             currencyManager.UpdateUI();
+            currencyManager.UpdateCurrencyPerSecond();
 
             SaveData();
         }
@@ -143,6 +148,7 @@ public class BuyChairScript : MonoBehaviour
     {
         CurrencyManagerScript.ChairPrefabIndex = PlayerPrefs.GetInt("ChairPrefabIndex", 0);
         CurrencyManagerScript.chairAmount = PlayerPrefs.GetInt("ChairAmount", 0);
+        upgradeChairScript.upgradeIndex = PlayerPrefs.GetInt("ChairLevelIndex", 0);
     }
 
     private void SaveData() {

@@ -87,12 +87,14 @@ public class InputHandlerScript : MonoBehaviour
             return;
         }
 
-        if(rayHit.collider.gameObject.tag == "UTable")
+
+
+        if(rayHit.collider.gameObject.tag == "UTable" && CurrencyManagerScript.TablePrefabIndex == 14)
         {
             upgradeTableScript.ShowConfirmationPanel();
             return;
         }
-        else if(rayHit.collider.gameObject.tag == "UChair")
+        else if(rayHit.collider.gameObject.tag == "UChair" && CurrencyManagerScript.ChairPrefabIndex == 14)
         {
             buyChairScript.ShowConfirmationPanel();
             return;

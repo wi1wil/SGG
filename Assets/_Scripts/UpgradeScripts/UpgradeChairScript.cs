@@ -14,11 +14,11 @@ public class UpgradeChairScript : MonoBehaviour
     [Header("Triggers")]
     [SerializeField] private GameObject[] triggerPrefabs;
 
-    [Header("Lvl 1 Chair Prefabs")]
-    [SerializeField] private GameObject[] Lvl1ChairPrefabs;
-
     [Header("Lvl 2 Chair Prefabs")]
     [SerializeField] private GameObject[] Lvl2ChairPrefabs;
+
+    [Header("Lvl 3 Chair Prefabs")]
+    [SerializeField] private GameObject[] Lvl3ChairPrefabs;
 
     [Header("Confirmation Panel")]
     [SerializeField] private GameObject confirmationPanel;
@@ -32,79 +32,60 @@ public class UpgradeChairScript : MonoBehaviour
 
     public int upgradeIndex = 1;
 
-    private void Update() {
-        if (CurrencyManagerScript.ChairPrefabIndex == 14) {
-            if(CurrencyManagerScript.Lv1Chair > 0) 
-            {
-                triggerPrefabs[0].SetActive(false);
-            }
-            else
-            {
-                triggerPrefabs[0].SetActive(true);
-            }
-        }
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == "UniversityScene") {
-            LoadChairs();
-        }
-    }
-
-    private void LoadChairs() {
-        switch(upgradeIndex)
-        {
-            case 1:
-                for (int i = 0; i < CurrencyManagerScript.Lv1Chair; i++) {
-                    if (i < Lvl1ChairPrefabs.Length) {
-                        Lvl1ChairPrefabs[i].SetActive(true);
-                    }
-                }
-                break;
-            case 2:
-                for (int i = 0; i < CurrencyManagerScript.Lv2Chair; i++) {
-                    if (i < Lvl2ChairPrefabs.Length) {
-                        Lvl2ChairPrefabs[i].SetActive(true);
-                    }
-                }
-                break;
-        }
-
-        if(CurrencyManagerScript.UpgradeChairIndex < triggerPrefabs.Length)
-        {
-            triggerPrefabs[CurrencyManagerScript.UpgradeChairIndex].SetActive(true);
-
-            if(CurrencyManagerScript.UpgradeChairIndex > 0) {
-                triggerPrefabs[0].SetActive(false);
-            }
-        }
-    }
-
     private void Awake()
     {
         buyChairScript = FindObjectOfType<BuyChairScript>();
         currencyManager = FindObjectOfType<CurrencyManagerScript>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
-        
 
+        LoadData();
+        
         yesButton.onClick.AddListener(ConfirmUpgrade);
         noButton.onClick.AddListener(() =>
         {
             confirmationPanel.SetActive(false);
             audioManager.PlaySfx(audioManager.noButton);
         });
-        LoadData();
+
+        if (SceneManager.GetActiveScene().name == "UniversityScene") 
+        {
+            LoadChairs();
+        }
+    }
+
+    public void UnlockUpgrades()
+    {
+        triggerPrefabs[0].SetActive(true);
+        SaveData();
+    }
+
+    private void LoadChairs() {
+        switch (upgradeIndex) {
+            case 2:
+                for(int i = 0; i < CurrencyManagerScript.Lvl2Chair; i++) {
+                    if (i < Lvl2ChairPrefabs.Length) {
+                        Lvl2ChairPrefabs[i].SetActive(true);
+                        buyChairScript.DisablePrefab(i);
+                    }
+                }
+                break;
+            case 3:
+                for(int i = 0; i < CurrencyManagerScript.Lvl3Chair; i++) {
+                    if (i < Lvl3ChairPrefabs.Length) {
+                        Lvl3ChairPrefabs[i].SetActive(true);
+                        Lvl2ChairPrefabs[i].SetActive(false);
+                        buyChairScript.DisablePrefab(i);
+                    }
+                }
+                break;
+        }
+        if (CurrencyManagerScript.UpgradeChairIndex < triggerPrefabs.Length && CurrencyManagerScript.ChairPrefabIndex == 14) {
+            triggerPrefabs[CurrencyManagerScript.UpgradeChairIndex].SetActive(true);
+
+            if (CurrencyManagerScript.UpgradeChairIndex > 0) {
+                triggerPrefabs[0].SetActive(false);
+            }
+        }
     }
 
     public void ShowConfirmationPanel()
@@ -121,19 +102,6 @@ public class UpgradeChairScript : MonoBehaviour
 
             currencyManager.currencyInGame -= currencyManager.upgradeChairCost;
 
-            CurrencyManagerScript.UpgradeChairIndex += 1;
-
-            if(CurrencyManagerScript.UpgradeChairIndex == 14)
-            {
-                for(int i = 0; i < CurrencyManagerScript.UpgradeChairIndex; i++)
-                {
-                    triggerPrefabs[i].SetActive(false);
-                }
-                CurrencyManagerScript.UpgradeChairIndex = 0;
-                currencyManager.upgradeChairCost *= 2;
-                upgradeIndex += 1;
-            }
-
             buyChairScript.DisablePrefab(CurrencyManagerScript.UpgradeChairIndex);
 
             if(CurrencyManagerScript.UpgradeChairIndex < triggerPrefabs.Length)
@@ -143,22 +111,26 @@ public class UpgradeChairScript : MonoBehaviour
 
             switch(upgradeIndex)
             {   
-                case 1:
-                    CurrencyManagerScript.Lv1Chair += 1;
-                    currencyManager.moneyMultiplier += 0.2;
-                    if(CurrencyManagerScript.UpgradeChairIndex < Lvl1ChairPrefabs.Length)
-                    {
-                        Lvl1ChairPrefabs[CurrencyManagerScript.UpgradeChairIndex].SetActive(true);
-                    }
-
-                    break;
                 case 2:
-                    CurrencyManagerScript.Lv2Chair += 1;
-                    currencyManager.moneyMultiplier += 0.3;
                     if(CurrencyManagerScript.UpgradeChairIndex < Lvl2ChairPrefabs.Length)
                     {
                         Lvl2ChairPrefabs[CurrencyManagerScript.UpgradeChairIndex].SetActive(true);
                     }
+                    CurrencyManagerScript.Lvl2Chair += 1;
+                    currencyManager.moneyMultiplier += 0.2;
+
+                    SaveData();
+                    break;
+                case 3:
+                    if(CurrencyManagerScript.UpgradeChairIndex < Lvl2ChairPrefabs.Length)
+                    {
+                        Lvl3ChairPrefabs[CurrencyManagerScript.UpgradeChairIndex].SetActive(true);
+                        Lvl2ChairPrefabs[CurrencyManagerScript.UpgradeChairIndex].SetActive(false);
+                    }
+                    CurrencyManagerScript.Lvl3Chair += 1;
+                    currencyManager.moneyMultiplier += 0.3;
+
+                    SaveData();
                     break;
             }
 
@@ -168,10 +140,23 @@ public class UpgradeChairScript : MonoBehaviour
                 triggerPrefabs[CurrencyManagerScript.UpgradeChairIndex].SetActive(true);
             }
 
+            // Reusing the Upgrade Trigger Prefabs
+            if(CurrencyManagerScript.UpgradeChairIndex == 14)
+            {
+                CurrencyManagerScript.UpgradeChairIndex = 0;
+
+                UnlockUpgrades();
+
+                currencyManager.upgradeChairCost *= 2;
+                upgradeIndex += 1;
+
+                SaveData();
+            }
+
             confirmationPanel.SetActive(false);
 
-            currencyManager.SaveData();
             SaveData();
+            currencyManager.SaveData();
             currencyManager.UpdateUI();
             currencyManager.UpdateCurrencyPerSecond();
         }
@@ -193,22 +178,24 @@ public class UpgradeChairScript : MonoBehaviour
         CurrencyManagerScript.UpgradeChairIndex = PlayerPrefs.GetInt("UpgradeChairIndex", 0);
         currencyManager.upgradeTableCost = PlayerPrefs.GetFloat("UpgradeTableCost", 0);
         currencyManager.upgradeChairCost = PlayerPrefs.GetFloat("UpgradeChairCost", 0);
-        CurrencyManagerScript.Lv1Table = PlayerPrefs.GetInt("Lv1Table", 0);
-        CurrencyManagerScript.Lv2Table = PlayerPrefs.GetInt("Lv2Table", 0);
-        CurrencyManagerScript.Lv1Chair = PlayerPrefs.GetInt("Lv1Chair", 0);
-        CurrencyManagerScript.Lv2Chair = PlayerPrefs.GetInt("Lv2Chair", 0);
+        CurrencyManagerScript.Lvl2Table = PlayerPrefs.GetInt("Lvl2Table", 0);
+        CurrencyManagerScript.Lvl3Table = PlayerPrefs.GetInt("Lvl3Table", 0);
+        CurrencyManagerScript.Lvl2Chair = PlayerPrefs.GetInt("Lvl2Chair", 0);
+        CurrencyManagerScript.Lvl3Chair = PlayerPrefs.GetInt("Lvl3Chair", 0);
+        upgradeIndex = PlayerPrefs.GetInt("ChairLevelIndex", 1);
     }
 
-    private void SaveData()
+    public void SaveData()
     {
         PlayerPrefs.SetInt("UpgradeTableIndex", CurrencyManagerScript.UpgradeTableIndex);
         PlayerPrefs.SetInt("UpgradeChairIndex", CurrencyManagerScript.UpgradeChairIndex);
         PlayerPrefs.SetFloat("UpgradeChairCost", (float)currencyManager.upgradeChairCost);
         PlayerPrefs.SetFloat("UpgradeTableCost", (float)currencyManager.upgradeTableCost);
-        PlayerPrefs.SetInt("Lv1Table", CurrencyManagerScript.Lv1Table);
-        PlayerPrefs.SetInt("Lv2Table", CurrencyManagerScript.Lv2Table);
-        PlayerPrefs.SetInt("Lv1Chair", CurrencyManagerScript.Lv1Chair);
-        PlayerPrefs.SetInt("Lv2Chair", CurrencyManagerScript.Lv2Chair);
+        PlayerPrefs.SetInt("Lvl2Table", CurrencyManagerScript.Lvl2Table);
+        PlayerPrefs.SetInt("Lvl3Table", CurrencyManagerScript.Lvl3Table);
+        PlayerPrefs.SetInt("Lvl2Chair", CurrencyManagerScript.Lvl2Chair);
+        PlayerPrefs.SetInt("Lvl3Chair", CurrencyManagerScript.Lvl3Chair);
+        PlayerPrefs.SetInt("ChairLevelIndex", upgradeIndex);
         PlayerPrefs.Save();
     }
 }

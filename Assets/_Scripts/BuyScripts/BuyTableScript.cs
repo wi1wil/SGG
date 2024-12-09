@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 
 public class BuyTableScript : MonoBehaviour
 {
+    UpgradeTableScript upgradeTableScript;
     CurrencyManagerScript currencyManager;
     AudioManagerScript audioManager;
 
@@ -27,15 +28,14 @@ public class BuyTableScript : MonoBehaviour
     [SerializeField] private GameObject popUpText;
     [SerializeField] private GameObject parentInEnvironment;
 
-    private void Start() 
-    {
-        currencyManager = FindObjectOfType<CurrencyManagerScript>();
-        LoadData();
-    }
-
     private void Awake() 
     {
+        upgradeTableScript = FindObjectOfType<UpgradeTableScript>();
+        currencyManager = FindObjectOfType<CurrencyManagerScript>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
+
+        LoadData();
+
 
         yesButton.onClick.AddListener(ConfirmPurchase);
         noButton.onClick.AddListener(() => 
@@ -43,42 +43,42 @@ public class BuyTableScript : MonoBehaviour
             confirmationPanel.SetActive(false);
             audioManager.PlaySfx(audioManager.noButton);
         });
-    }
 
-    private void OnEnable() 
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable() 
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) 
-    {
-        if (scene.name == "UniversityScene") {
+        if (SceneManager.GetActiveScene().name == "UniversityScene") 
+        {
             LoadTables();
         }
     }
 
     private void LoadTables() 
     {
-        for (int i = 0; i < CurrencyManagerScript.TablePrefabIndex; i++) {
-            if (i < tablePrefabs.Length) {
+        for (int i = 0; i < CurrencyManagerScript.TablePrefabIndex; i++)
+        {
+            if (i < tablePrefabs.Length)
+            {
                 tablePrefabs[i].SetActive(true);
             }
         }
 
-        if (CurrencyManagerScript.TablePrefabIndex < triggerPrefabs.Length) {
+        if (CurrencyManagerScript.TablePrefabIndex < triggerPrefabs.Length)
+        {
             triggerPrefabs[CurrencyManagerScript.TablePrefabIndex].SetActive(true);
-            
-            if(CurrencyManagerScript.TablePrefabIndex > 0) {
+
+            if (CurrencyManagerScript.TablePrefabIndex > 0)
+            {
                 triggerPrefabs[0].SetActive(false);
             }
         }
-    }
 
+        if (CurrencyManagerScript.TablePrefabIndex == 0 && CurrencyManagerScript.TablePrefabIndex < triggerPrefabs.Length)
+        {
+            triggerPrefabs[0].SetActive(true);
+        }
+        else
+        {
+            triggerPrefabs[0].SetActive(false);
+        }
+    }
     public void ShowConfirmationPanel()
     {
         confirmationPanel.SetActive(true);
@@ -118,6 +118,15 @@ public class BuyTableScript : MonoBehaviour
             currencyManager.UpdateUI();
             currencyManager.UpdateCurrencyPerSecond();
 
+            if (CurrencyManagerScript.TablePrefabIndex == 14)
+            {
+                upgradeTableScript.UnlockUpgrades();
+                upgradeTableScript.upgradeIndex += 1;
+
+                SaveData();
+                upgradeTableScript.SaveData();
+            }
+
             SaveData();
         }
         else
@@ -143,6 +152,7 @@ public class BuyTableScript : MonoBehaviour
     {
         CurrencyManagerScript.TablePrefabIndex = PlayerPrefs.GetInt("PrefabIndex", 0);
         CurrencyManagerScript.tableAmount = PlayerPrefs.GetInt("TableAmount", 0);
+        upgradeTableScript.upgradeIndex = PlayerPrefs.GetInt("TableLevelIndex", 1);
     }
 
     private void SaveData() {

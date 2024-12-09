@@ -61,11 +61,11 @@ public class CurrencyManagerScript : MonoBehaviour
     public static int tableAmount = 0;
     public static int chairAmount = 0;
 
-    public static int Lv1Table = 0;
-    public static int Lv2Table = 0;
+    public static int Lvl2Table = 0;
+    public static int Lvl3Table = 0;
 
-    public static int Lv1Chair = 0;
-    public static int Lv2Chair = 0;
+    public static int Lvl2Chair = 0;
+    public static int Lvl3Chair = 0;
 
     private void Awake() {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
@@ -110,10 +110,10 @@ public class CurrencyManagerScript : MonoBehaviour
         UpgradeChairIndex = PlayerPrefs.GetInt("UpgradeChairIndex", 0);
         upgradeTableCost = PlayerPrefs.GetFloat("UpgradeTableCost", 250000);
         upgradeChairCost = PlayerPrefs.GetFloat("UpgradeChairCost", 200000);
-        Lv1Table = PlayerPrefs.GetInt("Lv1Table", 0);
-        Lv2Table = PlayerPrefs.GetInt("Lv2Table", 0);
-        Lv1Chair = PlayerPrefs.GetInt("Lv1Chair", 0);
-        Lv2Chair = PlayerPrefs.GetInt("Lv2Chair", 0);
+        Lvl2Table = PlayerPrefs.GetInt("Lvl2Table", 0);
+        Lvl3Table = PlayerPrefs.GetInt("Lvl3Table", 0);
+        Lvl2Chair = PlayerPrefs.GetInt("Lvl2Chair", 0);
+        Lvl3Chair = PlayerPrefs.GetInt("Lvl3Chair", 0);
     }
 
     public void SaveData()
@@ -140,10 +140,10 @@ public class CurrencyManagerScript : MonoBehaviour
         PlayerPrefs.SetInt("UpgradeChairIndex", UpgradeChairIndex);
         PlayerPrefs.SetFloat("UpgradeTableCost", (float)upgradeTableCost);
         PlayerPrefs.SetFloat("UpgradeChairCost", (float)upgradeChairCost);
-        PlayerPrefs.SetInt("Lv1Table", Lv1Table);
-        PlayerPrefs.SetInt("Lv2Table", Lv2Table);
-        PlayerPrefs.SetInt("Lv1Chair", Lv1Chair);
-        PlayerPrefs.SetInt("Lv2Chair", Lv2Chair);
+        PlayerPrefs.SetInt("Lvl2Table", Lvl2Table);
+        PlayerPrefs.SetInt("Lvl3Table", Lvl3Table);
+        PlayerPrefs.SetInt("Lvl2Chair", Lvl2Chair);
+        PlayerPrefs.SetInt("Lvl3Chair", Lvl3Chair);
         PlayerPrefs.Save();
     }
 
