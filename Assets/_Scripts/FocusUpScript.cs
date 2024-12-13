@@ -2,11 +2,13 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class FocusUpScript : MonoBehaviour
 {
     AudioManagerScript audioManager;
     CurrencyManagerScript currencyManager;
+    SideBarScript sidebarScript;
 
     [Header("Start Focus Up Button")]
     [SerializeField] private Button startFocusUpButton;
@@ -180,6 +182,7 @@ public class FocusUpScript : MonoBehaviour
         isFocusUpEventActive = true;
         if (focusUpEventUI != null) focusUpEventUI.SetActive(true);
         if (acceptPanel != null) acceptPanel.SetActive(true);
+        if (sidebarScript != null) sidebarScript.CloseSideBar();
     }
 
     private void OnAcceptPanelButtonClicked() {

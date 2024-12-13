@@ -176,9 +176,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 4669029145627042299}
   sfxSource: {fileID: 7568717410383484364}
-  backgroundMusic: {fileID: 0}
-  moneyGrab: {fileID: 0}
-  buttonClick: {fileID: 0}
+  backgroundMusic: {fileID: 8300000, guid: 06437e75905e41e4888a7808b86fd40e, type: 3}
+  moneyGrab: {fileID: 8300000, guid: 2c474eab78409de49a45468ffa2747b7, type: 3}
+  noButton: {fileID: 8300000, guid: e1afeb211d202f244a2c74756ee4ec48, type: 3}
+  yesButton: {fileID: 8300000, guid: ee89d6a7339722b41ba0cbee5a8bd03e, type: 3}
+  moneyRainEvent: {fileID: 8300000, guid: 30beceb745c494845b609ad53b0a470a, type: 3}
+  buildingSFX: {fileID: 8300000, guid: 18051781952488b4c9b01d85d4c46b8e, type: 3}
 --- !u!1 &8900946435985270696
 GameObject:
   m_ObjectHideFlags: 0

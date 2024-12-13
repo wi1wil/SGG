@@ -101,7 +101,7 @@ public class UpgradeTableScript : MonoBehaviour
     {
         if (currencyManager.currencyInGame >= currencyManager.upgradeTableCost)
         {
-            audioManager.PlaySfx(audioManager.yesButton);
+            audioManager.PlaySfx(audioManager.buySuccessSFX);
 
             currencyManager.currencyInGame -= currencyManager.upgradeTableCost;
 

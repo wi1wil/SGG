@@ -98,7 +98,7 @@ public class UpgradeChairScript : MonoBehaviour
     {
         if (currencyManager.currencyInGame >= currencyManager.upgradeChairCost)
         {
-            audioManager.PlaySfx(audioManager.yesButton);
+            audioManager.PlaySfx(audioManager.buySuccessSFX);
 
             currencyManager.currencyInGame -= currencyManager.upgradeChairCost;
 

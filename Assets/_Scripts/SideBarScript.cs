@@ -31,7 +31,7 @@ public class SideBarScript : MonoBehaviour
         CloseSideBarButton.gameObject.SetActive(true);
     }
 
-    private void CloseSideBar()
+    public void CloseSideBar()
     {
         audioManager.PlaySfx(audioManager.noButton);
         SideBarUI.SetActive(false);

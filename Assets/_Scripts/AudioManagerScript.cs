@@ -17,6 +17,8 @@ public class AudioManagerScript : MonoBehaviour
     public AudioClip yesButton;
     public AudioClip moneyRainEvent;
     public AudioClip buildingSFX;
+    public AudioClip openDoorSFX;
+    public AudioClip buySuccessSFX;
 
     // Ensure that only one instance of the AudioManager exists
     private void Awake() 

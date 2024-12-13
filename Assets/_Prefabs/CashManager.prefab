@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 943bfc520d5a1cc45934c0cdf5779922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToSpawn: 5
+  timeToSpawn: 3
   minX: -8
   maxX: 8
   cashPrefab: {fileID: 266645239268156654, guid: f0a16422b5fd70c4ea604009c10c5414, type: 3}
   parentsInEnvironment: {fileID: 0}
+  isCashDropEventActive: 0

@@ -37,7 +37,7 @@ public class UniversityDoorScript : MonoBehaviour
     private void OnYesButtonClicked()
     {
         confirmationDialog.SetActive(false);
-        audioManager.PlaySfx(audioManager.yesButton);
+        audioManager.PlaySfx(audioManager.openDoorSFX);
         // Load the university scene
         levelLoader.LoadNextLevel();
     }

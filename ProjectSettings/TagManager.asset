@@ -10,6 +10,8 @@ TagManager:
   - CountdownText
   - UTable
   - UChair
+  - RandomEventText
+  - Cash
   layers:
   - Default
   - TransparentFX
@@ -44,6 +46,9 @@ TagManager:
   - 
   - BlockRaycast
   m_SortingLayers:
+  - name: Below
+    uniqueID: 185591947
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

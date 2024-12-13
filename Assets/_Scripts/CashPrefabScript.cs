@@ -18,7 +18,7 @@ public class CashPrefabScript : MonoBehaviour
     CurrencyManagerScript currencyManager;
     AudioManagerScript audioManager;
 
-    private bool isOnGround = false;
+    public bool isOnGround = false;
     private float timer = 0f;
     
     private void Awake() {

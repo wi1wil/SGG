@@ -1034,33 +1034,9 @@ PrefabInstance:
       value: AudioManager
       objectReference: {fileID: 0}
     - target: {fileID: 8163907948174940036, guid: fbeced6fb6978dc429cdab8fa156f097, type: 3}
-      propertyPath: noButton
-      value: 
-      objectReference: {fileID: 8300000, guid: e1afeb211d202f244a2c74756ee4ec48, type: 3}
-    - target: {fileID: 8163907948174940036, guid: fbeced6fb6978dc429cdab8fa156f097, type: 3}
-      propertyPath: moneyGrab
-      value: 
-      objectReference: {fileID: 8300000, guid: 2c474eab78409de49a45468ffa2747b7, type: 3}
-    - target: {fileID: 8163907948174940036, guid: fbeced6fb6978dc429cdab8fa156f097, type: 3}
-      propertyPath: yesButton
-      value: 
-      objectReference: {fileID: 8300000, guid: ee89d6a7339722b41ba0cbee5a8bd03e, type: 3}
-    - target: {fileID: 8163907948174940036, guid: fbeced6fb6978dc429cdab8fa156f097, type: 3}
-      propertyPath: buildingSFX
-      value: 
-      objectReference: {fileID: 8300000, guid: 18051781952488b4c9b01d85d4c46b8e, type: 3}
-    - target: {fileID: 8163907948174940036, guid: fbeced6fb6978dc429cdab8fa156f097, type: 3}
       propertyPath: randomEvents
       value: 
       objectReference: {fileID: 8300000, guid: 30beceb745c494845b609ad53b0a470a, type: 3}
-    - target: {fileID: 8163907948174940036, guid: fbeced6fb6978dc429cdab8fa156f097, type: 3}
-      propertyPath: moneyRainEvent
-      value: 
-      objectReference: {fileID: 8300000, guid: 30beceb745c494845b609ad53b0a470a, type: 3}
-    - target: {fileID: 8163907948174940036, guid: fbeced6fb6978dc429cdab8fa156f097, type: 3}
-      propertyPath: backgroundMusic
-      value: 
-      objectReference: {fileID: 8300000, guid: 06437e75905e41e4888a7808b86fd40e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
