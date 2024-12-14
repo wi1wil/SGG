@@ -96,7 +96,7 @@ public class InputHandlerScript : MonoBehaviour
         }
         else if(rayHit.collider.gameObject.tag == "UChair" && CurrencyManagerScript.ChairPrefabIndex == 14)
         {
-            buyChairScript.ShowConfirmationPanel();
+            upgradeChairScript.ShowConfirmationPanel();
             return;
         }
     }

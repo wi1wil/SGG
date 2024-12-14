@@ -30,7 +30,7 @@ public class UpgradeChairScript : MonoBehaviour
     [SerializeField] private GameObject popUpText;
     [SerializeField] private GameObject parentInEnvironment;
 
-    public int upgradeIndex = 1;
+    public int upgradeChairIndex = 1;
 
     private void Awake()
     {
@@ -60,7 +60,7 @@ public class UpgradeChairScript : MonoBehaviour
     }
 
     private void LoadChairs() {
-        switch (upgradeIndex) {
+        switch (upgradeChairIndex) {
             case 2:
                 for(int i = 0; i < CurrencyManagerScript.Lvl2Chair; i++) {
                     if (i < Lvl2ChairPrefabs.Length) {
@@ -109,7 +109,7 @@ public class UpgradeChairScript : MonoBehaviour
                 triggerPrefabs[CurrencyManagerScript.UpgradeChairIndex].SetActive(false);
             }
 
-            switch(upgradeIndex)
+            switch(upgradeChairIndex)
             {   
                 case 2:
                     if(CurrencyManagerScript.UpgradeChairIndex < Lvl2ChairPrefabs.Length)
@@ -148,7 +148,7 @@ public class UpgradeChairScript : MonoBehaviour
                 UnlockUpgrades();
 
                 currencyManager.upgradeChairCost *= 2;
-                upgradeIndex += 1;
+                upgradeChairIndex += 1;
 
                 SaveData();
             }
@@ -174,28 +174,25 @@ public class UpgradeChairScript : MonoBehaviour
 
     private void LoadData()
     {
-        CurrencyManagerScript.UpgradeTableIndex = PlayerPrefs.GetInt("UpgradeTableIndex", 0);
         CurrencyManagerScript.UpgradeChairIndex = PlayerPrefs.GetInt("UpgradeChairIndex", 0);
-        currencyManager.upgradeTableCost = PlayerPrefs.GetFloat("UpgradeTableCost", 0);
         currencyManager.upgradeChairCost = PlayerPrefs.GetFloat("UpgradeChairCost", 0);
-        CurrencyManagerScript.Lvl2Table = PlayerPrefs.GetInt("Lvl2Table", 0);
-        CurrencyManagerScript.Lvl3Table = PlayerPrefs.GetInt("Lvl3Table", 0);
         CurrencyManagerScript.Lvl2Chair = PlayerPrefs.GetInt("Lvl2Chair", 0);
         CurrencyManagerScript.Lvl3Chair = PlayerPrefs.GetInt("Lvl3Chair", 0);
-        upgradeIndex = PlayerPrefs.GetInt("ChairLevelIndex", 1);
+        upgradeChairIndex = PlayerPrefs.GetInt("ChairLevelIndex", 1);
     }
 
     public void SaveData()
     {
-        PlayerPrefs.SetInt("UpgradeTableIndex", CurrencyManagerScript.UpgradeTableIndex);
         PlayerPrefs.SetInt("UpgradeChairIndex", CurrencyManagerScript.UpgradeChairIndex);
         PlayerPrefs.SetFloat("UpgradeChairCost", (float)currencyManager.upgradeChairCost);
-        PlayerPrefs.SetFloat("UpgradeTableCost", (float)currencyManager.upgradeTableCost);
-        PlayerPrefs.SetInt("Lvl2Table", CurrencyManagerScript.Lvl2Table);
-        PlayerPrefs.SetInt("Lvl3Table", CurrencyManagerScript.Lvl3Table);
         PlayerPrefs.SetInt("Lvl2Chair", CurrencyManagerScript.Lvl2Chair);
         PlayerPrefs.SetInt("Lvl3Chair", CurrencyManagerScript.Lvl3Chair);
-        PlayerPrefs.SetInt("ChairLevelIndex", upgradeIndex);
+        PlayerPrefs.SetInt("ChairLevelIndex", upgradeChairIndex);
         PlayerPrefs.Save();
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveData();
     }
 }

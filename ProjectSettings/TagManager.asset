@@ -12,6 +12,7 @@ TagManager:
   - UChair
   - RandomEventText
   - Cash
+  - Janitor
   layers:
   - Default
   - TransparentFX

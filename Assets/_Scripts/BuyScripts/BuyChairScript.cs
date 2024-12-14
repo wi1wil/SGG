@@ -110,10 +110,10 @@ public class BuyChairScript : MonoBehaviour
 
             PlayerPrefs.SetInt("ChairPrefabIndex", CurrencyManagerScript.ChairPrefabIndex); 
             
-            if (CurrencyManagerScript.TablePrefabIndex == 14)
+            if (CurrencyManagerScript.ChairPrefabIndex == 14)
             {
                 upgradeChairScript.UnlockUpgrades();
-                upgradeChairScript.upgradeIndex += 1;
+                upgradeChairScript.upgradeChairIndex += 1;
 
                 SaveData();
                 upgradeChairScript.SaveData();
@@ -148,7 +148,7 @@ public class BuyChairScript : MonoBehaviour
     {
         CurrencyManagerScript.ChairPrefabIndex = PlayerPrefs.GetInt("ChairPrefabIndex", 0);
         CurrencyManagerScript.chairAmount = PlayerPrefs.GetInt("ChairAmount", 0);
-        upgradeChairScript.upgradeIndex = PlayerPrefs.GetInt("ChairLevelIndex", 0);
+        upgradeChairScript.upgradeChairIndex = PlayerPrefs.GetInt("ChairLevelIndex", 0);
     }
 
     private void SaveData() {
@@ -156,4 +156,9 @@ public class BuyChairScript : MonoBehaviour
         PlayerPrefs.SetInt("ChairAmount", CurrencyManagerScript.chairAmount);
         PlayerPrefs.Save();
     }   
+
+    private void OnApplicationQuit()
+    {
+        SaveData();
+    }
 }

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class JanitorScript : MonoBehaviour
 {
+    CurrencyManagerScript currencyManager;
     [SerializeField] GameObject pointB;
 
     [SerializeField] Rigidbody2D rb;
@@ -16,19 +17,16 @@ public class JanitorScript : MonoBehaviour
     private GameObject nearestCash;
     private bool facingRight = true;
 
-    private void Awake() 
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
     private void OnEnable() 
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        LoadPosition();
     }
 
     private void OnDisable() 
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        currencyManager.SaveData();
         SavePosition();
     }
 
@@ -48,12 +46,17 @@ public class JanitorScript : MonoBehaviour
 
     private void Start() 
     {   
+        currencyManager = FindObjectOfType<CurrencyManagerScript>();
+
         FindPointsInEnvironment();
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currentPoint = pointB.transform;
         animator.SetBool("isWalking", false);
+        LoadPosition();
+
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     private void FindPointsInEnvironment() 
@@ -125,17 +128,22 @@ public class JanitorScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Cash")) 
         {
-            CashPrefabScript cashScript = other.gameObject.GetComponent<CashPrefabScript>();
-            if (cashScript != null) 
+            if (IsCashOnGround(other.gameObject)) 
             {
-                cashScript.OnCashCollected();
+                CashPrefabScript cashScript = other.gameObject.GetComponent<CashPrefabScript>();
+                if (cashScript != null) 
+                {
+                    cashScript.OnCashCollected();
+                }
+                Destroy(other.gameObject);
             }
-            else
-            {
-                Debug.LogError("CashPrefabScript is null");
-            }
-            Destroy(other.gameObject);
         }
+    }
+
+    private bool IsCashOnGround(GameObject cash)
+    {
+        CashPrefabScript cashScript = cash.GetComponent<CashPrefabScript>();
+        return cashScript != null && cashScript.IsOnGround();
     }
 
     private void SavePosition() 

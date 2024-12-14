@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Unity.PlasticSCM.Editor.WebApi;
 using JetBrains.Annotations;
 using System;
 
@@ -32,7 +33,7 @@ public class UpgradeTableScript : MonoBehaviour
     [SerializeField] private GameObject popUpText;
     [SerializeField] private GameObject parentInEnvironment;
 
-    public int upgradeIndex = 1;
+    public int upgradeTableIndex = 1;
 
     private void Awake()
     {
@@ -62,7 +63,7 @@ public class UpgradeTableScript : MonoBehaviour
     }
 
     private void LoadTables() {
-        switch (upgradeIndex) {
+        switch (upgradeTableIndex) {
             case 2:
                 for(int i = 0; i < CurrencyManagerScript.Lvl2Table; i++) {
                     if (i < Lvl2TablePrefabs.Length) {
@@ -111,7 +112,7 @@ public class UpgradeTableScript : MonoBehaviour
                 triggerLvlPrefabs[CurrencyManagerScript.UpgradeTableIndex].SetActive(false);
             }
 
-            switch(upgradeIndex)
+            switch(upgradeTableIndex)
             {   
                 case 2:
                     if(CurrencyManagerScript.UpgradeTableIndex < Lvl2TablePrefabs.Length)
@@ -150,7 +151,7 @@ public class UpgradeTableScript : MonoBehaviour
                 UnlockUpgrades();
 
                 currencyManager.upgradeTableCost *= 2;
-                upgradeIndex += 1;
+                upgradeTableIndex += 1;
 
                 SaveData();
             }
@@ -174,30 +175,27 @@ public class UpgradeTableScript : MonoBehaviour
         }
     }
 
+    private void OnApplicationQuit()
+    {
+        SaveData();
+    }
+
     private void LoadData()
     {
         CurrencyManagerScript.UpgradeTableIndex = PlayerPrefs.GetInt("UpgradeTableIndex", 0);
-        CurrencyManagerScript.UpgradeChairIndex = PlayerPrefs.GetInt("UpgradeChairIndex", 0);
         currencyManager.upgradeTableCost = PlayerPrefs.GetFloat("UpgradeTableCost", 0);
-        currencyManager.upgradeChairCost = PlayerPrefs.GetFloat("UpgradeChairCost", 0);
         CurrencyManagerScript.Lvl2Table = PlayerPrefs.GetInt("Lvl2Table", 0);
         CurrencyManagerScript.Lvl3Table = PlayerPrefs.GetInt("Lvl3Table", 0);
-        CurrencyManagerScript.Lvl2Chair = PlayerPrefs.GetInt("Lvl2Chair", 0);
-        CurrencyManagerScript.Lvl3Chair = PlayerPrefs.GetInt("Lvl3Chair", 0);
-        upgradeIndex = PlayerPrefs.GetInt("TableLevelIndex", 1);
+        upgradeTableIndex = PlayerPrefs.GetInt("TableLevelIndex", 1);
     }
 
     public void SaveData()
     {
         PlayerPrefs.SetInt("UpgradeTableIndex", CurrencyManagerScript.UpgradeTableIndex);
-        PlayerPrefs.SetInt("UpgradeChairIndex", CurrencyManagerScript.UpgradeChairIndex);
-        PlayerPrefs.SetFloat("UpgradeChairCost", (float)currencyManager.upgradeChairCost);
         PlayerPrefs.SetFloat("UpgradeTableCost", (float)currencyManager.upgradeTableCost);
         PlayerPrefs.SetInt("Lvl2Table", CurrencyManagerScript.Lvl2Table);
         PlayerPrefs.SetInt("Lvl3Table", CurrencyManagerScript.Lvl3Table);
-        PlayerPrefs.SetInt("Lvl2Chair", CurrencyManagerScript.Lvl2Chair);
-        PlayerPrefs.SetInt("Lvl3Chair", CurrencyManagerScript.Lvl3Chair);
-        PlayerPrefs.SetInt("TableLevelIndex", upgradeIndex);
+        PlayerPrefs.SetInt("TableLevelIndex", upgradeTableIndex);
         PlayerPrefs.Save();
     }
 }

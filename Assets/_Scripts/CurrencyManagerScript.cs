@@ -78,10 +78,6 @@ public class CurrencyManagerScript : MonoBehaviour
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
     }
 
-    private void OnDisable() {
-        SaveData(); 
-    }
-
     private void Start()
     {
         // Load from PlayerPrefs
@@ -91,6 +87,22 @@ public class CurrencyManagerScript : MonoBehaviour
         UpdateUI();
         // Check if teacher is hired and deactivate the hireTeacherUI if true
         CheckTeacherStatus();
+        CheckJanitorStatus();
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable() {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SaveData(); 
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        FindJanitor();
         CheckJanitorStatus();
     }
 
@@ -322,6 +334,23 @@ public class CurrencyManagerScript : MonoBehaviour
                 janitor.SetActive(true);
                 hireJanitorUI.SetActive(false);
             }
+        }
+    }
+
+    private void FindJanitor()
+    {
+        SpriteRenderer[] activeAndInactive = FindObjectsByType<SpriteRenderer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (var obj in activeAndInactive)
+        {
+            if (obj.gameObject.name == "Janitor")
+            {
+                janitor = obj.gameObject;
+                break;
+            }
+        }
+        if (janitor == null)
+        {
+            Debug.LogError("Janitor object not found in the scene.");
         }
     }
 }
