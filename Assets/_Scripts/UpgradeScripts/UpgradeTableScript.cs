@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-using Unity.PlasticSCM.Editor.WebApi;
 using JetBrains.Annotations;
 using System;
 

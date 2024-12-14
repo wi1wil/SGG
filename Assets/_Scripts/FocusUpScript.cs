@@ -70,6 +70,7 @@ public class FocusUpScript : MonoBehaviour
 
     private void Awake() {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
+        sidebarScript = FindObjectOfType<SideBarScript>();
         currencyManager = FindObjectOfType<CurrencyManagerScript>();
     }
 
@@ -182,7 +183,6 @@ public class FocusUpScript : MonoBehaviour
         isFocusUpEventActive = true;
         if (focusUpEventUI != null) focusUpEventUI.SetActive(true);
         if (acceptPanel != null) acceptPanel.SetActive(true);
-        if (sidebarScript != null) sidebarScript.CloseSideBar();
     }
 
     private void OnAcceptPanelButtonClicked() {
@@ -191,6 +191,7 @@ public class FocusUpScript : MonoBehaviour
         if (timerPanel != null) timerPanel.SetActive(true);
         if (quitButton != null) quitButton.gameObject.SetActive(false);
         if (quitPanelButton != null) quitPanelButton.gameObject.SetActive(true);
+        if (sidebarScript != null) sidebarScript.CloseSideBar();
         
         StartFocusUpTimer();
     }
@@ -256,5 +257,13 @@ public class FocusUpScript : MonoBehaviour
         }
 
         elapsedTime = 0;
+    }
+
+    private void OnApplicationQuit() {
+        if (isFocusUpEventActive) {
+            currencyManager.moneyMultiplier -= 0.5f;
+            currencyManager.UpdateUI();
+            Debug.Log("Money Multiplier decreased to: " + currencyManager.moneyMultiplier);
+        }
     }
 }

@@ -3,22 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MovementScript : MonoBehaviour
+public class JanitorScript : MonoBehaviour
 {
-    CashPrefabScript cashPrefabScript;
-
-    [SerializeField] GameObject pointA;
     [SerializeField] GameObject pointB;
-    [SerializeField] GameObject pointC;
 
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Animator animator;
     [SerializeField] Transform currentPoint;
 
-    [SerializeField] float detectionRadius = 5f;
     [SerializeField] float speed = 10f;
 
-    private GameObject cash;
+    private GameObject nearestCash;
     private bool facingRight = true;
 
     private void Awake() 
@@ -39,9 +34,12 @@ public class MovementScript : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) 
     {
-        if (scene.name != "GameplayScene") {
+        if (scene.name != "GameplayScene") 
+        {
             gameObject.SetActive(false);
-        } else {
+        } 
+        else if(scene.name == "GameplayScene" && CurrencyManagerScript.isJanitorHired == 1)
+        {
             gameObject.SetActive(true);
             FindPointsInEnvironment();
             LoadPosition();
@@ -49,7 +47,7 @@ public class MovementScript : MonoBehaviour
     }
 
     private void Start() 
-    {
+    {   
         FindPointsInEnvironment();
 
         rb = GetComponent<Rigidbody2D>();
@@ -60,56 +58,43 @@ public class MovementScript : MonoBehaviour
 
     private void FindPointsInEnvironment() 
     {
-        pointA = GameObject.Find("PointA");
         pointB = GameObject.Find("PointB");
-        pointC = GameObject.Find("PointC");
     }
 
     private void Update() 
     {
-        FindCash();
+        FindNearestCash();
 
-        if (IsCashNearby()) 
+        if (nearestCash != null) 
         {
             animator.SetBool("isWalking", true);
+            MoveTowards(nearestCash.transform.position);
         } 
         else 
         {
             animator.SetBool("isWalking", false);
         }
-
-        if (animator.GetBool("isWalking")) 
-        {
-            if (IsCashNearby()) 
-            {
-                MoveTowards(cash.transform.position);
-            } 
-            else 
-            {
-                MoveTowards(pointB.transform.position);
-            }
-        }
     }
 
-    private void FindCash() 
+    private void FindNearestCash() 
     {
-        if (cash == null) 
+        GameObject[] cashObjects = GameObject.FindGameObjectsWithTag("Cash");
+        float nearestDistance = Mathf.Infinity;
+        nearestCash = null;
+
+        foreach (GameObject cash in cashObjects) 
         {
-            cash = GameObject.FindGameObjectWithTag("Cash");
-            if (cash != null) 
+            CashPrefabScript cashScript = cash.GetComponent<CashPrefabScript>();
+            if (cashScript != null && cashScript.IsOnGround()) 
             {
-                cashPrefabScript = cash.GetComponent<CashPrefabScript>();
+                float distance = Vector2.Distance(transform.position, cash.transform.position);
+                if (distance < nearestDistance) 
+                {
+                    nearestDistance = distance;
+                    nearestCash = cash;
+                }
             }
         }
-    }
-
-    private bool IsCashNearby() 
-    {
-        if (cash == null) return false;
-
-        return Vector2.Distance(pointA.transform.position, cash.transform.position) <= detectionRadius ||
-               Vector2.Distance(pointB.transform.position, cash.transform.position) <= detectionRadius ||
-               Vector2.Distance(pointC.transform.position, cash.transform.position) <= detectionRadius;
     }
 
     private void MoveTowards(Vector2 target) 
@@ -140,11 +125,16 @@ public class MovementScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Cash")) 
         {
-            Destroy(other.gameObject);
-            if (cashPrefabScript != null) 
+            CashPrefabScript cashScript = other.gameObject.GetComponent<CashPrefabScript>();
+            if (cashScript != null) 
             {
-                cashPrefabScript.OnCashCollected();
+                cashScript.OnCashCollected();
             }
+            else
+            {
+                Debug.LogError("CashPrefabScript is null");
+            }
+            Destroy(other.gameObject);
         }
     }
 

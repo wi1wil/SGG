@@ -68,6 +68,7 @@ public class BuySignScript : MonoBehaviour
             currencyScript.moneyMultiplierText.gameObject.SetActive(true);
             currencyScript.hireTeacherUI.SetActive(true);
             currencyScript.enrollStudentsUI.SetActive(true);
+            currencyScript.hireJanitorUI.SetActive(true);
 
             audioManager.PlaySfx(audioManager.buildingSFX);
 
@@ -114,6 +115,11 @@ public class BuySignScript : MonoBehaviour
                 currencyScript.hireTeacherUI.SetActive(true);
                 currencyScript.enrollStudentsUI.SetActive(true);
             // }
+
+            if(SceneManager.GetActiveScene().name == "GameplayScene" && CurrencyManagerScript.isJanitorHired != 1)
+            {
+                currencyScript.hireJanitorUI.SetActive(true);
+            }
 
             // Deactivate the sign and activate the building
             buySignPrefab.SetActive(false);

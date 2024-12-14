@@ -7,6 +7,8 @@ using UnityEngine.Audio;
 
 public class PauseMenuScript : MonoBehaviour
 {
+    CurrencyManagerScript currencyManager;
+
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
@@ -21,6 +23,7 @@ public class PauseMenuScript : MonoBehaviour
     {
         levelLoader = FindObjectOfType<LevelLoaderScript>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
+        currencyManager = FindObjectOfType<CurrencyManagerScript>();
     }
 
     private void Start()
@@ -75,6 +78,7 @@ public class PauseMenuScript : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
+        currencyManager.SaveData();
     }
 
     public void SetMusicVolume(float volume)
@@ -100,7 +104,7 @@ public class PauseMenuScript : MonoBehaviour
 
     void ExitGame()
     {
-        Debug.Log("ExitGame called"); // Debug log to check if the method is called
+        currencyManager.SaveData(); 
         audioManager.PlaySfx(audioManager.noButton);
         Time.timeScale = 1f;
         levelLoader.loadMenu();

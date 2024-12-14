@@ -45,6 +45,13 @@ public class CurrencyManagerScript : MonoBehaviour
     [Header ("Buy Sign Settings")]
     public double buySignCost;
 
+    [Header ("Janitor Settings")]
+    public TextMeshProUGUI janitorText;
+    public GameObject janitor;
+    public GameObject hireJanitorUI;
+    public double janitorCost;
+    public static int isJanitorHired = 0;
+
     [Header("Tables and Chairs")]
     public double tableCost;
     public double chairCost;
@@ -84,10 +91,13 @@ public class CurrencyManagerScript : MonoBehaviour
         UpdateUI();
         // Check if teacher is hired and deactivate the hireTeacherUI if true
         CheckTeacherStatus();
+        CheckJanitorStatus();
     }
 
     private void LoadData()
     {
+        janitorCost = PlayerPrefs.GetFloat("JanitorCost", 20000000);
+        isJanitorHired = PlayerPrefs.GetInt("IsJanitorHired", 0); 
         tableAmount = PlayerPrefs.GetInt("TableAmount", 0);
         tableCost = PlayerPrefs.GetFloat("TableCost", 100000);
         chairAmount = PlayerPrefs.GetInt("ChairAmount", 0);
@@ -101,7 +111,7 @@ public class CurrencyManagerScript : MonoBehaviour
         upgradeTeacherCost = PlayerPrefs.GetFloat("UpgradeTeacherCost", 1000000); 
         teacherLevel = PlayerPrefs.GetInt("TeacherLevel", 1);
         moneyMultiplier = PlayerPrefs.GetFloat("MoneyMultiplier", 1);
-        idleGains = totalStudents * 10000; 
+        idleGains = totalStudents * 2500; 
         TablePrefabIndex = PlayerPrefs.GetInt("PrefabIndex", 0);
         ChairPrefabIndex = PlayerPrefs.GetInt("ChairPrefabIndex", 0);
         doubleMultiplier = PlayerPrefs.GetInt("DoubleMultiplier", 1);
@@ -112,12 +122,14 @@ public class CurrencyManagerScript : MonoBehaviour
         upgradeChairCost = PlayerPrefs.GetFloat("UpgradeChairCost", 200000);
         Lvl2Table = PlayerPrefs.GetInt("Lvl2Table", 0);
         Lvl3Table = PlayerPrefs.GetInt("Lvl3Table", 0);
-        Lvl2Chair = PlayerPrefs.GetInt("Lvl2Chair", 0);
+        Lvl2Chair = PlayerPrefs.GetInt("Lvl2Chair", 0); 
         Lvl3Chair = PlayerPrefs.GetInt("Lvl3Chair", 0);
     }
 
     public void SaveData()
     {
+        PlayerPrefs.SetFloat("JanitorCost", (float)janitorCost);
+        PlayerPrefs.SetInt("IsJanitorHired", isJanitorHired); 
         PlayerPrefs.SetInt("TableAmount", tableAmount);
         PlayerPrefs.SetFloat("TableCost", (float)tableCost);
         PlayerPrefs.SetInt("ChairAmount", chairAmount);
@@ -180,6 +192,7 @@ public class CurrencyManagerScript : MonoBehaviour
         enrollStudentsText.text = "Enroll Students\nCost - " + enrollStudentCost.ToString("N0");
         hireTeacherText.text = "Hire Teacher\nCost - " + hireTeacherCost.ToString("N0");
         upgradeTeacherText.text = "Upgrade Teacher\n Cost - " + upgradeTeacherCost.ToString("N0");
+        janitorText.text = "Hire Janitor\nCost - " + janitorCost.ToString("N0");
     }
 
     // Method to hire a teacher
@@ -187,7 +200,7 @@ public class CurrencyManagerScript : MonoBehaviour
     {
         if (currencyInGame >= hireTeacherCost) 
         {
-            audioManager.PlaySfx(audioManager.yesButton);
+            audioManager.PlaySfx(audioManager.buySuccessSFX);
             currencyInGame -= hireTeacherCost;
             moneyMultiplier += 0.25;
             isTeacherHired = 1;
@@ -212,7 +225,7 @@ public class CurrencyManagerScript : MonoBehaviour
     {
         if (currencyInGame >= enrollStudentCost) 
         {
-            audioManager.PlaySfx(audioManager.yesButton);
+            audioManager.PlaySfx(audioManager.buySuccessSFX);
             totalStudents++;
             currencyInGame -= enrollStudentCost;
             enrollStudentCost *= 1.5;
@@ -238,7 +251,7 @@ public class CurrencyManagerScript : MonoBehaviour
     {
         if (currencyInGame >= upgradeTeacherCost) 
         {
-            audioManager.PlaySfx(audioManager.yesButton);
+            audioManager.PlaySfx(audioManager.buySuccessSFX);
             currencyInGame -= upgradeTeacherCost;
             moneyMultiplier += 0.25;
             upgradeTeacherCost *= 1.5;
@@ -248,6 +261,29 @@ public class CurrencyManagerScript : MonoBehaviour
             SaveData();
 
             UpdateCurrencyPerSecond();  
+            UpdateUI();
+        }
+        else
+        {
+            audioManager.PlaySfx(audioManager.noButton);
+            NotEnoughMoney();
+        }
+    }
+
+    public void hireJanitor() 
+    {
+        if (currencyInGame >= janitorCost) 
+        {
+            audioManager.PlaySfx(audioManager.buySuccessSFX);
+            currencyInGame -= janitorCost;
+            isJanitorHired = 1;
+            janitor.SetActive(true);
+            hireJanitorUI.SetActive(false);
+
+            // Save currency to PlayerPrefs
+            SaveData();
+
+            UpdateCurrencyPerSecond(); 
             UpdateUI();
         }
         else
@@ -273,6 +309,18 @@ public class CurrencyManagerScript : MonoBehaviour
             {
                 hireTeacherUI.SetActive(false);
                 upgradeTeacherUI.SetActive(true);
+            }
+        }
+    }
+
+    private void CheckJanitorStatus()
+    {
+        if (SceneManager.GetActiveScene().name == "GameplayScene")
+        {
+            if (isJanitorHired == 1)
+            {
+                janitor.SetActive(true);
+                hireJanitorUI.SetActive(false);
             }
         }
     }

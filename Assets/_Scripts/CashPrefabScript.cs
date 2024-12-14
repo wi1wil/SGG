@@ -61,6 +61,11 @@ public class CashPrefabScript : MonoBehaviour
         }
     }
 
+    public bool IsOnGround()
+    {
+        return isOnGround;
+    }
+
     // Check if the Cash is on the Ground
     private void OnCollisionEnter2D(Collision2D collision) 
     {
