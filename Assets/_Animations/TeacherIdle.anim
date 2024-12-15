@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Idle
+  m_Name: TeacherIdle
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -22,9 +22,9 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: -1413438320, guid: 3356b5c32c504a84e92fd9535da1dcba, type: 3}
-    - time: 0.1
+    - time: 0.11666667
       value: {fileID: -1479578309, guid: 3356b5c32c504a84e92fd9535da1dcba, type: 3}
-    - time: 0.23333333
+    - time: 0.21666667
       value: {fileID: 1306651926, guid: 3356b5c32c504a84e92fd9535da1dcba, type: 3}
     - time: 0.33333334
       value: {fileID: 135579061, guid: 3356b5c32c504a84e92fd9535da1dcba, type: 3}
@@ -34,9 +34,9 @@ AnimationClip:
       value: {fileID: 1632019670, guid: 3356b5c32c504a84e92fd9535da1dcba, type: 3}
     - time: 0.6666667
       value: {fileID: -1272329205, guid: 3356b5c32c504a84e92fd9535da1dcba, type: 3}
-    - time: 0.76666665
+    - time: 0.78333336
       value: {fileID: -1464375735, guid: 3356b5c32c504a84e92fd9535da1dcba, type: 3}
-    - time: 0.9
+    - time: 0.8833333
       value: {fileID: -233698228, guid: 3356b5c32c504a84e92fd9535da1dcba, type: 3}
     - time: 1
       value: {fileID: -196980705, guid: 3356b5c32c504a84e92fd9535da1dcba, type: 3}

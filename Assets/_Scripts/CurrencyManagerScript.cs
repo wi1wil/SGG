@@ -5,6 +5,7 @@ using TMPro;
 public class CurrencyManagerScript : MonoBehaviour
 {
     AudioManagerScript audioManager;
+    StaminaScript staminaScript;
 
     [Header("Currency Settings")]
     public TextMeshProUGUI currencyText;
@@ -31,6 +32,7 @@ public class CurrencyManagerScript : MonoBehaviour
     public int totalStudents;
 
     [Header("Hiring Teachers")]
+    public GameObject teacher;
     public TextMeshProUGUI hireTeacherText;
     public GameObject hireTeacherUI;
     public double hireTeacherCost;
@@ -74,8 +76,11 @@ public class CurrencyManagerScript : MonoBehaviour
     public static int Lvl2Chair = 0;
     public static int Lvl3Chair = 0;
 
+    public static float maxStamina = 100;
+
     private void Awake() {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
+        staminaScript = FindObjectOfType<StaminaScript>();
     }
 
     private void Start()
@@ -103,10 +108,12 @@ public class CurrencyManagerScript : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         FindJanitor();
+        FindTeacher();
+        CheckTeacherStatus();
         CheckJanitorStatus();
     }
 
-    private void LoadData()
+    public void LoadData()
     {
         janitorCost = PlayerPrefs.GetFloat("JanitorCost", 20000000);
         isJanitorHired = PlayerPrefs.GetInt("IsJanitorHired", 0); 
@@ -136,6 +143,7 @@ public class CurrencyManagerScript : MonoBehaviour
         Lvl3Table = PlayerPrefs.GetInt("Lvl3Table", 0);
         Lvl2Chair = PlayerPrefs.GetInt("Lvl2Chair", 0); 
         Lvl3Chair = PlayerPrefs.GetInt("Lvl3Chair", 0);
+        maxStamina = PlayerPrefs.GetFloat("MaxStamina", 100); 
     }
 
     public void SaveData()
@@ -168,6 +176,7 @@ public class CurrencyManagerScript : MonoBehaviour
         PlayerPrefs.SetInt("Lvl3Table", Lvl3Table);
         PlayerPrefs.SetInt("Lvl2Chair", Lvl2Chair);
         PlayerPrefs.SetInt("Lvl3Chair", Lvl3Chair);
+        PlayerPrefs.SetFloat("MaxStamina", maxStamina); 
         PlayerPrefs.Save();
     }
 
@@ -268,9 +277,14 @@ public class CurrencyManagerScript : MonoBehaviour
             moneyMultiplier += 0.25;
             upgradeTeacherCost *= 1.5;
             teacherLevel++;
+            maxStamina += 50;
+            staminaScript.stamina = maxStamina;
 
             // Save currency to PlayerPrefs
             SaveData();
+            staminaScript.UpdateStaminaBar();
+            staminaScript.SaveStamina();
+            staminaScript.LoadStamina();
 
             UpdateCurrencyPerSecond();  
             UpdateUI();
@@ -319,6 +333,7 @@ public class CurrencyManagerScript : MonoBehaviour
         {
             if (isTeacherHired == 1)
             {
+                teacher.SetActive(true);
                 hireTeacherUI.SetActive(false);
                 upgradeTeacherUI.SetActive(true);
             }
@@ -348,9 +363,18 @@ public class CurrencyManagerScript : MonoBehaviour
                 break;
             }
         }
-        if (janitor == null)
+    }
+
+    private void FindTeacher()
+    {
+        SpriteRenderer[] activeAndInactive = FindObjectsByType<SpriteRenderer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (var obj in activeAndInactive)
         {
-            Debug.LogError("Janitor object not found in the scene.");
+            if (obj.gameObject.name == "Teacher")
+            {
+                teacher = obj.gameObject;
+                break;
+            }
         }
     }
 }
