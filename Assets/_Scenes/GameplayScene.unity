@@ -13250,6 +13250,7 @@ MonoBehaviour:
   enrollStudentsUI: {fileID: 6643339706820311634}
   enrollStudentCost: 0
   totalStudents: 0
+  teacher: {fileID: 0}
   hireTeacherText: {fileID: 6919191229946445047}
   hireTeacherUI: {fileID: 535852047733059879}
   hireTeacherCost: 0
