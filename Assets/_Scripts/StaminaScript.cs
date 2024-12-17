@@ -60,11 +60,11 @@ public class StaminaScript : MonoBehaviour
     {
         if (scene.name != "UniversityScene")
         {
-            gameObject.SetActive(false);
+            staminaBar.gameObject.SetActive(false);
         }
         else if (scene.name == "UniversityScene" && CurrencyManagerScript.isTeacherHired == 1)
         {
-            gameObject.SetActive(true);
+            staminaBar.gameObject.SetActive(true);
             currencyManager = FindObjectOfType<CurrencyManagerScript>();
             maxStamina = CurrencyManagerScript.maxStamina; 
 

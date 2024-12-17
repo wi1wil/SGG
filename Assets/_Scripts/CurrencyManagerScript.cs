@@ -31,6 +31,8 @@ public class CurrencyManagerScript : MonoBehaviour
     public double enrollStudentCost;
     public int totalStudents;
 
+    public bool canEnrollStudents;
+
     [Header("Hiring Teachers")]
     public GameObject teacher;
     public TextMeshProUGUI hireTeacherText;
@@ -69,6 +71,9 @@ public class CurrencyManagerScript : MonoBehaviour
 
     public static int tableAmount = 0;
     public static int chairAmount = 0;
+
+    [SerializeField] private int totalTables;
+    [SerializeField] private int totalChairs;
 
     public static int Lvl2Table = 0;
     public static int Lvl3Table = 0;
@@ -184,14 +189,33 @@ public class CurrencyManagerScript : MonoBehaviour
     {
         // Increment currency based on currency per second and time elapsed
         currencyInGame += (currencyPerSecond * Time.deltaTime);
+
+        checkStudentEnrollment();
         // Save currency to PlayerPrefs
         SaveData();
         UpdateUI();
     }
 
+    public void checkStudentEnrollment() 
+    {
+        totalChairs = chairAmount;
+        totalTables = tableAmount;
+
+        canEnrollStudents = ((tableAmount > 0 && chairAmount > 0) && (tableAmount == chairAmount) && ((totalStudents < tableAmount) && (totalStudents < chairAmount)) && (totalStudents < 14));
+
+        if(canEnrollStudents)
+        {
+            enrollStudentsUI.SetActive(true);
+        }
+        else
+        {
+            enrollStudentsUI.SetActive(false);
+        }
+    }
+
     private void NotEnoughMoney()
     {
-        var go = Instantiate(popUpText, transform.position, Quaternion.identity);
+        var go = Instantiate(popUpText, new Vector3(0, 5, 0), Quaternion.identity);
         go.transform.SetParent(parentInEnvironment.transform, false);
         go.GetComponent<TextMeshProUGUI>().text = "Not enough money!";
     }
@@ -214,6 +238,9 @@ public class CurrencyManagerScript : MonoBehaviour
         hireTeacherText.text = "Hire Teacher\nCost - " + hireTeacherCost.ToString("N0");
         upgradeTeacherText.text = "Upgrade Teacher\n Cost - " + upgradeTeacherCost.ToString("N0");
         janitorText.text = "Hire Janitor\nCost - " + janitorCost.ToString("N0");
+
+        canEnrollStudents = ((tableAmount > 0 && chairAmount > 0) && (tableAmount == chairAmount));
+
     }
 
     // Method to hire a teacher
@@ -244,6 +271,7 @@ public class CurrencyManagerScript : MonoBehaviour
     // Method to enroll students
     public void enrollStudents() 
     {
+        enrollStudentsUI.SetActive(true);
         if (currencyInGame >= enrollStudentCost) 
         {
             audioManager.PlaySfx(audioManager.buySuccessSFX);
