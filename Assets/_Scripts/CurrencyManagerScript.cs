@@ -4,6 +4,7 @@ using TMPro;
 
 public class CurrencyManagerScript : MonoBehaviour
 {
+    StudentBehaviourScript studentBehaviour;
     AudioManagerScript audioManager;
     StaminaScript staminaScript;
 
@@ -84,6 +85,7 @@ public class CurrencyManagerScript : MonoBehaviour
     public static float maxStamina = 100;
 
     private void Awake() {
+        studentBehaviour = FindObjectOfType<StudentBehaviourScript>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
         staminaScript = FindObjectOfType<StaminaScript>();
     }
@@ -284,7 +286,7 @@ public class CurrencyManagerScript : MonoBehaviour
 
             // Save currency to PlayerPrefs
             SaveData();
-
+            studentBehaviour.ActivateStudent(totalStudents - 1);
             UpdateCurrencyPerSecond(); 
             UpdateUI();
         }
