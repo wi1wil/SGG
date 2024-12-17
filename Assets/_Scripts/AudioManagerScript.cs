@@ -20,7 +20,6 @@ public class AudioManagerScript : MonoBehaviour
     public AudioClip openDoorSFX;
     public AudioClip buySuccessSFX;
 
-    // Ensure that only one instance of the AudioManager exists
     private void Awake() 
     {
         if (instance == null) {

@@ -77,6 +77,7 @@ public class StaminaScript : MonoBehaviour
     {
         if (CurrencyManagerScript.isTeacherHired == 1)
         {
+            staminaBar.gameObject.SetActive(true);
             if (isDecreasing)
             {
                 stamina -= staminaDecreaseRate * Time.deltaTime;
