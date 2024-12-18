@@ -147,7 +147,7 @@ public class UpgradeChairScript : MonoBehaviour
 
                 UnlockUpgrades();
 
-                currencyManager.upgradeChairCost *= 2;
+                currencyManager.upgradeChairCost *= 2.5;
                 upgradeChairIndex += 1;
 
                 SaveData();

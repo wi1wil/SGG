@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -121,14 +123,21 @@ public class RandomEventsManager : MonoBehaviour
                 yield return null;
             }
 
-            // Check if FocusUpEvent is active
             if (focusUpEventScript.isFocusUpEventActive)
             {
-                // Wait until the FocusUpEvent is finished
                 yield return new WaitUntil(() => !focusUpEventScript.isFocusUpEventActive);
             }
 
-            int eventIndex = Random.Range(0, 3); // Randomly choose between events
+            int eventIndex;
+            if(SceneManager.GetActiveScene().name == "GameplayScene")
+            {
+                eventIndex = UnityEngine.Random.Range(0, 3);
+            } 
+            else 
+            {
+                eventIndex = UnityEngine.Random.Range(1, 3);
+            }
+
             switch (eventIndex)
             {
                 case 0:

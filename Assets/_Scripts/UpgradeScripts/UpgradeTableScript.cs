@@ -149,7 +149,7 @@ public class UpgradeTableScript : MonoBehaviour
 
                 UnlockUpgrades();
 
-                currencyManager.upgradeTableCost *= 2;
+                currencyManager.upgradeTableCost *= 2.5;
                 upgradeTableIndex += 1;
 
                 SaveData();

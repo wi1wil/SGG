@@ -3200,7 +3200,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00010299682, y: 0}
+  m_AnchoredPosition: {x: -0.000102996826, y: 0}
   m_SizeDelta: {x: 1820, y: 979.41455}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &509570033
@@ -11433,7 +11433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7124607561912235434, guid: b30d71ac7714a1e48b3ebd070b8f217c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7124607561912235434, guid: b30d71ac7714a1e48b3ebd070b8f217c, type: 3}
       propertyPath: m_TagString
@@ -13307,7 +13307,7 @@ MonoBehaviour:
   upgradeTeacherText: {fileID: 377429902234570743}
   upgradeTeacherUI: {fileID: 4456146780481315029}
   upgradeTeacherCost: 0
-  buySignCost: 100000
+  buySignCost: 250000
   janitorText: {fileID: 255623378}
   janitor: {fileID: 9040410856484217859}
   hireJanitorUI: {fileID: 1397640356}
@@ -13316,8 +13316,8 @@ MonoBehaviour:
   chairCost: 0
   upgradeTableCost: 0
   upgradeChairCost: 0
-  totalTable: 0
-  totalChair: 0
+  totalTables: 0
+  totalChairs: 0
 --- !u!1 &8655256667298072362
 GameObject:
   m_ObjectHideFlags: 0

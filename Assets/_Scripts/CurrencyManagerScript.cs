@@ -125,9 +125,9 @@ public class CurrencyManagerScript : MonoBehaviour
         janitorCost = PlayerPrefs.GetFloat("JanitorCost", 20000000);
         isJanitorHired = PlayerPrefs.GetInt("IsJanitorHired", 0); 
         tableAmount = PlayerPrefs.GetInt("TableAmount", 0);
-        tableCost = PlayerPrefs.GetFloat("TableCost", 100000);
+        tableCost = PlayerPrefs.GetFloat("TableCost", 200000);
         chairAmount = PlayerPrefs.GetInt("ChairAmount", 0);
-        chairCost = PlayerPrefs.GetFloat("ChairCost", 75000);
+        chairCost = PlayerPrefs.GetFloat("ChairCost", 100000);
         currencyInGame = PlayerPrefs.GetFloat("CurrencyInGame", 0);
         currencyPerSecond = PlayerPrefs.GetFloat("CurrencyPerSecond", 0);
         totalStudents = PlayerPrefs.GetInt("TotalStudents", 0);
@@ -144,8 +144,8 @@ public class CurrencyManagerScript : MonoBehaviour
         doubleCashValue = PlayerPrefs.GetInt("DoubleCashValue", 1);
         UpgradeTableIndex = PlayerPrefs.GetInt("UpgradeTableIndex", 0);
         UpgradeChairIndex = PlayerPrefs.GetInt("UpgradeChairIndex", 0);
-        upgradeTableCost = PlayerPrefs.GetFloat("UpgradeTableCost", 250000);
-        upgradeChairCost = PlayerPrefs.GetFloat("UpgradeChairCost", 200000);
+        upgradeTableCost = PlayerPrefs.GetFloat("UpgradeTableCost", (float)tableCost * 2.5f);
+        upgradeChairCost = PlayerPrefs.GetFloat("UpgradeChairCost", (float)chairCost * 2.5f);
         Lvl2Table = PlayerPrefs.GetInt("Lvl2Table", 0);
         Lvl3Table = PlayerPrefs.GetInt("Lvl3Table", 0);
         Lvl2Chair = PlayerPrefs.GetInt("Lvl2Chair", 0); 
@@ -367,6 +367,12 @@ public class CurrencyManagerScript : MonoBehaviour
                 hireTeacherUI.SetActive(false);
                 upgradeTeacherUI.SetActive(true);
             }
+            else  
+            {
+                teacher.SetActive(false);
+                hireTeacherUI.SetActive(true);
+                upgradeTeacherUI.SetActive(false);
+            }
         }
     }
 
@@ -378,6 +384,10 @@ public class CurrencyManagerScript : MonoBehaviour
             {
                 janitor.SetActive(true);
                 hireJanitorUI.SetActive(false);
+            }
+            else
+            {
+                janitor.SetActive(false);
             }
         }
     }
