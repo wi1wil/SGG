@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3e65bd8467d8e044fa1a5f5024cb981d
+guid: 556c218435500174cad55adc8eca93fc
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -35,7 +35,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 256
+    spritePixelsToUnits: 22
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638700721430277428
+  platformSettingsDirtyTick: 638705106029809183
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: upgrade-button
+  - name: student-sit-lvl_1
     originalName: 
-    pivot: {x: 0.5102041, y: -0.10447761}
+    pivot: {x: 0.5294118, y: -0.8571429}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 49
-      height: 67
-    spriteID: a0374bd67ae9a1140838fc9b9647fa9e
+      width: 17
+      height: 21
+    spriteID: 3309b349da6458340ba1fb02a3babd47
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,20 +144,20 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1613053117
-    name: upgrade-button
+    guid: 1638932815
+    name: student-sit-lvl_1
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: upgrade-button
+    - name: student-sit-lvl_1
       frameIndex: 0
       cellRect:
-        x: 7
-        y: 7
-        width: 49
-        height: 67
-      spriteId: a0374bd67ae9a1140838fc9b9647fa9e
+        x: 15
+        y: 18
+        width: 17
+        height: 21
+      spriteId: 3309b349da6458340ba1fb02a3babd47
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -209,7 +209,7 @@ ScriptedImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
-  generatePhysicsShape: 0
+  generatePhysicsShape: 1
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 64, y: 80}
+  canvasSize: {x: 48, y: 48}

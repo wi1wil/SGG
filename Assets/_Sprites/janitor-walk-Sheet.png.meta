@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3356b5c32c504a84e92fd9535da1dcba
+guid: bf502da9a1f9c2341b24ed9e417c8eb7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player Idle 48x48_0
+      name: janitor-walk-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aad64c94fb248244395b3c052ff0604c
-      internalID: -1413438320
+      spriteID: 056b5dba02288d640b3497806464eb38
+      internalID: -58929018
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Idle 48x48_1
+      name: janitor-walk-Sheet_1
       rect:
         serializedVersion: 2
         x: 48
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 78baed4e8ad6e93458a96ddb113376b0
-      internalID: -1479578309
+      spriteID: 0986388e68decf64c922ba21cb8d4c79
+      internalID: -16051738
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Idle 48x48_2
+      name: janitor-walk-Sheet_2
       rect:
         serializedVersion: 2
         x: 96
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 64db05ed1d9a43141b3b8ce7c6747650
-      internalID: 1306651926
+      spriteID: 6d3eaefe565046b49a8a267e21bea728
+      internalID: 1997615692
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Idle 48x48_3
+      name: janitor-walk-Sheet_3
       rect:
         serializedVersion: 2
         x: 144
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aa15b98e4aef2504589d2921a7157816
-      internalID: 135579061
+      spriteID: f6441237625f20e458bd24b50dbd60b2
+      internalID: -1449768028
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Idle 48x48_4
+      name: janitor-walk-Sheet_4
       rect:
         serializedVersion: 2
         x: 192
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc489721a7043744d8363dc329b65391
-      internalID: -1360026347
+      spriteID: 1cedd6b3e42c42f489c25305aae931bd
+      internalID: 1672065561
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Idle 48x48_5
+      name: janitor-walk-Sheet_5
       rect:
         serializedVersion: 2
         x: 240
@@ -242,14 +242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb7c0cf2b590c0b4e99d41ac8099b537
-      internalID: 1632019670
+      spriteID: 71f635d739495b74b863fd1c9821668d
+      internalID: 955591742
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Idle 48x48_6
+      name: janitor-walk-Sheet_6
       rect:
         serializedVersion: 2
         x: 288
@@ -263,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 930c7dff07c0c794f95d2380dbe1a27c
-      internalID: -1272329205
+      spriteID: bc32817ebf806434b89c69c30e7ecb82
+      internalID: -1573321981
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Idle 48x48_7
+      name: janitor-walk-Sheet_7
       rect:
         serializedVersion: 2
         x: 336
@@ -284,50 +284,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 753f7fb95f2be5548b67d7c5f6d3f908
-      internalID: -1464375735
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Idle 48x48_8
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 0
-        width: 48
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ef61b4620387eb344906ea79e84da927
-      internalID: -233698228
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Idle 48x48_9
-      rect:
-        serializedVersion: 2
-        x: 432
-        y: 0
-        width: 48
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e4b80b23b6f5ce14199685257d1d78bc
-      internalID: -196980705
+      spriteID: 24383a32b8631c54798c3f6fae375c13
+      internalID: -374860056
       vertices: []
       indices: 
       edges: []
@@ -343,16 +301,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player Idle 48x48_0: -1413438320
-      Player Idle 48x48_1: -1479578309
-      Player Idle 48x48_2: 1306651926
-      Player Idle 48x48_3: 135579061
-      Player Idle 48x48_4: -1360026347
-      Player Idle 48x48_5: 1632019670
-      Player Idle 48x48_6: -1272329205
-      Player Idle 48x48_7: -1464375735
-      Player Idle 48x48_8: -233698228
-      Player Idle 48x48_9: -196980705
+      janitor-walk-Sheet_0: -58929018
+      janitor-walk-Sheet_1: -16051738
+      janitor-walk-Sheet_2: 1997615692
+      janitor-walk-Sheet_3: -1449768028
+      janitor-walk-Sheet_4: 1672065561
+      janitor-walk-Sheet_5: 955591742
+      janitor-walk-Sheet_6: -1573321981
+      janitor-walk-Sheet_7: -374860056
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

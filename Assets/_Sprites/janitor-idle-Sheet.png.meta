@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b2a4d830c4ca4f14c8f5c296b2a4d05e
+guid: add087d2ef863134d98578128efaed3b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,169 +123,190 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerWalk 48x48_0
+      name: janitor-idle-Sheet_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 48
-        height: 48
+        x: 19
+        y: 8
+        width: 13
+        height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7226f145f6a584f40aed71b661bee4ef
-      internalID: -1122102206
+      spriteID: 055ac6ce399bce84b9010a5989164d2f
+      internalID: -1548630252
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk 48x48_1
+      name: janitor-idle-Sheet_1
       rect:
         serializedVersion: 2
-        x: 48
-        y: 0
-        width: 48
-        height: 48
+        x: 67
+        y: 8
+        width: 13
+        height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 355b6eb7f27c07c48956a317213addd7
-      internalID: -877367630
+      spriteID: a3967c4ec80cbff4eaacf590f6b1099c
+      internalID: -923290041
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk 48x48_2
+      name: janitor-idle-Sheet_2
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
-        width: 48
-        height: 48
+        x: 115
+        y: 8
+        width: 13
+        height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 596b91636848720428d4ee70e519c354
-      internalID: 1479444811
+      spriteID: 6547e81c370ff8c4eb734e11618c36f2
+      internalID: -1478223459
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk 48x48_3
+      name: janitor-idle-Sheet_3
       rect:
         serializedVersion: 2
-        x: 144
-        y: 0
-        width: 48
-        height: 48
+        x: 163
+        y: 8
+        width: 13
+        height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 421c375ac5729da4ba99038f28f2348e
-      internalID: 1753172069
+      spriteID: cb703b7b58de3cd4392a8ef76ef34409
+      internalID: 678540232
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk 48x48_4
+      name: janitor-idle-Sheet_4
       rect:
         serializedVersion: 2
-        x: 192
-        y: 0
-        width: 48
-        height: 48
+        x: 211
+        y: 8
+        width: 13
+        height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 98e58183400ba63419abed9f81f3bf76
-      internalID: -2078095708
+      spriteID: 34dc5d637d0591f4db06835a1e51b3da
+      internalID: -1786033656
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk 48x48_5
+      name: janitor-idle-Sheet_5
       rect:
         serializedVersion: 2
-        x: 240
-        y: 0
-        width: 48
-        height: 48
+        x: 259
+        y: 8
+        width: 13
+        height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05ec7ce17ec432d4e944d07caa08e920
-      internalID: 1934218427
+      spriteID: 01a25f6bc0c296d468d6d54ecbc72fa2
+      internalID: 1454436638
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk 48x48_6
+      name: janitor-idle-Sheet_6
       rect:
         serializedVersion: 2
-        x: 288
-        y: 0
-        width: 48
-        height: 48
+        x: 307
+        y: 8
+        width: 13
+        height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 88fbb64bce6457248861ad602c849f30
-      internalID: 1121004110
+      spriteID: 98398e1578314dc4eb881d62e05ab635
+      internalID: -1389948822
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk 48x48_7
+      name: janitor-idle-Sheet_7
       rect:
         serializedVersion: 2
-        x: 336
-        y: 0
-        width: 48
-        height: 48
+        x: 355
+        y: 8
+        width: 13
+        height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 468d586b20ad9fb4a8889581ce3947ff
-      internalID: 957950824
+      spriteID: dac8cafc056181944b0a4d2687dbe3f9
+      internalID: -403302843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: janitor-idle-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 8
+        width: 13
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 380d81d5fa9462e4ba64747a0e1e969c
+      internalID: 369620999
       vertices: []
       indices: 
       edges: []
@@ -301,14 +322,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PlayerWalk 48x48_0: -1122102206
-      PlayerWalk 48x48_1: -877367630
-      PlayerWalk 48x48_2: 1479444811
-      PlayerWalk 48x48_3: 1753172069
-      PlayerWalk 48x48_4: -2078095708
-      PlayerWalk 48x48_5: 1934218427
-      PlayerWalk 48x48_6: 1121004110
-      PlayerWalk 48x48_7: 957950824
+      janitor-idle-Sheet_0: -1548630252
+      janitor-idle-Sheet_1: -923290041
+      janitor-idle-Sheet_2: -1478223459
+      janitor-idle-Sheet_3: 678540232
+      janitor-idle-Sheet_4: -1786033656
+      janitor-idle-Sheet_5: 1454436638
+      janitor-idle-Sheet_6: -1389948822
+      janitor-idle-Sheet_7: -403302843
+      janitor-idle-Sheet_8: 369620999
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

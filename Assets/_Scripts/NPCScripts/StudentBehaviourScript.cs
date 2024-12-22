@@ -58,6 +58,8 @@ public class StudentBehaviourScript : MonoBehaviour
         yield return StartCoroutine(MoveStudent(student, sidePoints[sidePointIndex]));
 
         yield return StartCoroutine(MoveStudent(student, endPoints[index]));
+
+        student.transform.position = new Vector3(student.transform.position.x, student.transform.position.y - 0.8f, student.transform.position.z);
     }
 
     private IEnumerator MoveStudent(GameObject student, GameObject targetPoint)
@@ -66,7 +68,7 @@ public class StudentBehaviourScript : MonoBehaviour
         Rigidbody2D rb = student.GetComponent<Rigidbody2D>();
         Vector2 targetPosition = targetPoint.transform.position;
 
-        while (Vector2.Distance(student.transform.position, targetPosition) > 0.01)
+        while (Vector2.Distance(student.transform.position, targetPosition) > 0.05)
         {
             animator.SetBool("sWalking", true);
             Vector2 direction = (targetPosition - (Vector2)student.transform.position).normalized;

@@ -17,6 +17,10 @@ public class JanitorScript : MonoBehaviour
     private GameObject nearestCash;
     private bool facingRight = true;
 
+    private void Awake() {
+        currencyManager = FindObjectOfType<CurrencyManagerScript>();
+    }
+
     private void OnEnable() 
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -46,8 +50,6 @@ public class JanitorScript : MonoBehaviour
 
     private void Start() 
     {   
-        currencyManager = FindObjectOfType<CurrencyManagerScript>();
-
         FindPointsInEnvironment();
 
         rb = GetComponent<Rigidbody2D>();
