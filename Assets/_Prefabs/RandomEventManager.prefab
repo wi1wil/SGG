@@ -44,4 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2842fb428863d624b88ef8d9378ff996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomEventText: {fileID: 0}
+  randomEventTextPrefab: {fileID: 4300819041541889049, guid: 967616c55f014ab4fb14e1d553c45833, type: 3}
+  parentsInEnvironment: {fileID: 0}
+  countdownText: {fileID: 0}
+  countdownTimer: 0

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -55,11 +56,20 @@ public class RandomEventsManager : MonoBehaviour
     {
         FindParentsInEnvironment();
         FindCountdownText();
-        StartCoroutine(RandomEvent());
+        if (focusUpEventScript != null)
+        {
+            StartCoroutine(RandomEvent());
+        }
+        else
+        {
+            Debug.LogError("FocusUpScript not found!");
+        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        cashManagerScript = FindObjectOfType<CashManagerScript>();
+        focusUpEventScript = FindObjectOfType<FocusUpScript>();
         FindParentsInEnvironment();
         FindCountdownText();
     }
@@ -69,7 +79,7 @@ public class RandomEventsManager : MonoBehaviour
         GameObject canvas = GameObject.Find("MainCanvas");
         if (canvas != null)
         {
-            Transform parentInEnvironment = canvas.transform.Find("Environment");
+            Transform parentInEnvironment = canvas.transform.Find("CurrencyManager");
             if (parentInEnvironment != null)
             {
                 parentsInEnvironment = parentInEnvironment.gameObject;
@@ -102,6 +112,11 @@ public class RandomEventsManager : MonoBehaviour
 
     IEnumerator RandomEvent()
     {
+        if (focusUpEventScript == null)
+        {
+            yield break;
+        }
+
         while (true)
         {
             countdownTimer = 150;
@@ -151,11 +166,13 @@ public class RandomEventsManager : MonoBehaviour
                 case 2:
                     CreateEventText("-= Double Fallen Cash =- \nEvent On Going!", audioManager.moneyRainEvent);
                     CurrencyManagerScript.doubleCashValue = 2;
+                    SaveData();
                     StartCoroutine(ResetDoubleEventMultiplier(30f));
                     break;
                 case 3:
                     CreateEventText("-= Double Multiplier! =- \nEvent On Going!", audioManager.moneyRainEvent);
                     CurrencyManagerScript.doubleMultiplier = 2;
+                    SaveData();
                     StartCoroutine(ResetDoubleEventMultiplier(30f));
                     break;
             }

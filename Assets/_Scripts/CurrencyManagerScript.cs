@@ -92,12 +92,9 @@ public class CurrencyManagerScript : MonoBehaviour
 
     private void Start()
     {
-        // Load from PlayerPrefs
         LoadData();
-        // Initialize currency per second and update the UI
         UpdateCurrencyPerSecond(); 
         UpdateUI();
-        // Check if teacher is hired and deactivate the hireTeacherUI if true
         CheckTeacherStatus();
         CheckJanitorStatus();
     }
@@ -189,11 +186,9 @@ public class CurrencyManagerScript : MonoBehaviour
 
     private void Update() 
     {
-        // Increment currency based on currency per second and time elapsed
         currencyInGame += (currencyPerSecond * Time.deltaTime);
 
         checkStudentEnrollment();
-        // Save currency to PlayerPrefs
         SaveData();
         UpdateUI();
     }
@@ -225,7 +220,6 @@ public class CurrencyManagerScript : MonoBehaviour
     public void addCash(double addedCash) 
     {
         currencyInGame += (addedCash);
-        // Save currency to PlayerPrefs
         SaveData();
         UpdateUI();
     }
@@ -245,7 +239,6 @@ public class CurrencyManagerScript : MonoBehaviour
 
     }
 
-    // Method to hire a teacher
     public void hireTeacher() 
     {
         if (currencyInGame >= hireTeacherCost) 
@@ -254,10 +247,10 @@ public class CurrencyManagerScript : MonoBehaviour
             currencyInGame -= hireTeacherCost;
             moneyMultiplier += 0.25;
             isTeacherHired = 1;
+            teacher.SetActive(true);
             hireTeacherUI.SetActive(false);
             upgradeTeacherUI.SetActive(true);
 
-            // Save currency to PlayerPrefs
             SaveData();
 
             UpdateCurrencyPerSecond(); 
@@ -270,7 +263,6 @@ public class CurrencyManagerScript : MonoBehaviour
         }
     }
 
-    // Method to enroll students
     public void enrollStudents() 
     {
         enrollStudentsUI.SetActive(true);
@@ -281,10 +273,8 @@ public class CurrencyManagerScript : MonoBehaviour
             currencyInGame -= enrollStudentCost;
             enrollStudentCost *= 1.5;
             
-            // Update idleGains based on totalStudents
             idleGains = totalStudents * 2500;
 
-            // Save currency to PlayerPrefs
             SaveData();
             studentBehaviour.ActivateStudent(totalStudents - 1);
             UpdateCurrencyPerSecond(); 
@@ -297,7 +287,6 @@ public class CurrencyManagerScript : MonoBehaviour
         }
     }
 
-    // Method to upgrade teachers
     public void upgradeTeachers() 
     {
         if (currencyInGame >= upgradeTeacherCost) 
@@ -310,7 +299,6 @@ public class CurrencyManagerScript : MonoBehaviour
             maxStamina += 50;
             staminaScript.stamina = maxStamina;
 
-            // Save currency to PlayerPrefs
             SaveData();
             staminaScript.UpdateStaminaBar();
             staminaScript.SaveStamina();
@@ -336,7 +324,6 @@ public class CurrencyManagerScript : MonoBehaviour
             janitor.SetActive(true);
             hireJanitorUI.SetActive(false);
 
-            // Save currency to PlayerPrefs
             SaveData();
 
             UpdateCurrencyPerSecond(); 
@@ -349,14 +336,12 @@ public class CurrencyManagerScript : MonoBehaviour
         }
     }
 
-    // Method to update the currency per second based on the current values
     public void UpdateCurrencyPerSecond() 
     {
         currencyPerSecond = (moneyMultiplier * doubleMultiplier) * idleGains;
-        SaveData(); // Save the updated currencyPerSecond
+        SaveData(); 
     }
 
-    // Method to check if the teacher is hired and deactivate the hireTeacherUI if true
     private void CheckTeacherStatus()
     {
         if (SceneManager.GetActiveScene().name == "UniversityScene")
