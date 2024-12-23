@@ -8,7 +8,6 @@ public class MainMenuScript : MonoBehaviour
 {
     AudioManagerScript audioManager;
     LevelLoaderScript levelLoader;
-    CurrencyManagerScript currencyManager;
 
     [SerializeField] private Button startButton;
     [SerializeField] private Button quitButton;
@@ -16,12 +15,11 @@ public class MainMenuScript : MonoBehaviour
 
     public void Awake() 
     {
-        // Playing SFX when the buttons are clicked
-        currencyManager = FindObjectOfType<CurrencyManagerScript>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
         levelLoader = FindObjectOfType<LevelLoaderScript>();
+    }
 
-        // Adding listeners to the Start, Quit, and Options Buttons
+    private void Start() {
         startButton.onClick.AddListener(() => {
             audioManager.PlaySfx(audioManager.yesButton);
             Debug.Log("Starting Game....");
@@ -31,7 +29,6 @@ public class MainMenuScript : MonoBehaviour
         quitButton.onClick.AddListener(() => {
             audioManager.PlaySfx(audioManager.noButton);
             Application.Quit();
-            currencyManager.SaveData();
             Debug.Log("Quitting Game....");
         });
 

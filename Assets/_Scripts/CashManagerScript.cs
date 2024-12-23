@@ -24,10 +24,8 @@ public class CashManagerScript : MonoBehaviour
     {
         while (true)
         {
-            // Wait for the next spawn interval
             yield return new WaitForSeconds(timeToSpawn);
 
-            // Spawn cash if the cash drop event is not active
             if (!isCashDropEventActive)
             {
                 SpawnCash();
@@ -42,12 +40,10 @@ public class CashManagerScript : MonoBehaviour
 
     IEnumerator CashDropEvent()
     {
-        // Activate the cash drop event
         isCashDropEventActive = true;
 
         yield return StartCoroutine(spawnCash(0.1f, 3f));
 
-        // Deactivate the cash drop event
         isCashDropEventActive = false;
     }
 
@@ -57,29 +53,23 @@ public class CashManagerScript : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            // Set a random spawn location
             var spawnLocation = Random.Range(minX, maxX);
             var position = new Vector3(spawnLocation, transform.position.y, 0);
 
-            // Spawn the Cash Prefab
             GameObject cash = Instantiate(cashPrefab, position, Quaternion.identity);
             cash.transform.SetParent(parentsInEnvironment.transform);
 
-            // Wait for the next spawn
             yield return new WaitForSeconds(spawnInterval);
 
-            // Update the elapsed time
             elapsedTime += spawnInterval;
         }
     }
 
     private void SpawnCash()
     {
-        // Set a random spawn location
         var spawnLocation = Random.Range(minX, maxX);
         var position = new Vector3(spawnLocation, transform.position.y, 0);
 
-        // Spawn the Cash Prefab
         GameObject cash = Instantiate(cashPrefab, position, Quaternion.identity);
         cash.transform.SetParent(parentsInEnvironment.transform);
     }

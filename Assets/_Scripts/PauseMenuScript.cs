@@ -28,15 +28,12 @@ public class PauseMenuScript : MonoBehaviour
 
     private void Start()
     {
-        // Set the initial state of the pause menu to inactive
         pauseMenuUI.SetActive(false);
 
-        // Add listeners to the sliders and button
         musicSlider.onValueChanged.AddListener(SetMusicVolume);
         sfxSlider.onValueChanged.AddListener(SetSFXVolume);
         exitButton.onClick.AddListener(ExitGame);
 
-        // Initialize sliders with current volume levels
         if (PlayerPrefs.HasKey("MusicVolume") && PlayerPrefs.HasKey("SFXVolume"))
         {
             LoadVolume();
@@ -50,7 +47,6 @@ public class PauseMenuScript : MonoBehaviour
 
     void Update()
     {
-        // Check if the Esc key is pressed
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)

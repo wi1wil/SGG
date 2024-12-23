@@ -29,14 +29,12 @@ public class BackButtonScript : MonoBehaviour
         yesButton.onClick.AddListener(OnYesButtonClicked);
         noButton.onClick.AddListener(OnNoButtonClicked);
 
-        // Initially hide the confirmation panel
         confirmationPanel.SetActive(false);
     }
 
     private void OnBackButtonClicked()
     {
         audioManager.PlaySfx(audioManager.yesButton);
-        // Show the confirmation panel
         confirmationPanel.SetActive(true);
         confirmationText.gameObject.SetActive(true);
     }
@@ -44,14 +42,12 @@ public class BackButtonScript : MonoBehaviour
     private void OnYesButtonClicked()
     {
         audioManager.PlaySfx(audioManager.yesButton);
-        // Load the previous level
         levelLoader.LoadPrevLevel();
     }
 
     private void OnNoButtonClicked()
     {
         audioManager.PlaySfx(audioManager.noButton);
-        // Close the confirmation panel
         confirmationPanel.SetActive(false);
     }
 }

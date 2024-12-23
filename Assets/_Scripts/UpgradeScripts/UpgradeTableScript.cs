@@ -142,7 +142,6 @@ public class UpgradeTableScript : MonoBehaviour
                 triggerLvlPrefabs[CurrencyManagerScript.UpgradeTableIndex].SetActive(true);
             }
 
-            // Reusing the Upgrade Trigger Prefabs
             if(CurrencyManagerScript.UpgradeTableIndex == 14)
             {
                 CurrencyManagerScript.UpgradeTableIndex = 0;

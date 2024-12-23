@@ -26,13 +26,10 @@ public class LevelLoaderScript : MonoBehaviour
 
     public IEnumerator LoadLevel(int levelIndex) 
     {
-        // Trigger the Animations
         transition.SetTrigger("Start");
 
-        // Wait for Transition Time
         yield return new WaitForSeconds(transitionTime);
 
-        // Load the Scene in the Background
         SceneManager.LoadSceneAsync(levelIndex);
     }
 }

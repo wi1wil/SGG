@@ -32,15 +32,12 @@ public class InputHandlerScript : MonoBehaviour
 
     public void OnClick(InputAction.CallbackContext context)
     {
-        // Check if the game is paused
         if (pauseMenuScript != null && pauseMenuScript.GameIsPaused) return;
         if (confirmationPanel != null && confirmationPanel.activeSelf) return;
         if (focusUpUI != null && focusUpUI.activeSelf) return;
 
-        // Check if the input action has started
         if (!context.started) return;
 
-        // Detects if raycast hits a collider
         var ray = _mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
         var rayHit = Physics2D.GetRayIntersection(ray);
     
@@ -51,7 +48,6 @@ public class InputHandlerScript : MonoBehaviour
 
         Debug.Log("Clicked on " + rayHit.collider.gameObject.name);
 
-        // Check if the hit object has a CashScript component and call OnCashCollected
         CashPrefabScript cashScript = rayHit.collider.gameObject.GetComponent<CashPrefabScript>();
         if (cashScript != null)
         {
@@ -59,7 +55,6 @@ public class InputHandlerScript : MonoBehaviour
             return;
         }
 
-        // Check if the hit object has a BuySignScript component and call buySign
         BuySignScript buySignScript = rayHit.collider.gameObject.GetComponent<BuySignScript>();
         if (buySignScript != null)
         {
@@ -67,7 +62,6 @@ public class InputHandlerScript : MonoBehaviour
             return;
         }
 
-        // Check if the hit object has a UniversityDoorScript component and call LoadUniversity
         UniversityDoorScript universityDoorScript = rayHit.collider.gameObject.GetComponent<UniversityDoorScript>();
         if (universityDoorScript != null)
         {

@@ -34,7 +34,7 @@ public class VolumeSettingsScript : MonoBehaviour
             PlayerPrefs.Save();
 
             audioManager.PlaySfx(audioManager.noButton);
-            // Load the main menu scene
+            
             mainMenuUI.SetActive(true);
             optionsMenuUI.SetActive(false);
         });

@@ -417,4 +417,8 @@ public class CurrencyManagerScript : MonoBehaviour
             }
         }
     }
+
+    private void OnApplicationQuit() {
+        SaveData();
+    }
 }

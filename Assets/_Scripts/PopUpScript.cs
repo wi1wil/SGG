@@ -10,10 +10,8 @@ public class PopUpScript : MonoBehaviour
     public Vector3 RandomizeIntensity = new Vector3(0.5f, 0.5f, 0);
 
     void Start () {
-        // Destroy the Pop Up after destroyTime
         Destroy(gameObject, destroyTime);
         
-        // Randomize the Pop Up Position
         transform.localPosition += Offset;
         transform.localPosition += new Vector3(
             Random.Range(-RandomizeIntensity.x, RandomizeIntensity.x),

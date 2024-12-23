@@ -140,7 +140,6 @@ public class UpgradeChairScript : MonoBehaviour
                 triggerPrefabs[CurrencyManagerScript.UpgradeChairIndex].SetActive(true);
             }
 
-            // Reusing the Upgrade Trigger Prefabs
             if(CurrencyManagerScript.UpgradeChairIndex == 14)
             {
                 CurrencyManagerScript.UpgradeChairIndex = 0;

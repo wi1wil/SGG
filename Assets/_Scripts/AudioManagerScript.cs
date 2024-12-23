@@ -30,14 +30,12 @@ public class AudioManagerScript : MonoBehaviour
         }
     }
 
-    // Start playing the background music
     private void Start() 
     {
         musicSource.clip = backgroundMusic;
         musicSource.Play();
     }
 
-    // Calling the AudioClip to play
     public void PlaySfx(AudioClip clip) 
     {
         sfxSource.PlayOneShot(clip);

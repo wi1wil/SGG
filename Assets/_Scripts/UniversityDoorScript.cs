@@ -22,14 +22,12 @@ public class UniversityDoorScript : MonoBehaviour
         levelLoader = FindObjectOfType<LevelLoaderScript>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerScript>();
 
-        // Add listeners to the buttons
         yesButton.onClick.AddListener(OnYesButtonClicked);
         noButton.onClick.AddListener(OnNoButtonClicked);
     }
 
     public void LoadUniversity()
     {
-        // Show the confirmation panel and activate the door confirmation text
         doorConfirmationText.gameObject.SetActive(true);
         confirmationDialog.SetActive(true);
     }
@@ -38,14 +36,12 @@ public class UniversityDoorScript : MonoBehaviour
     {
         confirmationDialog.SetActive(false);
         audioManager.PlaySfx(audioManager.openDoorSFX);
-        // Load the university scene
         levelLoader.LoadNextLevel();
     }
 
     private void OnNoButtonClicked()
     {
         audioManager.PlaySfx(audioManager.noButton);
-        // Close the confirmation panel
         confirmationDialog.SetActive(false);
     }
 }

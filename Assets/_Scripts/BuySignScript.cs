@@ -38,17 +38,14 @@ public class BuySignScript : MonoBehaviour
     {
         currencyScript = FindObjectOfType<CurrencyManagerScript>();
 
-        // Add listeners to the buttons
         yesButton.onClick.AddListener(OnYesButtonClicked);
         noButton.onClick.AddListener(OnNoButtonClicked);
 
-        // Load university status on scene load
         LoadUniversityStatus();
     }
 
     public void buySign()
     {
-        // Show the confirmation panel and activate the sign confirmation text
         signConfirmationText.gameObject.SetActive(true);
         confirmationDialog.SetActive(true);
 
@@ -58,10 +55,8 @@ public class BuySignScript : MonoBehaviour
     private void OnYesButtonClicked()
     {
         audioManager.PlaySfx(audioManager.yesButton);
-        // Check if the currency is enough
         if (currencyScript.currencyInGame >= currencyScript.buySignCost)
         {
-            // Decrease the currency by the cost of the sign
             currencyScript.currencyInGame -= currencyScript.buySignCost;
 
             currencyScript.currencyPerSecText.gameObject.SetActive(true);
@@ -72,33 +67,27 @@ public class BuySignScript : MonoBehaviour
 
             audioManager.PlaySfx(audioManager.buildingSFX);
 
-            // Disable the buy sign
             buySignPrefab.SetActive(false);
 
-            // Set the university building to active
             universityBuilding.SetActive(true);
             isUniversityBought = true;
 
-            // Save the university status
             SaveUniversityStatus();
         }
         else
         {
             audioManager.PlaySfx(audioManager.noButton);
-            // Instantiate the pop-up text as a child of parentInEnvironment
             var go = Instantiate(popUpText, transform.position, Quaternion.identity);
             go.transform.SetParent(parentInEnvironment.transform, false);
             go.GetComponent<TextMeshProUGUI>().text = "Not enough money!";
         }
 
-        // Close the confirmation panel
         confirmationDialog.SetActive(false);
     }
 
     private void OnNoButtonClicked()
     {
         audioManager.PlaySfx(audioManager.noButton);
-        // Close the confirmation panel
         confirmationDialog.SetActive(false);
     }
 
@@ -106,7 +95,6 @@ public class BuySignScript : MonoBehaviour
     {
         if (isUniversityBought)
         {
-            // Load all UI and TextGameObject
             currencyScript.currencyPerSecText.gameObject.SetActive(true);
             currencyScript.moneyMultiplierText.gameObject.SetActive(true);
 
@@ -121,7 +109,6 @@ public class BuySignScript : MonoBehaviour
                 currencyScript.hireJanitorUI.SetActive(true);
             }
 
-            // Deactivate the sign and activate the building
             buySignPrefab.SetActive(false);
             universityBuilding.SetActive(true);
         }
