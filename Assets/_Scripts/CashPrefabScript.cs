@@ -27,8 +27,6 @@ public class CashPrefabScript : MonoBehaviour
 
     private void Start() 
     {
-        gameObject.layer = LayerMask.NameToLayer("CashLayer");
-
         GameObject currencyObject = GameObject.FindWithTag("Currency");
         currencyManager = currencyObject.GetComponent<CurrencyManagerScript>();
     }

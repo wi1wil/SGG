@@ -124,8 +124,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.48076925, y: -0.018867925}
-    oldSize: {x: 1.0833334, y: 1.1041666}
-    newSize: {x: 1.0833334, y: 1.1041666}
+    oldSize: {x: 1.3, y: 1.325}
+    newSize: {x: 1.3, y: 1.325}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -147,9 +147,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currencyScript: {fileID: 0}
   parentInEnvironment: {fileID: 0}
-  universityBuilding: {fileID: 1930379491887650050, guid: 449a78fe98715bf4da7c06ea771a62d5, type: 3}
+  universityBuilding: {fileID: 0}
   confirmationDialog: {fileID: 0}
-  doorConfirmationText: {fileID: 0}
+  buySignPrefab: {fileID: 4781955097271622179}
   signConfirmationText: {fileID: 0}
   popUpText: {fileID: 2921365564434520098, guid: 0d827af5f94a45d4791c03b8f14e6c25, type: 3}
   yesButton: {fileID: 0}

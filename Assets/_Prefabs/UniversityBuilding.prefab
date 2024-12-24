@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.00010299682, y: -334.79996, z: -9720}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1082007258017329877}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: -3792584927553964776, guid: 4284fd3d20e92744688de0ac82439229, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -178,6 +178,5 @@ MonoBehaviour:
   levelLoader: {fileID: 1691019253151288993, guid: eb1fe60ce724aa942b084957bb0565dd, type: 3}
   confirmationDialog: {fileID: 0}
   doorConfirmationText: {fileID: 0}
-  signConfirmationText: {fileID: 0}
   yesButton: {fileID: 0}
   noButton: {fileID: 0}
