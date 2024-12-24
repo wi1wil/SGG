@@ -161,6 +161,11 @@ public class BuyTableScript : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    private void OnSceneUnloaded(Scene current)
+    {
+        SaveData();
+    }
+
     private void OnApplicationQuit()
     {
         SaveData();

@@ -112,6 +112,11 @@ public class TeacherScript : MonoBehaviour
         LoadPosition();
     }
 
+    private void OnSceneUnloaded(Scene current)
+    {
+        SavePosition();
+    }
+
     private void SavePosition()
     {
         PlayerPrefs.SetFloat("TeacherPosX", transform.position.x);

@@ -53,7 +53,11 @@ public class UpgradeTableScript : MonoBehaviour
         {
             LoadTables();
         }
+
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
+
+    
 
     public void UnlockUpgrades()
     {
@@ -174,6 +178,11 @@ public class UpgradeTableScript : MonoBehaviour
     }
 
     private void OnApplicationQuit()
+    {
+        SaveData();
+    }
+
+    private void OnSceneUnloaded(Scene current)
     {
         SaveData();
     }

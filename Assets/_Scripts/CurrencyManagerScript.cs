@@ -102,6 +102,7 @@ public class CurrencyManagerScript : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        LoadData();
     }
 
     private void OnDisable() {
