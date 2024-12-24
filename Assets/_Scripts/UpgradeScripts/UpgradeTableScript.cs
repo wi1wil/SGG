@@ -4,9 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-using JetBrains.Annotations;
 using System;
-using UnityEditor.Playables;
 using UnityEngine.InputSystem.UI;
 
 public class UpgradeTableScript : MonoBehaviour
