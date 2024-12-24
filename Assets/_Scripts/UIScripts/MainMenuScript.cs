@@ -29,6 +29,7 @@ public class MainMenuScript : MonoBehaviour
         quitButton.onClick.AddListener(() => {
             audioManager.PlaySfx(audioManager.noButton);
             Application.Quit();
+            PlayerPrefs.DeleteAll();
             Debug.Log("Quitting Game....");
         });
 

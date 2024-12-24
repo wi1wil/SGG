@@ -67,8 +67,8 @@ public class CurrencyManagerScript : MonoBehaviour
     public static int TablePrefabIndex = 0;
     public static int ChairPrefabIndex = 0;
 
-    public static int UpgradeTableIndex = 0;
-    public static int UpgradeChairIndex = 0;
+    public static int currentUpgradedTableIndex = 0;
+    public static int currentUpgradedChairIndex = 0;
 
     public static int tableAmount = 0;
     public static int chairAmount = 0;
@@ -140,8 +140,8 @@ public class CurrencyManagerScript : MonoBehaviour
         ChairPrefabIndex = PlayerPrefs.GetInt("ChairPrefabIndex", 0);
         doubleMultiplier = PlayerPrefs.GetInt("DoubleMultiplier", 1);
         doubleCashValue = PlayerPrefs.GetInt("DoubleCashValue", 1);
-        UpgradeTableIndex = PlayerPrefs.GetInt("UpgradeTableIndex", 0);
-        UpgradeChairIndex = PlayerPrefs.GetInt("UpgradeChairIndex", 0);
+        currentUpgradedTableIndex = PlayerPrefs.GetInt("UpgradeTableIndex", 0);
+        currentUpgradedChairIndex = PlayerPrefs.GetInt("UpgradeChairIndex", 0);
         upgradeTableCost = PlayerPrefs.GetFloat("UpgradeTableCost", (float)tableCost * 2.5f);
         upgradeChairCost = PlayerPrefs.GetFloat("UpgradeChairCost", (float)chairCost * 2.5f);
         Lvl2Table = PlayerPrefs.GetInt("Lvl2Table", 0);
@@ -173,8 +173,8 @@ public class CurrencyManagerScript : MonoBehaviour
         PlayerPrefs.SetInt("ChairPrefabIndex", ChairPrefabIndex);
         PlayerPrefs.SetInt("DoubleMultiplier", doubleMultiplier);
         PlayerPrefs.SetInt("DoubleCashValue", doubleCashValue);
-        PlayerPrefs.SetInt("UpgradeTableIndex", UpgradeTableIndex);
-        PlayerPrefs.SetInt("UpgradeChairIndex", UpgradeChairIndex);
+        PlayerPrefs.SetInt("UpgradeTableIndex", currentUpgradedTableIndex);
+        PlayerPrefs.SetInt("UpgradeChairIndex", currentUpgradedChairIndex);
         PlayerPrefs.SetFloat("UpgradeTableCost", (float)upgradeTableCost);
         PlayerPrefs.SetFloat("UpgradeChairCost", (float)upgradeChairCost);
         PlayerPrefs.SetInt("Lvl2Table", Lvl2Table);

@@ -121,7 +121,8 @@ public class BuyTableScript : MonoBehaviour
             if (CurrencyManagerScript.TablePrefabIndex == 14)
             {
                 upgradeTableScript.UnlockUpgrades();
-                upgradeTableScript.upgradeTableIndex += 1;
+                UpgradeTableScript.currentTableLevel = 2;
+                CurrencyManagerScript.currentUpgradedTableIndex = 0;
 
                 SaveData();
                 upgradeTableScript.SaveData();
@@ -145,6 +146,7 @@ public class BuyTableScript : MonoBehaviour
 
     public void DisablePrefab(int index)
     {   
+        if(UpgradeTableScript.currentTableLevel == 3 && CurrencyManagerScript.currentUpgradedTableIndex == 14) return;
         tablePrefabs[index].SetActive(false);
     }
 
@@ -152,7 +154,7 @@ public class BuyTableScript : MonoBehaviour
     {
         CurrencyManagerScript.TablePrefabIndex = PlayerPrefs.GetInt("PrefabIndex", 0);
         CurrencyManagerScript.tableAmount = PlayerPrefs.GetInt("TableAmount", 0);
-        upgradeTableScript.upgradeTableIndex = PlayerPrefs.GetInt("TableLevelIndex", 1);
+        CurrencyManagerScript.currentUpgradedTableIndex = PlayerPrefs.GetInt("TableLevelIndex", 1);
     }
 
     private void SaveData() {

@@ -46,7 +46,6 @@ public class InputHandlerScript : MonoBehaviour
             return;
         }
 
-        Debug.Log("Clicked on " + rayHit.collider.gameObject.name);
 
         CashPrefabScript cashScript = rayHit.collider.gameObject.GetComponent<CashPrefabScript>();
         if (cashScript != null)

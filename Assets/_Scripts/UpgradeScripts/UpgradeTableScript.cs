@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using JetBrains.Annotations;
 using System;
+using UnityEditor.Playables;
+using UnityEngine.InputSystem.UI;
 
 public class UpgradeTableScript : MonoBehaviour
 {
@@ -32,7 +34,7 @@ public class UpgradeTableScript : MonoBehaviour
     [SerializeField] private GameObject popUpText;
     [SerializeField] private GameObject parentInEnvironment;
 
-    public int upgradeTableIndex = 1;
+    public static int currentTableLevel = 1;
 
     private void Awake()
     {
@@ -57,7 +59,6 @@ public class UpgradeTableScript : MonoBehaviour
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
-    
 
     public void UnlockUpgrades()
     {
@@ -66,7 +67,7 @@ public class UpgradeTableScript : MonoBehaviour
     }
 
     private void LoadTables() {
-        switch (upgradeTableIndex) {
+        switch (currentTableLevel) {
             case 2:
                 for(int i = 0; i < CurrencyManagerScript.Lvl2Table; i++) {
                     if (i < Lvl2TablePrefabs.Length) {
@@ -76,19 +77,24 @@ public class UpgradeTableScript : MonoBehaviour
                 }
                 break;
             case 3:
+                for(int i = 0; i < CurrencyManagerScript.Lvl2Table; i++) {
+                    if (i < Lvl2TablePrefabs.Length) {
+                        Lvl2TablePrefabs[i].SetActive(true);
+                        buyTableScript.DisablePrefab(i);
+                    }
+                }
                 for(int i = 0; i < CurrencyManagerScript.Lvl3Table; i++) {
                     if (i < Lvl3TablePrefabs.Length) {
                         Lvl3TablePrefabs[i].SetActive(true);
                         Lvl2TablePrefabs[i].SetActive(false);
-                        buyTableScript.DisablePrefab(i);
                     }
                 }
                 break;
         }
-        if (CurrencyManagerScript.UpgradeTableIndex < triggerLvlPrefabs.Length && CurrencyManagerScript.TablePrefabIndex == 14) {
-            triggerLvlPrefabs[CurrencyManagerScript.UpgradeTableIndex].SetActive(true);
+        if (CurrencyManagerScript.currentUpgradedTableIndex < triggerLvlPrefabs.Length && CurrencyManagerScript.TablePrefabIndex == 14) {
+            triggerLvlPrefabs[CurrencyManagerScript.currentUpgradedTableIndex].SetActive(true);
 
-            if (CurrencyManagerScript.UpgradeTableIndex > 0) {
+            if (CurrencyManagerScript.currentUpgradedTableIndex > 0) {
                 triggerLvlPrefabs[0].SetActive(false);
             }
         }
@@ -108,19 +114,19 @@ public class UpgradeTableScript : MonoBehaviour
 
             currencyManager.currencyInGame -= currencyManager.upgradeTableCost;
 
-            buyTableScript.DisablePrefab(CurrencyManagerScript.UpgradeTableIndex);
+            buyTableScript.DisablePrefab(CurrencyManagerScript.currentUpgradedTableIndex);
 
-            if(CurrencyManagerScript.UpgradeTableIndex < triggerLvlPrefabs.Length)
+            if(CurrencyManagerScript.currentUpgradedTableIndex < triggerLvlPrefabs.Length)
             {
-                triggerLvlPrefabs[CurrencyManagerScript.UpgradeTableIndex].SetActive(false);
+                triggerLvlPrefabs[CurrencyManagerScript.currentUpgradedTableIndex].SetActive(false);
             }
 
-            switch(upgradeTableIndex)
+            switch(currentTableLevel)
             {   
                 case 2:
-                    if(CurrencyManagerScript.UpgradeTableIndex < Lvl2TablePrefabs.Length)
+                    if(CurrencyManagerScript.currentUpgradedTableIndex < Lvl2TablePrefabs.Length)
                     {
-                        Lvl2TablePrefabs[CurrencyManagerScript.UpgradeTableIndex].SetActive(true);
+                        Lvl2TablePrefabs[CurrencyManagerScript.currentUpgradedTableIndex].SetActive(true);
                     }
                     CurrencyManagerScript.Lvl2Table += 1;
                     currencyManager.moneyMultiplier += 0.2;
@@ -128,10 +134,10 @@ public class UpgradeTableScript : MonoBehaviour
                     SaveData();
                     break;
                 case 3:
-                    if(CurrencyManagerScript.UpgradeTableIndex < Lvl2TablePrefabs.Length)
+                    if(CurrencyManagerScript.currentUpgradedTableIndex < Lvl2TablePrefabs.Length)
                     {
-                        Lvl3TablePrefabs[CurrencyManagerScript.UpgradeTableIndex].SetActive(true);
-                        Lvl2TablePrefabs[CurrencyManagerScript.UpgradeTableIndex].SetActive(false);
+                        Lvl3TablePrefabs[CurrencyManagerScript.currentUpgradedTableIndex].SetActive(true);
+                        Lvl2TablePrefabs[CurrencyManagerScript.currentUpgradedTableIndex].SetActive(false);
                     }
                     CurrencyManagerScript.Lvl3Table += 1;
                     currencyManager.moneyMultiplier += 0.3;
@@ -140,22 +146,22 @@ public class UpgradeTableScript : MonoBehaviour
                     break;
             }
 
-            CurrencyManagerScript.UpgradeTableIndex += 1;
-            if(CurrencyManagerScript.UpgradeTableIndex < triggerLvlPrefabs.Length)
+            CurrencyManagerScript.currentUpgradedTableIndex += 1;
+            if(CurrencyManagerScript.currentUpgradedTableIndex < triggerLvlPrefabs.Length)
             {
-                triggerLvlPrefabs[CurrencyManagerScript.UpgradeTableIndex].SetActive(true);
+                triggerLvlPrefabs[CurrencyManagerScript.currentUpgradedTableIndex].SetActive(true);
             }
 
-            if(CurrencyManagerScript.UpgradeTableIndex == 14)
+            if(CurrencyManagerScript.currentUpgradedTableIndex == 14)
             {
-                if(upgradeTableIndex == 3) return;
-                
-                CurrencyManagerScript.UpgradeTableIndex = 0;
+                if(currentTableLevel == 3) return;
+
+                CurrencyManagerScript.currentUpgradedTableIndex = 0;
 
                 UnlockUpgrades();
 
                 currencyManager.upgradeTableCost *= 2.5;
-                upgradeTableIndex += 1;
+                currentTableLevel++;
 
                 SaveData();
             }
@@ -191,20 +197,22 @@ public class UpgradeTableScript : MonoBehaviour
 
     private void LoadData()
     {
-        CurrencyManagerScript.UpgradeTableIndex = PlayerPrefs.GetInt("UpgradeTableIndex", 0);
+        CurrencyManagerScript.currentUpgradedTableIndex = PlayerPrefs.GetInt("UpgradeTableIndex", 0);
         currencyManager.upgradeTableCost = PlayerPrefs.GetFloat("UpgradeTableCost", 0);
         CurrencyManagerScript.Lvl2Table = PlayerPrefs.GetInt("Lvl2Table", 0);
         CurrencyManagerScript.Lvl3Table = PlayerPrefs.GetInt("Lvl3Table", 0);
-        upgradeTableIndex = PlayerPrefs.GetInt("TableLevelIndex", 1);
+        CurrencyManagerScript.currentUpgradedTableIndex = PlayerPrefs.GetInt("TableLevelIndex", 0);
+        currentTableLevel = PlayerPrefs.GetInt("TableLevel", 1);
     }
 
     public void SaveData()
     {
-        PlayerPrefs.SetInt("UpgradeTableIndex", CurrencyManagerScript.UpgradeTableIndex);
+        PlayerPrefs.SetInt("UpgradeTableIndex", CurrencyManagerScript.currentUpgradedTableIndex);
         PlayerPrefs.SetFloat("UpgradeTableCost", (float)currencyManager.upgradeTableCost);
         PlayerPrefs.SetInt("Lvl2Table", CurrencyManagerScript.Lvl2Table);
         PlayerPrefs.SetInt("Lvl3Table", CurrencyManagerScript.Lvl3Table);
-        PlayerPrefs.SetInt("TableLevelIndex", upgradeTableIndex);
+        PlayerPrefs.SetInt("TableLevelIndex", CurrencyManagerScript.currentUpgradedTableIndex);
+        PlayerPrefs.SetInt("TableLevel", currentTableLevel);
         PlayerPrefs.Save();
     }
 }
