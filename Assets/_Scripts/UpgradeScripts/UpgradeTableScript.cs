@@ -148,6 +148,8 @@ public class UpgradeTableScript : MonoBehaviour
 
             if(CurrencyManagerScript.UpgradeTableIndex == 14)
             {
+                if(upgradeTableIndex == 3) return;
+                
                 CurrencyManagerScript.UpgradeTableIndex = 0;
 
                 UnlockUpgrades();

@@ -142,6 +142,8 @@ public class UpgradeChairScript : MonoBehaviour
 
             if(CurrencyManagerScript.UpgradeChairIndex == 14)
             {
+                if(upgradeChairIndex == 3) return;
+
                 CurrencyManagerScript.UpgradeChairIndex = 0;
 
                 UnlockUpgrades();
