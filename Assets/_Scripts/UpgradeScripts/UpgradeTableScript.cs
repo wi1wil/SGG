@@ -201,7 +201,6 @@ public class UpgradeTableScript : MonoBehaviour
         currencyManager.upgradeTableCost = PlayerPrefs.GetFloat("UpgradeTableCost", 0);
         CurrencyManagerScript.Lvl2Table = PlayerPrefs.GetInt("Lvl2Table", 0);
         CurrencyManagerScript.Lvl3Table = PlayerPrefs.GetInt("Lvl3Table", 0);
-        CurrencyManagerScript.currentUpgradedTableIndex = PlayerPrefs.GetInt("TableLevelIndex", 0);
         currentTableLevel = PlayerPrefs.GetInt("TableLevel", 1);
     }
 
@@ -211,7 +210,6 @@ public class UpgradeTableScript : MonoBehaviour
         PlayerPrefs.SetFloat("UpgradeTableCost", (float)currencyManager.upgradeTableCost);
         PlayerPrefs.SetInt("Lvl2Table", CurrencyManagerScript.Lvl2Table);
         PlayerPrefs.SetInt("Lvl3Table", CurrencyManagerScript.Lvl3Table);
-        PlayerPrefs.SetInt("TableLevelIndex", CurrencyManagerScript.currentUpgradedTableIndex);
         PlayerPrefs.SetInt("TableLevel", currentTableLevel);
         PlayerPrefs.Save();
     }
