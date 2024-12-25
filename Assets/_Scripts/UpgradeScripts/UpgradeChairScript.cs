@@ -180,10 +180,10 @@ public class UpgradeChairScript : MonoBehaviour
 
     private void LoadData()
     {
+        CurrencyManagerScript.currentUpgradedChairIndex = PlayerPrefs.GetInt("UpgradeChairIndex", 0);
         currencyManager.upgradeChairCost = PlayerPrefs.GetFloat("UpgradeChairCost", 0);
         CurrencyManagerScript.Lvl2Chair = PlayerPrefs.GetInt("Lvl2Chair", 0);
         CurrencyManagerScript.Lvl3Chair = PlayerPrefs.GetInt("Lvl3Chair", 0);
-        CurrencyManagerScript.currentUpgradedChairIndex = PlayerPrefs.GetInt("ChairLevelIndex", 0);
         currentChairLevel = PlayerPrefs.GetInt("ChairLevel", 1);
     }
 
@@ -193,7 +193,7 @@ public class UpgradeChairScript : MonoBehaviour
         PlayerPrefs.SetFloat("UpgradeChairCost", (float)currencyManager.upgradeChairCost);
         PlayerPrefs.SetInt("Lvl2Chair", CurrencyManagerScript.Lvl2Chair);
         PlayerPrefs.SetInt("Lvl3Chair", CurrencyManagerScript.Lvl3Chair);
-        PlayerPrefs.SetInt("ChairLevelIndex", currentChairLevel);
+        PlayerPrefs.SetInt("ChairLevel", currentChairLevel);
         PlayerPrefs.Save();
     }
 
