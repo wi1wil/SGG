@@ -51,6 +51,7 @@ public class UpgradeChairScript : MonoBehaviour
         {
             LoadChairs();
         }
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
     public void UnlockUpgrades()
